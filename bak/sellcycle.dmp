@@ -1,0 +1,179 @@
+00001  0000             ; 10 SYS (4096)
+00002  0001             
+00003  0001             *=$0801
+00004  0801             
+00005  0801  0E 08 0A              BYTE    $0E, $08, $0A, $00, $9E, $20, $28,  $34, $30, $39, $36, $29, $00, $00, $00
+00006  0810             
+00007  0810  20 20 20   WAIT       NULL '   IN LINE                                  '
+00008  083D  20 20 20   PASSERS    NULL '   NO SHOW                                  '
+00009  086A  20 20 20   GONE       NULL '   TOOLONG                                  '
+00010  0897  20 20 20   SOLD       NULL '   SOLD                                     '
+00011  08C4             
+00012  08C4  05         SPEED      BYTE 5
+00013  08C5  0A         BAKETIMER  BYTE 10
+00014  08C6  01         TRUCKTYPE  BYTE 1
+00015  08C7  00         PASSCOUNT  BYTE 0
+00016  08C8  00         LINECOUNT  BYTE 0
+00017  08C9  00         SALECOUNT  BYTE 0
+00018  08CA  00         LEFTCOUNT  BYTE 0
+00019  08CB             
+00020  08CB  00         SCNH       BYTE 0
+00021  08CC  00         SCNL       BYTE 0
+00022  08CD             
+00023  08CD  00         SAVX       BYTE 0
+00024  08CE  00         SAVY       BYTE 0
+00025  08CF  00         SAVA       BYTE 0
+00026  08D0             
+00027  08D0             
+00028  08D0             *=$1000
+00029  1000             
+00030  1000             START
+00031  1000  A9 6F                 LDA     #$6F ;INITALIZE RANDOMNESS
+00032  1002  A0 81                 LDY     #$81
+00033  1004  A2 FF                 LDX     #$FF
+00034  1006  8D 13 D4              STA     $D413
+00035  1009  8C 12 D4              STY     $D412
+00036  100C  8E 0E D4              STX     $D40E
+00037  100F  8E 0F D4              STX     $D40F
+00038  1012  8E 14 D4              STX     $D414
+00039  1015             
+00040  1015  A9 93                 LDA     #$93 ;CLR SCREEN
+00041  1017  20 D2 FF              JSR     $FFD2
+00042  101A             
+00043  101A  A2 00                 LDX     #0
+00044  101C  BD 10 08   TXTLOOP    LDA     WAIT,X
+00045  101F  9D A0 04              STA     $04A0,X
+00046  1022  BD 3D 08              LDA     PASSERS,X
+00047  1025  9D 68 05              STA     $0568,X
+00048  1028  BD 6A 08              LDA     GONE,X
+00049  102B  9D 30 06              STA     $0630,X
+00050  102E  BD 97 08              LDA     SOLD,X
+00051  1031  9D F8 06              STA     $06F8,X
+00052  1034  E8                    INX
+00053  1035  E0 28                 CPX     #$28
+00054  1037  D0 E3                 BNE     TXTLOOP
+00055  1039             
+00056  1039             NEWCUST
+00057  1039  A2 19                 LDX     #25
+00058  103B  A0 00                 LDY     #0
+00059  103D  20 BC 10   @LP1       JSR     DELAY
+00060  1040  A9 60                 LDA     #$60
+00061  1042  9D D4 07              STA     $07D4,X
+00062  1045  A9 7F                 LDA     #$7F
+00063  1047  CA                    DEX
+00064  1048  9D D4 07              STA     $07D4,X
+00065  104B  D0 F0                 BNE     @LP1
+00066  104D             
+00067  104D  AD 1B D4              LDA     $D41B   ;DO THEY STOP?
+00068  1050  C9 7F                 CMP     #$7F
+00069  1052  90 4B                 BCC     LEAVE
+00070  1054                        
+00071  1054  A9 14                 LDA     #20
+00072  1056  CD C8 08              CMP     LINECOUNT
+00073  1059  90 44                 BCC     LEAVE
+00074  105B  EE C8 08              INC     LINECOUNT
+00075  105E  A9 19                 LDA     #25
+00076  1060  ED C8 08              SBC     LINECOUNT
+00077  1063  AA                    TAX
+00078  1064  A9 00                 LDA     #00
+00079  1066  85 FB                 STA     $FB
+00080  1068  A9 07                 LDA     #$07
+00081  106A  85 FC                 STA     $FC
+00082  106C  A0 D4                 LDY     #$D4
+00083  106E  8C 00 04              STY     $0400
+00084  1071  38                    SEC
+00085  1072  20 BC 10   LINEUP     JSR     DELAY
+00086  1075  A9 60                 LDA     #$60
+00087  1077  91 FB                 STA     ($FB),Y
+00088  1079  98                    TYA
+00089  107A  8C 01 04              STY     $0401
+00090  107D  E9 28                 SBC     #40
+00091  107F  A8                    TAY
+00092  1080  90 0D                 BCC     NXTBL
+00093  1082  8C 02 04              STY     $0402
+00094  1085  A9 7F                 LDA     #$7F
+00095  1087  91 FB                 STA     ($FB),Y
+00096  1089  CA                    DEX
+00097  108A  D0 E6                 BNE     LINEUP
+00098  108C  4C B9 10              JMP     KEEPGOING
+00099  108F  C6 FC      NXTBL      DEC     $FC
+00100  1091  8C 03 04              STY     $0403
+00101  1094  38                    SEC
+00102  1095  A9 7F                 LDA     #$7F
+00103  1097  91 FB                 STA     ($FB),Y
+00104  1099  CA                    DEX
+00105  109A  D0 D6                 BNE     LINEUP
+00106  109C                        
+00107  109C                        
+00108  109C                        
+00109  109C  4C B9 10              JMP     KEEPGOING
+00110  109F             
+00111  109F  EE CA 08   LEAVE      INC     LEFTCOUNT
+00112  10A2  A2 14                 LDX     #20
+00113  10A4  20 BC 10   @LP2       JSR     DELAY
+00114  10A7  A9 60                 LDA     #$60
+00115  10A9  9D C0 07              STA     $07C0,X
+00116  10AC  A9 7F                 LDA     #$7F
+00117  10AE  CA                    DEX
+00118  10AF  9D C0 07              STA     $07C0,X
+00119  10B2  D0 F0                 BNE     @LP2
+00120  10B4  A9 60                 LDA     #$60
+00121  10B6  9D C0 07              STA     $07C0,X
+00122  10B9                        
+00123  10B9             KEEPGOING
+00124  10B9  4C 39 10              JMP     NEWCUST
+00125  10BC             
+00126  10BC  AD 12 D0   DELAY      LDA     $D012
+00127  10BF  C9 FF                 CMP     #$FF
+00128  10C1  D0 F9                 BNE     DELAY
+00129  10C3  60                    RTS
+00130  10C4                        
+00131  10C4                        
+00132  10C4             
+
+******* 24 Label(s) *******
+BakeTimer = $08C5 
+delay = $10BC 
+gone = $086A 
+keepgoing = $10B9 
+leave = $109F 
+LeftCount = $08CA 
+LineCount = $08C8 
+lineup = $1072 
+newcust = $1039 
+nxtbl = $108F 
+PassCount = $08C7 
+passers = $083D 
+SaleCount = $08C9 
+sava = $08CF 
+savx = $08CD 
+savy = $08CE 
+scnH = $08CB 
+scnL = $08CC 
+sold = $0897 
+Speed = $08C4 
+Start = $1000 
+TruckType = $08C6 
+txtloop = $101C 
+wait = $0810 
+
+******* 11 Unused label(s) *******
+@lp1
+@lp2
+BakeTimer
+PassCount
+SaleCount
+sava
+savx
+savy
+scnH
+scnL
+Speed
+Start
+TruckType
+
+******* 1 Variable(s) *******
+tgt_c64  = $0001
+******* -1 Unused variables(s) *******
+tgt_c64
+

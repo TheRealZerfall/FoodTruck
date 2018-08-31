@@ -1,0 +1,61 @@
+00001  0000             ;
+00002  0001             ; FLASH BACKGROUND/BORDER
+00003  0001             ;
+00004  0001             ; 10 SYS (49152)
+00005  0001             
+00006  0001             *=$0801
+00007  0801             
+00008  0801  0E 08 0A              BYTE    $0E, $08, $0A, $00, $9E, $20, $28,  $34, $39, $31, $35, $32, $29, $00, $00, $00
+00009  0811             
+00010  0811             
+00011  0811             *=$C000
+00012  C000             BORDER     = $D020 ; BORDER
+00013  C000             BACK       = $D021 ; BACKGROUND
+00014  C000             IRQROUT    = $EA31
+00015  C000             IRQVEC     = $314
+00016  C000             ;
+00017  C000             NUMBER     = 30 ; EVERY HALF SECOND
+00018  C000             ;
+00019  C000  78         INIT       SEI
+00020  C001  A9 0D                 LDA #<BLINK
+00021  C003  A0 C0                 LDY #>BLINK
+00022  C005  8D 14 03              STA IRQVEC
+00023  C008  8C 15 03              STY IRQVEC+1
+00024  C00B  58                    CLI
+00025  C00C  60                    RTS
+00026  C00D             ;
+00027  C00D  CE 26 C0   BLINK      DEC COUNT
+00028  C010  D0 11                 BNE DONE
+00029  C012  A9 1E                 LDA #NUMBER
+00030  C014  8D 26 C0              STA COUNT ; RESET COUNTER
+00031  C017             ;
+00032  C017             ; EXCHANGE COLOURS
+00033  C017  AE 21 D0              LDX BACK
+00034  C01A  AD 20 D0              LDA BORDER
+00035  C01D  8D 21 D0              STA BACK
+00036  C020  8E 20 D0              STX BORDER
+00037  C023  4C 31 EA   DONE       JMP IRQROUT
+00038  C026             ;
+00039  C026  1E         COUNT      BYTE 30
+00040  C027             
+00041  C027             
+
+******* 4 Label(s) *******
+BLINK = $C00D 
+COUNT = $C026 
+DONE = $C023 
+INIT = $C000 
+
+******* 1 Unused label(s) *******
+INIT
+
+******* 6 Variable(s) *******
+BACK  = $D021
+BORDER  = $D020
+IRQROUT  = $EA31
+IRQVEC  = $0314
+NUMBER  = $001E
+tgt_c64  = $0001
+******* 1 Unused variables(s) *******
+tgt_c64
+

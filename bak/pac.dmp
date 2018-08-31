@@ -1,0 +1,1860 @@
+00001  0000             ; G^RAY DEFENDER
+00002  0001             ; 11/11/2015
+00003  0001             ; MODIFY CODE TO ALLOW ALL GHOSTS + PAC-CLONE TO MOVE
+00004  0001             ;============================================================
+00005  0001             ;  QUICK CODE TO CREATE AUTO EXECUTE PROGRAM FROM BASIC
+00006  0001             ;============================================================
+00007  0001             
+00008  0001             *=$0801
+00009  0801  0C 08 0A              BYTE           $0C, $08, $0A, $00, $9E, $20
+00010  0807  34 30 39              BYTE           $34, $30, $39, $36, $00, $00
+00011  080D  00                    BYTE           $00
+00012  080E             ;============================================================
+00013  080E             ;=                       MAP
+00014  080E             ;============================================================
+00015  080E  30 30 30   JUNKXX     BYTE                $30,$30,$30
+00016  0811  00         GXMINUS1   BYTE                00
+00017  0812  00         GXPLUS1    BYTE                00
+00018  0813  00         GYMINUS1   BYTE                00
+00019  0814  00         GYPLUS1    BYTE                00
+00020  0815             
+00021  0815  10         GH1_GX     BYTE                16
+00022  0816  31 31 31   JUNK5      BYTE                $31,$31,$31
+00023  0819  0A         GH1_GY     BYTE                10
+00024  081A  32 32 32   JUNK6      BYTE                 $32,$32,$32
+00025  081D  00 00      GH1_PQ$    BYTE                $00,$00
+00026  081F  33 33 33   JUNK7      BYTE                $33,$33,$33
+00027  0822  00         GH1_PQ$LEN BYTE                00
+00028  0823  34 34 34   JUNK8      BYTE                $34,$34,$34
+00029  0826  00 00 00   GH1_G$     BYTE                $00,$00,$00,$00
+00030  082A  35 35 35   JUNK9      BYTE                $35,$35,$35
+00031  082D  00         GH1_G$LEN  BYTE                00
+00032  082E  36 36 36   JUNKA      BYTE                $36,$36,$36
+00033  0831  27         GH1_XG     BYTE                39
+00034  0832  37 37 37   JUNK1      BYTE                $37,$37,$37
+00035  0835  0C         GH1_YG     BYTE                12
+00036  0836  38 38 38   JUNK2      BYTE                $38,$38,$38
+00037  0839  00         GH1_YY     BYTE                0
+00038  083A  39 39 39   JUNKB      BYTE                $39,$39,$39
+00039  083D  0A         GH1_PR     BYTE                10
+00040  083E  30 30 30   JUNK3      BYTE                $30,$30,$30
+00041  0841  15         GH1_PD$    BYTE                21
+00042  0842  31 31 31   JUNKC      BYTE                $31,$31,$31
+00043  0845  04         GH1_CDIR   BYTE                4
+00044  0846  32 32 32   JUNK4      BYTE                $32,$32,$32
+00045  0849  00         GX         BYTE                0
+00046  084A  00         GY         BYTE                00
+00047  084B  00 00      PQ$        BYTE                $00,$00
+00048  084D  00         PQ$LEN     BYTE                00
+00049  084E  00 00 00   G$         BYTE                $00,$00,$00,$00
+00050  0852  00         G$LEN      BYTE                00
+00051  0853  00         XG         BYTE                0
+00052  0854  00         YG         BYTE                0
+00053  0855  00         YY         BYTE                0
+00054  0856  00         GHOST_PR   BYTE                0
+00055  0857  00         PD$        BYTE                0
+00056  0858  00         CDIR       BYTE                0
+00057  0859             
+00058  0859  00         GD         BYTE                00
+00059  085A  14         PX         BYTE                20
+00060  085B  17         PY         BYTE                23
+00061  085C  00 28 50   MAP_OFF_L  BYTE                $00,$28,$50,$78,$A0,$C8,$F0,$18,$40,$68,$90,$B8,$E0,$08,$30,$58,$80,$A8,$D0,$F8,$20,$48,$70,$98,$C0
+00062  0875  04 04 04   MAP_OFF_H  BYTE                $04,$04,$04,$04,$04,$04,$04,$05,$05,$05,$05,$05,$05,$06,$06,$06,$06,$06,$06,$06,$07,$07,$07,$07,$07
+00063  088E  2E         WALL1      BYTE                46  ; PERIOD '.'
+00064  088F  20         WALL2      BYTE                32  ; SPACE ' '
+00065  0890  2A         WALL3      BYTE                42  ; ASTERISK '*'
+00066  0891  31         WALL4      BYTE                49  ; GHOST CHAR 1
+00067  0892  32         WALL5      BYTE                50  ; GHOST CHAR 2
+00068  0893  33         WALL6      BYTE                51  ; GHOST CHAR 3
+00069  0894  34         WALL7      BYTE                52  ; GHOST CHAR 4
+00070  0895  32         WALL8      BYTE                50  ; GHOST CHAR 5
+00071  0896             ;*****************************************************
+00072  0896             
+00073  0896             
+00074  0896             
+00075  0896             
+00076  0896  01         GH2_GX     BYTE                1
+00077  0897  06         GH2_GY     BYTE                6
+00078  0898  00 00      GH2_PQ$    BYTE                $00,$00
+00079  089A  00 00 00   GH2_G$     BYTE                $00,$00,$00,$00
+00080  089E  00         GH2_XG     BYTE                0;19
+00081  089F  0C         GH2_YG     BYTE                12
+00082  08A0  00         GH2_YY     BYTE                0
+00083  08A1  15         GH2_PD$    BYTE                21
+00084  08A2  04         GH2_CDIR   BYTE                4
+00085  08A3  0A         GH2_PR     BYTE                10
+00086  08A4  00         GH2_PQ$LEN BYTE                00
+00087  08A5  00         GH2_G$LEN  BYTE                00
+00088  08A6             
+00089  08A6  20         GH3_GX     BYTE                32
+00090  08A7  04         GH3_GY     BYTE                4
+00091  08A8  00 00      GH3_PQ$    BYTE                $00,$00
+00092  08AA  00 00 00   GH3_G$     BYTE                $00,$00,$00,$00
+00093  08AE  27         GH3_XG     BYTE                39
+00094  08AF  0C         GH3_YG     BYTE                12
+00095  08B0  00         GH3_YY     BYTE                0
+00096  08B1  15         GH3_PD$    BYTE                21
+00097  08B2  04         GH3_CDIR   BYTE                4
+00098  08B3  32         GH3_PR     BYTE                50
+00099  08B4  00         GH3_PQ$LEN BYTE                00
+00100  08B5  00         GH3_G$LEN  BYTE                00
+00101  08B6             
+00102  08B6  20         GH4_GX     BYTE                32
+00103  08B7  0E         GH4_GY     BYTE                14
+00104  08B8  00 00      GH4_PQ$    BYTE                $00,$00
+00105  08BA  00 00 00   GH4_G$     BYTE                $00,$00,$00,$00
+00106  08BE  27         GH4_XG     BYTE                39
+00107  08BF  0C         GH4_YG     BYTE                12
+00108  08C0  00         GH4_YY     BYTE                0
+00109  08C1  15         GH4_PD$    BYTE                21
+00110  08C2  04         GH4_CDIR   BYTE                4
+00111  08C3  32         GH4_PR     BYTE                50
+00112  08C4  00         GH4_PQ$LEN BYTE                00
+00113  08C5  00         GH4_G$LEN  BYTE                00
+00114  08C6             
+00115  08C6  20         GH5_GX     BYTE                32
+00116  08C7  0E         GH5_GY     BYTE                14
+00117  08C8  00 00      GH5_PQ$    BYTE                $00,$00
+00118  08CA  00 00 00   GH5_G$     BYTE                $00,$00,$00,$00
+00119  08CE  0B         GH5_XG     BYTE                11
+00120  08CF  0C         GH5_YG     BYTE                12
+00121  08D0  00         GH5_YY     BYTE                0
+00122  08D1  15         GH5_PD$    BYTE                21
+00123  08D2  04         GH5_CDIR   BYTE                4
+00124  08D3  32         GH5_PR     BYTE                50
+00125  08D4  00         GH5_PQ$LEN BYTE                00
+00126  08D5  00         GH5_G$LEN  BYTE                00
+00127  08D6             
+00128  08D6  00         WARP       BYTE 00
+00129  08D7  00         ISPACMAN   BYTE 00
+00130  08D8  00         USERDIRECTION BYTE 00
+00131  08D9  00         PAC_PD$    BYTE 00 ; USED TO KEEP PAC-MAN MOVING IN SAME GENERAL DIRECTION OF TRAVEL
+00132  08DA             
+00133  08DA             DEFM       POKEAXY
+00134  08DA                        PHA
+00135  08DA                        LDX                 /2
+00136  08DA                        LDY                 /1
+00137  08DA                        LDA                 MAP_OFF_L,X
+00138  08DA                        STA                 $FD
+00139  08DA                        LDA                 MAP_OFF_H,X
+00140  08DA                        STA                 $FE
+00141  08DA                        PLA
+00142  08DA                        STA                 ($FD),Y
+00143  08DA             
+00144  08DA             
+00145  08DA             ;CHECK_WALL          GXMINUS1,GY,#18,#12,#2
+00146  08DA             DEFM       CHECK_WALL
+00147  08DA                        
+00148  08DA                        LDX                 /2
+00149  08DA                        LDY                 /1
+00150  08DA                        LDA                 MAP_OFF_L,X
+00151  08DA                        STA                 $FD
+00152  08DA                        LDA                 MAP_OFF_H,X
+00153  08DA                        STA                 $FE
+00154  08DA                        LDA                 ($FD),Y
+00155  08DA                        CMP                 WALL1
+00156  08DA                        BEQ                 @NOTWALL
+00157  08DA                        CMP                 WALL2
+00158  08DA                        BEQ                 @NOTWALL
+00159  08DA                        CMP                 WALL3
+00160  08DA                        BEQ                 @NOTWALL
+00161  08DA                        CMP                 WALL4
+00162  08DA                        BEQ                 @NOTWALL
+00163  08DA                        CMP                 WALL5
+00164  08DA                        BEQ                 @NOTWALL
+00165  08DA                        CMP                 WALL6
+00166  08DA                        BEQ                 @NOTWALL
+00167  08DA                        CMP                 WALL7
+00168  08DA                        BNE                 @BOTTOM
+00169  08DA                        
+00170  08DA             @NOTWALL   LDA                 PD$
+00171  08DA                        CMP                 #/3
+00172  08DA                        BEQ                 @BOTTOM
+00173  08DA             
+00174  08DA             
+00175  08DA                        LDA                 #/4
+00176  08DA                        LDX                 G$LEN
+00177  08DA                        STA                 G$,X
+00178  08DA                        INC                 G$LEN
+00179  08DA                        LDA                 /5
+00180  08DA                        CMP                 #0
+00181  08DA                        BEQ                 @ZERO
+00182  08DA                        LDA                 /5
+00183  08DA                        CMP                 #1
+00184  08DA                        BEQ                 @ONE
+00185  08DA                        LDA                 /5
+00186  08DA                        CMP                 #2
+00187  08DA                        BEQ                 @TWO
+00188  08DA                        LDA                 /5
+00189  08DA                        CMP                 #3
+00190  08DA                        BEQ                 @THREE
+00191  08DA                        JMP                 @BOTTOM
+00192  08DA             
+00193  08DA             @ZERO      
+00194  08DA                        LDA                 GY
+00195  08DA                        CMP                 YG
+00196  08DA                        BCS                 @BOTTOM
+00197  08DA                        JMP                 @CONT
+00198  08DA             @ONE       LDA                 GY
+00199  08DA                        CMP                 YG
+00200  08DA                        BCC                 @BOTTOM
+00201  08DA                        JMP                 @CONT
+00202  08DA             @TWO       LDA                 GX
+00203  08DA                        CMP                 XG
+00204  08DA                        BCC                 @BOTTOM
+00205  08DA                        JMP                 @CONT
+00206  08DA             @THREE     LDA                 GX
+00207  08DA                        CMP                 XG
+00208  08DA                        BCS                 @BOTTOM
+00209  08DA                        JMP                 @CONT
+00210  08DA                        
+00211  08DA             @CONT      
+00212  08DA                        LDA                 #/4
+00213  08DA                        LDX                 PQ$LEN
+00214  08DA                        STA                 PQ$,X
+00215  08DA                        INC                 PQ$LEN
+00216  08DA             
+00217  08DA                        
+00218  08DA             @BOTTOM    
+00219  08DA                        NOP
+00220  08DA             
+00221  08DA             
+00222  08DA             
+00223  08DA             ;*****************************************************
+00224  08DA             DEFM       MOVE_GHOSTS_PART1
+00225  08DA                        LDA /1
+00226  08DA                        STA YY
+00227  08DA                        LDA /2
+00228  08DA                        STA PQ$
+00229  08DA                        LDA /2+1
+00230  08DA                        STA PQ$+1
+00231  08DA                        
+00232  08DA                        LDA /3
+00233  08DA                        STA PD$
+00234  08DA                        LDA /4
+00235  08DA                        STA G$
+00236  08DA                        LDA /4+1
+00237  08DA                        STA G$+1
+00238  08DA                        LDA /4+2
+00239  08DA                        STA G$+2
+00240  08DA                        LDA /4+3
+00241  08DA                        STA G$+3
+00242  08DA                        LDA /5
+00243  08DA                        STA GX
+00244  08DA                        LDA /6
+00245  08DA                        STA GY
+00246  08DA             
+00247  08DA                        LDA /7
+00248  08DA                        STA XG
+00249  08DA                        LDA /8
+00250  08DA                        STA YG
+00251  08DA                        LDA /9
+00252  08DA                        STA GHOST_PR
+00253  08DA             
+00254  08DA                        
+00255  08DA             
+00256  08DA             DEFM       MOVE_GHOSTS_PART2
+00257  08DA                        LDA /1
+00258  08DA                        STA CDIR
+00259  08DA                        LDA /2
+00260  08DA                        STA PQ$LEN
+00261  08DA                        LDA /3
+00262  08DA                        STA G$LEN
+00263  08DA             
+00264  08DA             
+00265  08DA             
+00266  08DA             DEFM       MOVE_GHOSTS_PART3
+00267  08DA                        JSR CHECK_WALLS
+00268  08DA                        JSR CK_LEFTSIDE
+00269  08DA                        JSR CK_RIGHTSIDE
+00270  08DA             
+00271  08DA                        LDA                 PQ$
+00272  08DA                        STA                 $405
+00273  08DA                        LDA                 PQ$+1
+00274  08DA                        STA                 $406
+00275  08DA                        LDA                 G$
+00276  08DA                        STA                 $400
+00277  08DA                        LDA G$+1
+00278  08DA                        STA                 $401
+00279  08DA                        LDA G$+2
+00280  08DA                        STA                 $402
+00281  08DA                        LDA G$LEN
+00282  08DA                        STA $403
+00283  08DA                        LDA GH1_G$LEN
+00284  08DA                        STA $404
+00285  08DA                        
+00286  08DA             
+00287  08DA             
+00288  08DA                        JSR MV_GH
+00289  08DA                        
+00290  08DA                        LDA YY
+00291  08DA                        STA /1
+00292  08DA                        LDA PQ$
+00293  08DA                        STA /2
+00294  08DA                        LDA PQ$+1
+00295  08DA                        STA /2+1
+00296  08DA                        
+00297  08DA                        LDA PD$
+00298  08DA                        STA /3
+00299  08DA                        LDA G$
+00300  08DA                        STA /4
+00301  08DA                        LDA G$+1
+00302  08DA                        STA /4+1
+00303  08DA                        LDA G$+2
+00304  08DA                        STA /4+2
+00305  08DA                        LDA G$+3
+00306  08DA                        STA /4+3
+00307  08DA                        LDA GX
+00308  08DA                        STA /5
+00309  08DA                        LDA GY
+00310  08DA                        STA /6
+00311  08DA             
+00312  08DA                        LDA XG
+00313  08DA                        STA /7
+00314  08DA                        LDA YG
+00315  08DA                        STA /8
+00316  08DA                        LDA GHOST_PR
+00317  08DA                        STA /9
+00318  08DA             
+00319  08DA             
+00320  08DA             DEFM       MOVE_GHOSTS_PART4
+00321  08DA                        LDA CDIR
+00322  08DA                        STA /1
+00323  08DA                        LDA PQ$LEN
+00324  08DA                        STA /2
+00325  08DA                        LDA G$LEN
+00326  08DA                        STA /3
+00327  08DA             
+00328  08DA             
+00329  08DA             
+00330  08DA             ;============================================================
+00331  08DA             ;             MAIN PROGRAM VARIABLES
+00332  08DA             ;============================================================
+00333  08DA  00         FASTMODE   BYTE 0
+00334  08DB             
+00335  08DB             SCN_WIDTH$ = #40                              ;TEXT WIDTH OF SCREEN (C64)
+00336  08DB  04 00      SCN_OFFSET WORD                $0004          ;C64 SCREEN OFFSET
+00337  08DD             
+00338  08DD             *=$1000    
+00339  1000  A9 04                 LDA                 #4
+00340  1002  8D 20 D0              STA                 53280
+00341  1005  A9 93                 LDA                 #$93           ; SHIFT CLEAR DEC 147
+00342  1007  20 D2 FF              JSR                 $FFD2               ; CLEAR SCREEN
+00343  100A  20 BC 19              JSR                 INIT_RANDOM
+00344  100D  20 97 19              JSR                 DRAWMAP
+00345  1010             
+00346  1010             ;POKE 1024+(YG*40)+XG,67
+00347  1010  A9 2E                 LDA                  #46
+00348  1012             
+00349  1012             
+00350  1012  48                    PHA
+00351  1013  AE 54 08              LDX                 YG
+00352  1016  AC 53 08              LDY                 XG
+00353  1019  BD 5C 08              LDA                 MAP_OFF_L,X
+00354  101C  85 FD                 STA                 $FD
+00355  101E  BD 75 08              LDA                 MAP_OFF_H,X
+00356  1021  85 FE                 STA                 $FE
+00357  1023  68                    PLA
+00358  1024  91 FD                 STA                 ($FD),Y
+00359  1026                        ;LDA #$44
+00360  1026                        ; STA $607
+00361  1026             MAIN_PRG_LP 
+00362  1026                        
+00363  1026                        
+00364  1026  AD 91 08              LDA                  WALL4
+00365  1029             
+00366  1029             
+00367  1029  48                    PHA
+00368  102A  AE 19 08              LDX                 GH1_GY
+00369  102D  AC 15 08              LDY                 GH1_GX
+00370  1030  BD 5C 08              LDA                 MAP_OFF_L,X
+00371  1033  85 FD                 STA                 $FD
+00372  1035  BD 75 08              LDA                 MAP_OFF_H,X
+00373  1038  85 FE                 STA                 $FE
+00374  103A  68                    PLA
+00375  103B  91 FD                 STA                 ($FD),Y
+00376  103D             
+00377  103D  AD 92 08              LDA                  WALL5
+00378  1040             
+00379  1040             
+00380  1040  48                    PHA
+00381  1041  AE 97 08              LDX                 GH2_GY
+00382  1044  AC 96 08              LDY                 GH2_GX
+00383  1047  BD 5C 08              LDA                 MAP_OFF_L,X
+00384  104A  85 FD                 STA                 $FD
+00385  104C  BD 75 08              LDA                 MAP_OFF_H,X
+00386  104F  85 FE                 STA                 $FE
+00387  1051  68                    PLA
+00388  1052  91 FD                 STA                 ($FD),Y
+00389  1054  AD 93 08              LDA                  WALL6
+00390  1057             
+00391  1057             
+00392  1057  48                    PHA
+00393  1058  AE A7 08              LDX                 GH3_GY
+00394  105B  AC A6 08              LDY                 GH3_GX
+00395  105E  BD 5C 08              LDA                 MAP_OFF_L,X
+00396  1061  85 FD                 STA                 $FD
+00397  1063  BD 75 08              LDA                 MAP_OFF_H,X
+00398  1066  85 FE                 STA                 $FE
+00399  1068  68                    PLA
+00400  1069  91 FD                 STA                 ($FD),Y
+00401  106B  AD 94 08              LDA                  WALL7
+00402  106E             
+00403  106E             
+00404  106E  48                    PHA
+00405  106F  AE B7 08              LDX                 GH4_GY
+00406  1072  AC B6 08              LDY                 GH4_GX
+00407  1075  BD 5C 08              LDA                 MAP_OFF_L,X
+00408  1078  85 FD                 STA                 $FD
+00409  107A  BD 75 08              LDA                 MAP_OFF_H,X
+00410  107D  85 FE                 STA                 $FE
+00411  107F  68                    PLA
+00412  1080  91 FD                 STA                 ($FD),Y
+00413  1082  AD 95 08              LDA                  WALL8
+00414  1085             
+00415  1085             
+00416  1085  48                    PHA
+00417  1086  AE C7 08              LDX                 GH5_GY
+00418  1089  AC C6 08              LDY                 GH5_GX
+00419  108C  BD 5C 08              LDA                 MAP_OFF_L,X
+00420  108F  85 FD                 STA                 $FD
+00421  1091  BD 75 08              LDA                 MAP_OFF_H,X
+00422  1094  85 FE                 STA                 $FE
+00423  1096  68                    PLA
+00424  1097  91 FD                 STA                 ($FD),Y
+00425  1099                        
+00426  1099             
+00427  1099             
+00428  1099                        ;JMP BLAH
+00429  1099  AD DA 08              LDA FASTMODE
+00430  109C  C9 00                 CMP #0
+00431  109E  F0 0C                 BEQ GETCH
+00432  10A0  AD 07 06              LDA $607
+00433  10A3  C9 20                 CMP #32
+00434  10A5  F0 54                 BEQ BLAH
+00435  10A7  A9 00                 LDA #0
+00436  10A9  8D DA 08              STA FASTMODE
+00437  10AC                        
+00438  10AC             GETCH      ;  LDA PAC_PD$
+00439  10AC                        ;   STA $420
+00440  10AC  20 E4 FF              JSR                 $FFE4          ; INPUT A KEY FROM THE KEYBOARD
+00441  10AF  F0 FB                 BEQ GETCH
+00442  10B1  C9 51                 CMP                 #$51
+00443  10B3  F0 46                 BEQ                 BLAH
+00444  10B5  C9 46                 CMP                 #$46           ; F PRESSED
+00445  10B7  F0 3D                 BEQ                 FM
+00446  10B9  C9 5A                 CMP                 #$5A ; Z DOWN PRESSED
+00447  10BB  F0 12                 BEQ                 UDIR
+00448  10BD  C9 57                 CMP                 #$57   ; UP W PRESSED
+00449  10BF  F0 0E                 BEQ                 UDIR
+00450  10C1  C9 41                 CMP                 #$41  ; LEFT A PRESSED
+00451  10C3  F0 0A                 BEQ                 UDIR
+00452  10C5  C9 53                 CMP                 #$53  ; RIGHT S PRESSED
+00453  10C7  F0 06                 BEQ                 UDIR
+00454  10C9                        
+00455  10C9  AD D8 08              LDA USERDIRECTION
+00456  10CC  4C F0 10              JMP CONTINUE
+00457  10CF             
+00458  10CF  C9 5A      UDIR       CMP #$5A
+00459  10D1  D0 05                 BNE NEXTCK1
+00460  10D3  A9 04                 LDA #4
+00461  10D5  4C F0 10              JMP CONTINUE
+00462  10D8  C9 57      NEXTCK1    CMP #$57
+00463  10DA  D0 05                 BNE NEXTCK2
+00464  10DC  A9 15                 LDA #21
+00465  10DE  4C F0 10              JMP CONTINUE
+00466  10E1  C9 41      NEXTCK2    CMP #$41
+00467  10E3  D0 05                 BNE NEXTCK3
+00468  10E5                        ;LDA #12
+00469  10E5                        ;STA GH1_PD$
+00470  10E5                        ;STA PD$
+00471  10E5  A9 0C                 LDA #12
+00472  10E7                        
+00473  10E7  4C F0 10              JMP CONTINUE
+00474  10EA  C9 53      NEXTCK3    CMP #$53
+00475  10EC  F0 00                 BEQ NEXTCK4
+00476  10EE                        
+00477  10EE             
+00478  10EE             NEXTCK4    ;LDA #18
+00479  10EE                        ;STA GH1_PD$
+00480  10EE                        ;STA PD$
+00481  10EE                        
+00482  10EE  A9 12                 LDA #18
+00483  10F0                        
+00484  10F0  8D D8 08   CONTINUE   STA USERDIRECTION
+00485  10F3             
+00486  10F3             
+00487  10F3  4C FB 10              JMP BLAH
+00488  10F6             
+00489  10F6  A9 01      FM         LDA #1
+00490  10F8  8D DA 08              STA FASTMODE
+00491  10FB             
+00492  10FB             BLAH       
+00493  10FB                        ;STA GH1_CDIR
+00494  10FB  A9 01                 LDA #1
+00495  10FD  8D D7 08              STA ISPACMAN
+00496  1100  A9 00                 LDA #0
+00497  1102  8D 41 08              STA GH1_PD$
+00498  1105             
+00499  1105             
+00500  1105             
+00501  1105                        
+00502  1105             
+00503  1105             
+00504  1105  20 7F 11              JSR MV_GHOST1
+00505  1108                        
+00506  1108             
+00507  1108             
+00508  1108             
+00509  1108  A9 00                 LDA #0
+00510  110A  8D D7 08              STA ISPACMAN
+00511  110D             
+00512  110D  20 76 12              JSR MV_GHOST2
+00513  1110  20 6D 13              JSR MV_GHOST3
+00514  1113  20 64 14              JSR MV_GHOST4
+00515  1116  20 5B 15              JSR MV_GHOST5
+00516  1119             
+00517  1119  4C 26 10              JMP                 MAIN_PRG_LP
+00518  111C  60                    RTS
+00519  111D             
+00520  111D  AD 58 08   CK_LEFTSIDE LDA                 CDIR
+00521  1120  C9 12                 CMP                 #18
+00522  1122  F0 25                 BEQ                 @END
+00523  1124             
+00524  1124  A9 20                 LDA                 #32
+00525  1126             
+00526  1126             
+00527  1126  48                    PHA
+00528  1127  AE 4A 08              LDX                 GY
+00529  112A  AC 49 08              LDY                 GX
+00530  112D  BD 5C 08              LDA                 MAP_OFF_L,X
+00531  1130  85 FD                 STA                 $FD
+00532  1132  BD 75 08              LDA                 MAP_OFF_H,X
+00533  1135  85 FE                 STA                 $FE
+00534  1137  68                    PLA
+00535  1138  91 FD                 STA                 ($FD),Y
+00536  113A  20 52 16              JSR                 CHECK_WALLS
+00537  113D  AD 49 08              LDA                 GX
+00538  1140  C9 00                 CMP                 #0
+00539  1142  D0 05                 BNE                 @END
+00540  1144  A9 28                 LDA                 #40
+00541  1146  8D 49 08              STA                 GX
+00542  1149  60         @END       RTS
+00543  114A             
+00544  114A             CK_RIGHTSIDE 
+00545  114A  AD 58 08              LDA                 CDIR
+00546  114D  C9 0C                 CMP                 #12
+00547  114F  F0 2D                 BEQ                 @END
+00548  1151             
+00549  1151  A9 20                 LDA                 #32
+00550  1153             
+00551  1153             
+00552  1153  48                    PHA
+00553  1154  AE 4A 08              LDX                 GY
+00554  1157  AC 49 08              LDY                 GX
+00555  115A  BD 5C 08              LDA                 MAP_OFF_L,X
+00556  115D  85 FD                 STA                 $FD
+00557  115F  BD 75 08              LDA                 MAP_OFF_H,X
+00558  1162  85 FE                 STA                 $FE
+00559  1164  68                    PLA
+00560  1165  91 FD                 STA                 ($FD),Y
+00561  1167  AD 12 08              LDA                 GXPLUS1
+00562  116A  8D 09 04              STA                 $409
+00563  116D                        
+00564  116D  C9 28                 CMP                 #40
+00565  116F  D0 0D                 BNE                 @END
+00566  1171             
+00567  1171                        
+00568  1171                        ;LDA                 #65
+00569  1171             @SKIP      ;INC $408
+00570  1171  A9 00                 LDA                 #$00
+00571  1173  8D 49 08              STA                 GX
+00572  1176                        ;  STA GXMINUS1
+00573  1176  A9 01                 LDA #1
+00574  1178  8D D6 08              STA WARP
+00575  117B                        
+00576  117B             
+00577  117B             @SKIP2     
+00578  117B  20 52 16              JSR CHECK_WALLS
+00579  117E             
+00580  117E  60         @END       RTS
+00581  117F             
+00582  117F             MV_GHOST1  
+00583  117F             
+00584  117F             
+00585  117F  AD 39 08              LDA GH1_YY
+00586  1182  8D 55 08              STA YY
+00587  1185  AD 1D 08              LDA GH1_PQ$
+00588  1188  8D 4B 08              STA PQ$
+00589  118B  AD 1E 08              LDA GH1_PQ$+1
+00590  118E  8D 4C 08              STA PQ$+1
+00591  1191                        
+00592  1191  AD 41 08              LDA GH1_PD$
+00593  1194  8D 57 08              STA PD$
+00594  1197  AD 26 08              LDA GH1_G$
+00595  119A  8D 4E 08              STA G$
+00596  119D  AD 27 08              LDA GH1_G$+1
+00597  11A0  8D 4F 08              STA G$+1
+00598  11A3  AD 28 08              LDA GH1_G$+2
+00599  11A6  8D 50 08              STA G$+2
+00600  11A9  AD 29 08              LDA GH1_G$+3
+00601  11AC  8D 51 08              STA G$+3
+00602  11AF  AD 15 08              LDA GH1_GX
+00603  11B2  8D 49 08              STA GX
+00604  11B5  AD 19 08              LDA GH1_GY
+00605  11B8  8D 4A 08              STA GY
+00606  11BB             
+00607  11BB  AD 31 08              LDA GH1_XG
+00608  11BE  8D 53 08              STA XG
+00609  11C1  AD 35 08              LDA GH1_YG
+00610  11C4  8D 54 08              STA YG
+00611  11C7  AD 3D 08              LDA GH1_PR
+00612  11CA  8D 56 08              STA GHOST_PR
+00613  11CD             
+00614  11CD             
+00615  11CD  AD 45 08              LDA GH1_CDIR
+00616  11D0  8D 58 08              STA CDIR
+00617  11D3  AD 22 08              LDA GH1_PQ$LEN
+00618  11D6  8D 4D 08              STA PQ$LEN
+00619  11D9  AD 2D 08              LDA GH1_G$LEN
+00620  11DC  8D 52 08              STA G$LEN
+00621  11DF             
+00622  11DF             
+00623  11DF  20 52 16              JSR CHECK_WALLS
+00624  11E2  20 1D 11              JSR CK_LEFTSIDE
+00625  11E5  20 4A 11              JSR CK_RIGHTSIDE
+00626  11E8             
+00627  11E8  AD 4B 08              LDA                 PQ$
+00628  11EB  8D 05 04              STA                 $405
+00629  11EE  AD 4C 08              LDA                 PQ$+1
+00630  11F1  8D 06 04              STA                 $406
+00631  11F4  AD 4E 08              LDA                 G$
+00632  11F7  8D 00 04              STA                 $400
+00633  11FA  AD 4F 08              LDA G$+1
+00634  11FD  8D 01 04              STA                 $401
+00635  1200  AD 50 08              LDA G$+2
+00636  1203  8D 02 04              STA                 $402
+00637  1206  AD 52 08              LDA G$LEN
+00638  1209  8D 03 04              STA $403
+00639  120C  AD 2D 08              LDA GH1_G$LEN
+00640  120F  8D 04 04              STA $404
+00641  1212                        
+00642  1212             
+00643  1212             
+00644  1212  20 F3 18              JSR MV_GH
+00645  1215                        
+00646  1215  AD 55 08              LDA YY
+00647  1218  8D 39 08              STA GH1_YY
+00648  121B  AD 4B 08              LDA PQ$
+00649  121E  8D 1D 08              STA GH1_PQ$
+00650  1221  AD 4C 08              LDA PQ$+1
+00651  1224  8D 1E 08              STA GH1_PQ$+1
+00652  1227                        
+00653  1227  AD 57 08              LDA PD$
+00654  122A  8D 41 08              STA GH1_PD$
+00655  122D  AD 4E 08              LDA G$
+00656  1230  8D 26 08              STA GH1_G$
+00657  1233  AD 4F 08              LDA G$+1
+00658  1236  8D 27 08              STA GH1_G$+1
+00659  1239  AD 50 08              LDA G$+2
+00660  123C  8D 28 08              STA GH1_G$+2
+00661  123F  AD 51 08              LDA G$+3
+00662  1242  8D 29 08              STA GH1_G$+3
+00663  1245  AD 49 08              LDA GX
+00664  1248  8D 15 08              STA GH1_GX
+00665  124B  AD 4A 08              LDA GY
+00666  124E  8D 19 08              STA GH1_GY
+00667  1251             
+00668  1251  AD 53 08              LDA XG
+00669  1254  8D 31 08              STA GH1_XG
+00670  1257  AD 54 08              LDA YG
+00671  125A  8D 35 08              STA GH1_YG
+00672  125D  AD 56 08              LDA GHOST_PR
+00673  1260  8D 3D 08              STA GH1_PR
+00674  1263             
+00675  1263             
+00676  1263  AD 58 08              LDA CDIR
+00677  1266  8D 45 08              STA GH1_CDIR
+00678  1269  AD 4D 08              LDA PQ$LEN
+00679  126C  8D 22 08              STA GH1_PQ$LEN
+00680  126F  AD 52 08              LDA G$LEN
+00681  1272  8D 2D 08              STA GH1_G$LEN
+00682  1275  60                    RTS
+00683  1276             MV_GHOST2  
+00684  1276             
+00685  1276             
+00686  1276  AD A0 08              LDA GH2_YY
+00687  1279  8D 55 08              STA YY
+00688  127C  AD 98 08              LDA GH2_PQ$
+00689  127F  8D 4B 08              STA PQ$
+00690  1282  AD 99 08              LDA GH2_PQ$+1
+00691  1285  8D 4C 08              STA PQ$+1
+00692  1288                        
+00693  1288  AD A1 08              LDA GH2_PD$
+00694  128B  8D 57 08              STA PD$
+00695  128E  AD 9A 08              LDA GH2_G$
+00696  1291  8D 4E 08              STA G$
+00697  1294  AD 9B 08              LDA GH2_G$+1
+00698  1297  8D 4F 08              STA G$+1
+00699  129A  AD 9C 08              LDA GH2_G$+2
+00700  129D  8D 50 08              STA G$+2
+00701  12A0  AD 9D 08              LDA GH2_G$+3
+00702  12A3  8D 51 08              STA G$+3
+00703  12A6  AD 96 08              LDA GH2_GX
+00704  12A9  8D 49 08              STA GX
+00705  12AC  AD 97 08              LDA GH2_GY
+00706  12AF  8D 4A 08              STA GY
+00707  12B2             
+00708  12B2  AD 9E 08              LDA GH2_XG
+00709  12B5  8D 53 08              STA XG
+00710  12B8  AD 9F 08              LDA GH2_YG
+00711  12BB  8D 54 08              STA YG
+00712  12BE  AD A3 08              LDA GH2_PR
+00713  12C1  8D 56 08              STA GHOST_PR
+00714  12C4             
+00715  12C4             
+00716  12C4  AD A2 08              LDA GH2_CDIR
+00717  12C7  8D 58 08              STA CDIR
+00718  12CA  AD A4 08              LDA GH2_PQ$LEN
+00719  12CD  8D 4D 08              STA PQ$LEN
+00720  12D0  AD A5 08              LDA GH2_G$LEN
+00721  12D3  8D 52 08              STA G$LEN
+00722  12D6             
+00723  12D6             
+00724  12D6  20 52 16              JSR CHECK_WALLS
+00725  12D9  20 1D 11              JSR CK_LEFTSIDE
+00726  12DC  20 4A 11              JSR CK_RIGHTSIDE
+00727  12DF             
+00728  12DF  AD 4B 08              LDA                 PQ$
+00729  12E2  8D 05 04              STA                 $405
+00730  12E5  AD 4C 08              LDA                 PQ$+1
+00731  12E8  8D 06 04              STA                 $406
+00732  12EB  AD 4E 08              LDA                 G$
+00733  12EE  8D 00 04              STA                 $400
+00734  12F1  AD 4F 08              LDA G$+1
+00735  12F4  8D 01 04              STA                 $401
+00736  12F7  AD 50 08              LDA G$+2
+00737  12FA  8D 02 04              STA                 $402
+00738  12FD  AD 52 08              LDA G$LEN
+00739  1300  8D 03 04              STA $403
+00740  1303  AD 2D 08              LDA GH1_G$LEN
+00741  1306  8D 04 04              STA $404
+00742  1309                        
+00743  1309             
+00744  1309             
+00745  1309  20 F3 18              JSR MV_GH
+00746  130C                        
+00747  130C  AD 55 08              LDA YY
+00748  130F  8D A0 08              STA GH2_YY
+00749  1312  AD 4B 08              LDA PQ$
+00750  1315  8D 98 08              STA GH2_PQ$
+00751  1318  AD 4C 08              LDA PQ$+1
+00752  131B  8D 99 08              STA GH2_PQ$+1
+00753  131E                        
+00754  131E  AD 57 08              LDA PD$
+00755  1321  8D A1 08              STA GH2_PD$
+00756  1324  AD 4E 08              LDA G$
+00757  1327  8D 9A 08              STA GH2_G$
+00758  132A  AD 4F 08              LDA G$+1
+00759  132D  8D 9B 08              STA GH2_G$+1
+00760  1330  AD 50 08              LDA G$+2
+00761  1333  8D 9C 08              STA GH2_G$+2
+00762  1336  AD 51 08              LDA G$+3
+00763  1339  8D 9D 08              STA GH2_G$+3
+00764  133C  AD 49 08              LDA GX
+00765  133F  8D 96 08              STA GH2_GX
+00766  1342  AD 4A 08              LDA GY
+00767  1345  8D 97 08              STA GH2_GY
+00768  1348             
+00769  1348  AD 53 08              LDA XG
+00770  134B  8D 9E 08              STA GH2_XG
+00771  134E  AD 54 08              LDA YG
+00772  1351  8D 9F 08              STA GH2_YG
+00773  1354  AD 56 08              LDA GHOST_PR
+00774  1357  8D A3 08              STA GH2_PR
+00775  135A             
+00776  135A             
+00777  135A  AD 58 08              LDA CDIR
+00778  135D  8D A2 08              STA GH2_CDIR
+00779  1360  AD 4D 08              LDA PQ$LEN
+00780  1363  8D A4 08              STA GH2_PQ$LEN
+00781  1366  AD 52 08              LDA G$LEN
+00782  1369  8D A5 08              STA GH2_G$LEN
+00783  136C  60                    RTS
+00784  136D             
+00785  136D             MV_GHOST3  
+00786  136D             
+00787  136D             
+00788  136D  AD B0 08              LDA GH3_YY
+00789  1370  8D 55 08              STA YY
+00790  1373  AD A8 08              LDA GH3_PQ$
+00791  1376  8D 4B 08              STA PQ$
+00792  1379  AD A9 08              LDA GH3_PQ$+1
+00793  137C  8D 4C 08              STA PQ$+1
+00794  137F                        
+00795  137F  AD B1 08              LDA GH3_PD$
+00796  1382  8D 57 08              STA PD$
+00797  1385  AD AA 08              LDA GH3_G$
+00798  1388  8D 4E 08              STA G$
+00799  138B  AD AB 08              LDA GH3_G$+1
+00800  138E  8D 4F 08              STA G$+1
+00801  1391  AD AC 08              LDA GH3_G$+2
+00802  1394  8D 50 08              STA G$+2
+00803  1397  AD AD 08              LDA GH3_G$+3
+00804  139A  8D 51 08              STA G$+3
+00805  139D  AD A6 08              LDA GH3_GX
+00806  13A0  8D 49 08              STA GX
+00807  13A3  AD A7 08              LDA GH3_GY
+00808  13A6  8D 4A 08              STA GY
+00809  13A9             
+00810  13A9  AD AE 08              LDA GH3_XG
+00811  13AC  8D 53 08              STA XG
+00812  13AF  AD AF 08              LDA GH3_YG
+00813  13B2  8D 54 08              STA YG
+00814  13B5  AD B3 08              LDA GH3_PR
+00815  13B8  8D 56 08              STA GHOST_PR
+00816  13BB             
+00817  13BB             
+00818  13BB  AD B2 08              LDA GH3_CDIR
+00819  13BE  8D 58 08              STA CDIR
+00820  13C1  AD B4 08              LDA GH3_PQ$LEN
+00821  13C4  8D 4D 08              STA PQ$LEN
+00822  13C7  AD B5 08              LDA GH3_G$LEN
+00823  13CA  8D 52 08              STA G$LEN
+00824  13CD             
+00825  13CD             
+00826  13CD  20 52 16              JSR CHECK_WALLS
+00827  13D0  20 1D 11              JSR CK_LEFTSIDE
+00828  13D3  20 4A 11              JSR CK_RIGHTSIDE
+00829  13D6             
+00830  13D6  AD 4B 08              LDA                 PQ$
+00831  13D9  8D 05 04              STA                 $405
+00832  13DC  AD 4C 08              LDA                 PQ$+1
+00833  13DF  8D 06 04              STA                 $406
+00834  13E2  AD 4E 08              LDA                 G$
+00835  13E5  8D 00 04              STA                 $400
+00836  13E8  AD 4F 08              LDA G$+1
+00837  13EB  8D 01 04              STA                 $401
+00838  13EE  AD 50 08              LDA G$+2
+00839  13F1  8D 02 04              STA                 $402
+00840  13F4  AD 52 08              LDA G$LEN
+00841  13F7  8D 03 04              STA $403
+00842  13FA  AD 2D 08              LDA GH1_G$LEN
+00843  13FD  8D 04 04              STA $404
+00844  1400                        
+00845  1400             
+00846  1400             
+00847  1400  20 F3 18              JSR MV_GH
+00848  1403                        
+00849  1403  AD 55 08              LDA YY
+00850  1406  8D B0 08              STA GH3_YY
+00851  1409  AD 4B 08              LDA PQ$
+00852  140C  8D A8 08              STA GH3_PQ$
+00853  140F  AD 4C 08              LDA PQ$+1
+00854  1412  8D A9 08              STA GH3_PQ$+1
+00855  1415                        
+00856  1415  AD 57 08              LDA PD$
+00857  1418  8D B1 08              STA GH3_PD$
+00858  141B  AD 4E 08              LDA G$
+00859  141E  8D AA 08              STA GH3_G$
+00860  1421  AD 4F 08              LDA G$+1
+00861  1424  8D AB 08              STA GH3_G$+1
+00862  1427  AD 50 08              LDA G$+2
+00863  142A  8D AC 08              STA GH3_G$+2
+00864  142D  AD 51 08              LDA G$+3
+00865  1430  8D AD 08              STA GH3_G$+3
+00866  1433  AD 49 08              LDA GX
+00867  1436  8D A6 08              STA GH3_GX
+00868  1439  AD 4A 08              LDA GY
+00869  143C  8D A7 08              STA GH3_GY
+00870  143F             
+00871  143F  AD 53 08              LDA XG
+00872  1442  8D AE 08              STA GH3_XG
+00873  1445  AD 54 08              LDA YG
+00874  1448  8D AF 08              STA GH3_YG
+00875  144B  AD 56 08              LDA GHOST_PR
+00876  144E  8D B3 08              STA GH3_PR
+00877  1451             
+00878  1451             
+00879  1451  AD 58 08              LDA CDIR
+00880  1454  8D B2 08              STA GH3_CDIR
+00881  1457  AD 4D 08              LDA PQ$LEN
+00882  145A  8D B4 08              STA GH3_PQ$LEN
+00883  145D  AD 52 08              LDA G$LEN
+00884  1460  8D B5 08              STA GH3_G$LEN
+00885  1463  60                    RTS
+00886  1464             
+00887  1464             MV_GHOST4  
+00888  1464             
+00889  1464             
+00890  1464  AD C0 08              LDA GH4_YY
+00891  1467  8D 55 08              STA YY
+00892  146A  AD B8 08              LDA GH4_PQ$
+00893  146D  8D 4B 08              STA PQ$
+00894  1470  AD B9 08              LDA GH4_PQ$+1
+00895  1473  8D 4C 08              STA PQ$+1
+00896  1476                        
+00897  1476  AD C1 08              LDA GH4_PD$
+00898  1479  8D 57 08              STA PD$
+00899  147C  AD BA 08              LDA GH4_G$
+00900  147F  8D 4E 08              STA G$
+00901  1482  AD BB 08              LDA GH4_G$+1
+00902  1485  8D 4F 08              STA G$+1
+00903  1488  AD BC 08              LDA GH4_G$+2
+00904  148B  8D 50 08              STA G$+2
+00905  148E  AD BD 08              LDA GH4_G$+3
+00906  1491  8D 51 08              STA G$+3
+00907  1494  AD B6 08              LDA GH4_GX
+00908  1497  8D 49 08              STA GX
+00909  149A  AD B7 08              LDA GH4_GY
+00910  149D  8D 4A 08              STA GY
+00911  14A0             
+00912  14A0  AD BE 08              LDA GH4_XG
+00913  14A3  8D 53 08              STA XG
+00914  14A6  AD BF 08              LDA GH4_YG
+00915  14A9  8D 54 08              STA YG
+00916  14AC  AD C3 08              LDA GH4_PR
+00917  14AF  8D 56 08              STA GHOST_PR
+00918  14B2             
+00919  14B2             
+00920  14B2  AD C2 08              LDA GH4_CDIR
+00921  14B5  8D 58 08              STA CDIR
+00922  14B8  AD C4 08              LDA GH4_PQ$LEN
+00923  14BB  8D 4D 08              STA PQ$LEN
+00924  14BE  AD C5 08              LDA GH4_G$LEN
+00925  14C1  8D 52 08              STA G$LEN
+00926  14C4             
+00927  14C4             
+00928  14C4  20 52 16              JSR CHECK_WALLS
+00929  14C7  20 1D 11              JSR CK_LEFTSIDE
+00930  14CA  20 4A 11              JSR CK_RIGHTSIDE
+00931  14CD             
+00932  14CD  AD 4B 08              LDA                 PQ$
+00933  14D0  8D 05 04              STA                 $405
+00934  14D3  AD 4C 08              LDA                 PQ$+1
+00935  14D6  8D 06 04              STA                 $406
+00936  14D9  AD 4E 08              LDA                 G$
+00937  14DC  8D 00 04              STA                 $400
+00938  14DF  AD 4F 08              LDA G$+1
+00939  14E2  8D 01 04              STA                 $401
+00940  14E5  AD 50 08              LDA G$+2
+00941  14E8  8D 02 04              STA                 $402
+00942  14EB  AD 52 08              LDA G$LEN
+00943  14EE  8D 03 04              STA $403
+00944  14F1  AD 2D 08              LDA GH1_G$LEN
+00945  14F4  8D 04 04              STA $404
+00946  14F7                        
+00947  14F7             
+00948  14F7             
+00949  14F7  20 F3 18              JSR MV_GH
+00950  14FA                        
+00951  14FA  AD 55 08              LDA YY
+00952  14FD  8D C0 08              STA GH4_YY
+00953  1500  AD 4B 08              LDA PQ$
+00954  1503  8D B8 08              STA GH4_PQ$
+00955  1506  AD 4C 08              LDA PQ$+1
+00956  1509  8D B9 08              STA GH4_PQ$+1
+00957  150C                        
+00958  150C  AD 57 08              LDA PD$
+00959  150F  8D C1 08              STA GH4_PD$
+00960  1512  AD 4E 08              LDA G$
+00961  1515  8D BA 08              STA GH4_G$
+00962  1518  AD 4F 08              LDA G$+1
+00963  151B  8D BB 08              STA GH4_G$+1
+00964  151E  AD 50 08              LDA G$+2
+00965  1521  8D BC 08              STA GH4_G$+2
+00966  1524  AD 51 08              LDA G$+3
+00967  1527  8D BD 08              STA GH4_G$+3
+00968  152A  AD 49 08              LDA GX
+00969  152D  8D B6 08              STA GH4_GX
+00970  1530  AD 4A 08              LDA GY
+00971  1533  8D B7 08              STA GH4_GY
+00972  1536             
+00973  1536  AD 53 08              LDA XG
+00974  1539  8D BE 08              STA GH4_XG
+00975  153C  AD 54 08              LDA YG
+00976  153F  8D BF 08              STA GH4_YG
+00977  1542  AD 56 08              LDA GHOST_PR
+00978  1545  8D C3 08              STA GH4_PR
+00979  1548             
+00980  1548             
+00981  1548  AD 58 08              LDA CDIR
+00982  154B  8D C2 08              STA GH4_CDIR
+00983  154E  AD 4D 08              LDA PQ$LEN
+00984  1551  8D C4 08              STA GH4_PQ$LEN
+00985  1554  AD 52 08              LDA G$LEN
+00986  1557  8D C5 08              STA GH4_G$LEN
+00987  155A  60                    RTS
+00988  155B             
+00989  155B             MV_GHOST5  
+00990  155B             
+00991  155B             
+00992  155B  AD D0 08              LDA GH5_YY
+00993  155E  8D 55 08              STA YY
+00994  1561  AD C8 08              LDA GH5_PQ$
+00995  1564  8D 4B 08              STA PQ$
+00996  1567  AD C9 08              LDA GH5_PQ$+1
+00997  156A  8D 4C 08              STA PQ$+1
+00998  156D                        
+00999  156D  AD D1 08              LDA GH5_PD$
+01000  1570  8D 57 08              STA PD$
+01001  1573  AD CA 08              LDA GH5_G$
+01002  1576  8D 4E 08              STA G$
+01003  1579  AD CB 08              LDA GH5_G$+1
+01004  157C  8D 4F 08              STA G$+1
+01005  157F  AD CC 08              LDA GH5_G$+2
+01006  1582  8D 50 08              STA G$+2
+01007  1585  AD CD 08              LDA GH5_G$+3
+01008  1588  8D 51 08              STA G$+3
+01009  158B  AD C6 08              LDA GH5_GX
+01010  158E  8D 49 08              STA GX
+01011  1591  AD C7 08              LDA GH5_GY
+01012  1594  8D 4A 08              STA GY
+01013  1597             
+01014  1597  AD CE 08              LDA GH5_XG
+01015  159A  8D 53 08              STA XG
+01016  159D  AD CF 08              LDA GH5_YG
+01017  15A0  8D 54 08              STA YG
+01018  15A3  AD D3 08              LDA GH5_PR
+01019  15A6  8D 56 08              STA GHOST_PR
+01020  15A9             
+01021  15A9             
+01022  15A9  AD D2 08              LDA GH5_CDIR
+01023  15AC  8D 58 08              STA CDIR
+01024  15AF  AD D4 08              LDA GH5_PQ$LEN
+01025  15B2  8D 4D 08              STA PQ$LEN
+01026  15B5  AD D5 08              LDA GH5_G$LEN
+01027  15B8  8D 52 08              STA G$LEN
+01028  15BB             
+01029  15BB             
+01030  15BB  20 52 16              JSR CHECK_WALLS
+01031  15BE  20 1D 11              JSR CK_LEFTSIDE
+01032  15C1  20 4A 11              JSR CK_RIGHTSIDE
+01033  15C4             
+01034  15C4  AD 4B 08              LDA                 PQ$
+01035  15C7  8D 05 04              STA                 $405
+01036  15CA  AD 4C 08              LDA                 PQ$+1
+01037  15CD  8D 06 04              STA                 $406
+01038  15D0  AD 4E 08              LDA                 G$
+01039  15D3  8D 00 04              STA                 $400
+01040  15D6  AD 4F 08              LDA G$+1
+01041  15D9  8D 01 04              STA                 $401
+01042  15DC  AD 50 08              LDA G$+2
+01043  15DF  8D 02 04              STA                 $402
+01044  15E2  AD 52 08              LDA G$LEN
+01045  15E5  8D 03 04              STA $403
+01046  15E8  AD 2D 08              LDA GH1_G$LEN
+01047  15EB  8D 04 04              STA $404
+01048  15EE                        
+01049  15EE             
+01050  15EE             
+01051  15EE  20 F3 18              JSR MV_GH
+01052  15F1                        
+01053  15F1  AD 55 08              LDA YY
+01054  15F4  8D D0 08              STA GH5_YY
+01055  15F7  AD 4B 08              LDA PQ$
+01056  15FA  8D C8 08              STA GH5_PQ$
+01057  15FD  AD 4C 08              LDA PQ$+1
+01058  1600  8D C9 08              STA GH5_PQ$+1
+01059  1603                        
+01060  1603  AD 57 08              LDA PD$
+01061  1606  8D D1 08              STA GH5_PD$
+01062  1609  AD 4E 08              LDA G$
+01063  160C  8D CA 08              STA GH5_G$
+01064  160F  AD 4F 08              LDA G$+1
+01065  1612  8D CB 08              STA GH5_G$+1
+01066  1615  AD 50 08              LDA G$+2
+01067  1618  8D CC 08              STA GH5_G$+2
+01068  161B  AD 51 08              LDA G$+3
+01069  161E  8D CD 08              STA GH5_G$+3
+01070  1621  AD 49 08              LDA GX
+01071  1624  8D C6 08              STA GH5_GX
+01072  1627  AD 4A 08              LDA GY
+01073  162A  8D C7 08              STA GH5_GY
+01074  162D             
+01075  162D  AD 53 08              LDA XG
+01076  1630  8D CE 08              STA GH5_XG
+01077  1633  AD 54 08              LDA YG
+01078  1636  8D CF 08              STA GH5_YG
+01079  1639  AD 56 08              LDA GHOST_PR
+01080  163C  8D D3 08              STA GH5_PR
+01081  163F             
+01082  163F             
+01083  163F  AD 58 08              LDA CDIR
+01084  1642  8D D2 08              STA GH5_CDIR
+01085  1645  AD 4D 08              LDA PQ$LEN
+01086  1648  8D D4 08              STA GH5_PQ$LEN
+01087  164B  AD 52 08              LDA G$LEN
+01088  164E  8D D5 08              STA GH5_G$LEN
+01089  1651  60                    RTS
+01090  1652             
+01091  1652             ;============================================================
+01092  1652             ;                          CHECK FOR WALLS
+01093  1652             ; THIS SECTION OF CODE CHECKS UP/DOWN/LEFT/RIGHT FOR WALLS
+01094  1652             ; IN ORDER TO DETERMINE THE DIRECTION THAT CAN  TRAVELLED IN.
+01095  1652             ; IT SETS UP A STRING G$ THAT LOOKS SOMETHING LIKE THIS:
+01096  1652             ; G$="UDL" - MEANS GHOST CAN MOVE UP/DOWN/LEFT
+01097  1652             ; IT ASLO SETS UP PR DIRECTION THAT GHOST CAN MOVE IN.
+01098  1652             ; THAT STRING LOOKS SOMETHING LIKE THIS:
+01099  1652             ; PQ$="DL" (SUBSET OF G$) - MEANS DOWN/LEFT ARE PR DIRECTIONS WHICH
+01100  1652             ; WILL MOVE THE GHOST CLOSER TO THE TARGET
+01101  1652             ;============================================================
+01102  1652             
+01103  1652             CHECK_WALLS 
+01104  1652                        
+01105  1652  A9 00                 LDA                 #0
+01106  1654  8D 4E 08              STA                 G$
+01107  1657  8D 4F 08              STA                 G$+1
+01108  165A  8D 50 08              STA                 G$+2
+01109  165D  8D 51 08              STA                 G$+3
+01110  1660                        
+01111  1660  8D 4B 08              STA                 PQ$
+01112  1663  8D 4C 08              STA                 PQ$+1
+01113  1666                        
+01114  1666             
+01115  1666  A9 00                 LDA                 #0
+01116  1668  8D 52 08              STA                 G$LEN
+01117  166B  8D 4D 08              STA                 PQ$LEN
+01118  166E                        
+01119  166E  AC 4A 08              LDY                 GY
+01120  1671  88                    DEY
+01121  1672  8C 13 08              STY                 GYMINUS1
+01122  1675  AC 4A 08              LDY                 GY
+01123  1678  C8                    INY
+01124  1679  8C 14 08              STY                 GYPLUS1
+01125  167C                        
+01126  167C             
+01127  167C             
+01128  167C                        
+01129  167C  AE 13 08              LDX                 GYMINUS1
+01130  167F  AC 49 08              LDY                 GX
+01131  1682  BD 5C 08              LDA                 MAP_OFF_L,X
+01132  1685  85 FD                 STA                 $FD
+01133  1687  BD 75 08              LDA                 MAP_OFF_H,X
+01134  168A  85 FE                 STA                 $FE
+01135  168C  B1 FD                 LDA                 ($FD),Y
+01136  168E  CD 8E 08              CMP                 WALL1
+01137  1691  F0 1E                 BEQ                 @NOTWALL
+01138  1693  CD 8F 08              CMP                 WALL2
+01139  1696  F0 19                 BEQ                 @NOTWALL
+01140  1698  CD 90 08              CMP                 WALL3
+01141  169B  F0 14                 BEQ                 @NOTWALL
+01142  169D  CD 91 08              CMP                 WALL4
+01143  16A0  F0 0F                 BEQ                 @NOTWALL
+01144  16A2  CD 92 08              CMP                 WALL5
+01145  16A5  F0 0A                 BEQ                 @NOTWALL
+01146  16A7  CD 93 08              CMP                 WALL6
+01147  16AA  F0 05                 BEQ                 @NOTWALL
+01148  16AC  CD 94 08              CMP                 WALL7
+01149  16AF  D0 64                 BNE                 @BOTTOM
+01150  16B1                        
+01151  16B1  AD 57 08   @NOTWALL   LDA                 PD$
+01152  16B4  C9 04                 CMP @4              
+01153  16B6  F0 5D                 BEQ                 @BOTTOM
+01154  16B8             
+01155  16B8             
+01156  16B8  A9 15                 LDA @21             
+01157  16BA  AE 52 08              LDX                 G$LEN
+01158  16BD  9D 4E 08              STA                 G$,X
+01159  16C0  EE 52 08              INC                 G$LEN
+01160  16C3  A9 01                 LDA                 #1
+01161  16C5  C9 00                 CMP                 #0
+01162  16C7  F0 15                 BEQ                 @ZERO
+01163  16C9  A9 01                 LDA                 #1
+01164  16CB  C9 01                 CMP                 #1
+01165  16CD  F0 1A                 BEQ                 @ONE
+01166  16CF  A9 01                 LDA                 #1
+01167  16D1  C9 02                 CMP                 #2
+01168  16D3  F0 1F                 BEQ                 @TWO
+01169  16D5  A9 01                 LDA                 #1
+01170  16D7  C9 03                 CMP                 #3
+01171  16D9  F0 24                 BEQ                 @THREE
+01172  16DB  4C 15 17              JMP                 @BOTTOM
+01173  16DE             
+01174  16DE             @ZERO      
+01175  16DE  AD 4A 08              LDA                 GY
+01176  16E1  CD 54 08              CMP                 YG
+01177  16E4  B0 2F                 BCS                 @BOTTOM
+01178  16E6  4C 0A 17              JMP                 @CONT
+01179  16E9  AD 4A 08   @ONE       LDA                 GY
+01180  16EC  CD 54 08              CMP                 YG
+01181  16EF  90 24                 BCC                 @BOTTOM
+01182  16F1  4C 0A 17              JMP                 @CONT
+01183  16F4  AD 49 08   @TWO       LDA                 GX
+01184  16F7  CD 53 08              CMP                 XG
+01185  16FA  90 19                 BCC                 @BOTTOM
+01186  16FC  4C 0A 17              JMP                 @CONT
+01187  16FF  AD 49 08   @THREE     LDA                 GX
+01188  1702  CD 53 08              CMP                 XG
+01189  1705  B0 0E                 BCS                 @BOTTOM
+01190  1707  4C 0A 17              JMP                 @CONT
+01191  170A                        
+01192  170A             @CONT      
+01193  170A  A9 15                 LDA @21             
+01194  170C  AE 4D 08              LDX                 PQ$LEN
+01195  170F  9D 4B 08              STA                 PQ$,X
+01196  1712  EE 4D 08              INC                 PQ$LEN
+01197  1715             
+01198  1715                        
+01199  1715             @BOTTOM    
+01200  1715  EA                    NOP
+01201  1716             
+01202  1716             
+01203  1716                        
+01204  1716  AE 14 08              LDX                 GYPLUS1
+01205  1719  AC 49 08              LDY                 GX
+01206  171C  BD 5C 08              LDA                 MAP_OFF_L,X
+01207  171F  85 FD                 STA                 $FD
+01208  1721  BD 75 08              LDA                 MAP_OFF_H,X
+01209  1724  85 FE                 STA                 $FE
+01210  1726  B1 FD                 LDA                 ($FD),Y
+01211  1728  CD 8E 08              CMP                 WALL1
+01212  172B  F0 1E                 BEQ                 @NOTWALL
+01213  172D  CD 8F 08              CMP                 WALL2
+01214  1730  F0 19                 BEQ                 @NOTWALL
+01215  1732  CD 90 08              CMP                 WALL3
+01216  1735  F0 14                 BEQ                 @NOTWALL
+01217  1737  CD 91 08              CMP                 WALL4
+01218  173A  F0 0F                 BEQ                 @NOTWALL
+01219  173C  CD 92 08              CMP                 WALL5
+01220  173F  F0 0A                 BEQ                 @NOTWALL
+01221  1741  CD 93 08              CMP                 WALL6
+01222  1744  F0 05                 BEQ                 @NOTWALL
+01223  1746  CD 94 08              CMP                 WALL7
+01224  1749  D0 64                 BNE                 @BOTTOM
+01225  174B                        
+01226  174B  AD 57 08   @NOTWALL   LDA                 PD$
+01227  174E  C9 15                 CMP @21             
+01228  1750  F0 5D                 BEQ                 @BOTTOM
+01229  1752             
+01230  1752             
+01231  1752  A9 04                 LDA @4              
+01232  1754  AE 52 08              LDX                 G$LEN
+01233  1757  9D 4E 08              STA                 G$,X
+01234  175A  EE 52 08              INC                 G$LEN
+01235  175D  A9 00                 LDA                 #0
+01236  175F  C9 00                 CMP                 #0
+01237  1761  F0 15                 BEQ                 @ZERO
+01238  1763  A9 00                 LDA                 #0
+01239  1765  C9 01                 CMP                 #1
+01240  1767  F0 1A                 BEQ                 @ONE
+01241  1769  A9 00                 LDA                 #0
+01242  176B  C9 02                 CMP                 #2
+01243  176D  F0 1F                 BEQ                 @TWO
+01244  176F  A9 00                 LDA                 #0
+01245  1771  C9 03                 CMP                 #3
+01246  1773  F0 24                 BEQ                 @THREE
+01247  1775  4C AF 17              JMP                 @BOTTOM
+01248  1778             
+01249  1778             @ZERO      
+01250  1778  AD 4A 08              LDA                 GY
+01251  177B  CD 54 08              CMP                 YG
+01252  177E  B0 2F                 BCS                 @BOTTOM
+01253  1780  4C A4 17              JMP                 @CONT
+01254  1783  AD 4A 08   @ONE       LDA                 GY
+01255  1786  CD 54 08              CMP                 YG
+01256  1789  90 24                 BCC                 @BOTTOM
+01257  178B  4C A4 17              JMP                 @CONT
+01258  178E  AD 49 08   @TWO       LDA                 GX
+01259  1791  CD 53 08              CMP                 XG
+01260  1794  90 19                 BCC                 @BOTTOM
+01261  1796  4C A4 17              JMP                 @CONT
+01262  1799  AD 49 08   @THREE     LDA                 GX
+01263  179C  CD 53 08              CMP                 XG
+01264  179F  B0 0E                 BCS                 @BOTTOM
+01265  17A1  4C A4 17              JMP                 @CONT
+01266  17A4                        
+01267  17A4             @CONT      
+01268  17A4  A9 04                 LDA @4              
+01269  17A6  AE 4D 08              LDX                 PQ$LEN
+01270  17A9  9D 4B 08              STA                 PQ$,X
+01271  17AC  EE 4D 08              INC                 PQ$LEN
+01272  17AF             
+01273  17AF                        
+01274  17AF             @BOTTOM    
+01275  17AF  EA                    NOP
+01276  17B0             
+01277  17B0  AC 49 08              LDY                 GX
+01278  17B3  88                    DEY
+01279  17B4  8C 11 08              STY                 GXMINUS1
+01280  17B7  AC 49 08              LDY                 GX
+01281  17BA  C8                    INY
+01282  17BB  8C 12 08              STY                 GXPLUS1
+01283  17BE                        
+01284  17BE             
+01285  17BE             
+01286  17BE                        
+01287  17BE  AE 4A 08              LDX                 GY
+01288  17C1  AC 11 08              LDY                 GXMINUS1
+01289  17C4  BD 5C 08              LDA                 MAP_OFF_L,X
+01290  17C7  85 FD                 STA                 $FD
+01291  17C9  BD 75 08              LDA                 MAP_OFF_H,X
+01292  17CC  85 FE                 STA                 $FE
+01293  17CE  B1 FD                 LDA                 ($FD),Y
+01294  17D0  CD 8E 08              CMP                 WALL1
+01295  17D3  F0 1E                 BEQ                 @NOTWALL
+01296  17D5  CD 8F 08              CMP                 WALL2
+01297  17D8  F0 19                 BEQ                 @NOTWALL
+01298  17DA  CD 90 08              CMP                 WALL3
+01299  17DD  F0 14                 BEQ                 @NOTWALL
+01300  17DF  CD 91 08              CMP                 WALL4
+01301  17E2  F0 0F                 BEQ                 @NOTWALL
+01302  17E4  CD 92 08              CMP                 WALL5
+01303  17E7  F0 0A                 BEQ                 @NOTWALL
+01304  17E9  CD 93 08              CMP                 WALL6
+01305  17EC  F0 05                 BEQ                 @NOTWALL
+01306  17EE  CD 94 08              CMP                 WALL7
+01307  17F1  D0 64                 BNE                 @BOTTOM
+01308  17F3                        
+01309  17F3  AD 57 08   @NOTWALL   LDA                 PD$
+01310  17F6  C9 12                 CMP @18             
+01311  17F8  F0 5D                 BEQ                 @BOTTOM
+01312  17FA             
+01313  17FA             
+01314  17FA  A9 0C                 LDA @12             
+01315  17FC  AE 52 08              LDX                 G$LEN
+01316  17FF  9D 4E 08              STA                 G$,X
+01317  1802  EE 52 08              INC                 G$LEN
+01318  1805  A9 02                 LDA                 #2
+01319  1807  C9 00                 CMP                 #0
+01320  1809  F0 15                 BEQ                 @ZERO
+01321  180B  A9 02                 LDA                 #2
+01322  180D  C9 01                 CMP                 #1
+01323  180F  F0 1A                 BEQ                 @ONE
+01324  1811  A9 02                 LDA                 #2
+01325  1813  C9 02                 CMP                 #2
+01326  1815  F0 1F                 BEQ                 @TWO
+01327  1817  A9 02                 LDA                 #2
+01328  1819  C9 03                 CMP                 #3
+01329  181B  F0 24                 BEQ                 @THREE
+01330  181D  4C 57 18              JMP                 @BOTTOM
+01331  1820             
+01332  1820             @ZERO      
+01333  1820  AD 4A 08              LDA                 GY
+01334  1823  CD 54 08              CMP                 YG
+01335  1826  B0 2F                 BCS                 @BOTTOM
+01336  1828  4C 4C 18              JMP                 @CONT
+01337  182B  AD 4A 08   @ONE       LDA                 GY
+01338  182E  CD 54 08              CMP                 YG
+01339  1831  90 24                 BCC                 @BOTTOM
+01340  1833  4C 4C 18              JMP                 @CONT
+01341  1836  AD 49 08   @TWO       LDA                 GX
+01342  1839  CD 53 08              CMP                 XG
+01343  183C  90 19                 BCC                 @BOTTOM
+01344  183E  4C 4C 18              JMP                 @CONT
+01345  1841  AD 49 08   @THREE     LDA                 GX
+01346  1844  CD 53 08              CMP                 XG
+01347  1847  B0 0E                 BCS                 @BOTTOM
+01348  1849  4C 4C 18              JMP                 @CONT
+01349  184C                        
+01350  184C             @CONT      
+01351  184C  A9 0C                 LDA @12             
+01352  184E  AE 4D 08              LDX                 PQ$LEN
+01353  1851  9D 4B 08              STA                 PQ$,X
+01354  1854  EE 4D 08              INC                 PQ$LEN
+01355  1857             
+01356  1857                        
+01357  1857             @BOTTOM    
+01358  1857  EA                    NOP
+01359  1858             
+01360  1858             
+01361  1858                        
+01362  1858  AE 4A 08              LDX                 GY
+01363  185B  AC 12 08              LDY                 GXPLUS1
+01364  185E  BD 5C 08              LDA                 MAP_OFF_L,X
+01365  1861  85 FD                 STA                 $FD
+01366  1863  BD 75 08              LDA                 MAP_OFF_H,X
+01367  1866  85 FE                 STA                 $FE
+01368  1868  B1 FD                 LDA                 ($FD),Y
+01369  186A  CD 8E 08              CMP                 WALL1
+01370  186D  F0 1E                 BEQ                 @NOTWALL
+01371  186F  CD 8F 08              CMP                 WALL2
+01372  1872  F0 19                 BEQ                 @NOTWALL
+01373  1874  CD 90 08              CMP                 WALL3
+01374  1877  F0 14                 BEQ                 @NOTWALL
+01375  1879  CD 91 08              CMP                 WALL4
+01376  187C  F0 0F                 BEQ                 @NOTWALL
+01377  187E  CD 92 08              CMP                 WALL5
+01378  1881  F0 0A                 BEQ                 @NOTWALL
+01379  1883  CD 93 08              CMP                 WALL6
+01380  1886  F0 05                 BEQ                 @NOTWALL
+01381  1888  CD 94 08              CMP                 WALL7
+01382  188B  D0 64                 BNE                 @BOTTOM
+01383  188D                        
+01384  188D  AD 57 08   @NOTWALL   LDA                 PD$
+01385  1890  C9 0C                 CMP @12             
+01386  1892  F0 5D                 BEQ                 @BOTTOM
+01387  1894             
+01388  1894             
+01389  1894  A9 12                 LDA @18             
+01390  1896  AE 52 08              LDX                 G$LEN
+01391  1899  9D 4E 08              STA                 G$,X
+01392  189C  EE 52 08              INC                 G$LEN
+01393  189F  A9 03                 LDA                 #3
+01394  18A1  C9 00                 CMP                 #0
+01395  18A3  F0 15                 BEQ                 @ZERO
+01396  18A5  A9 03                 LDA                 #3
+01397  18A7  C9 01                 CMP                 #1
+01398  18A9  F0 1A                 BEQ                 @ONE
+01399  18AB  A9 03                 LDA                 #3
+01400  18AD  C9 02                 CMP                 #2
+01401  18AF  F0 1F                 BEQ                 @TWO
+01402  18B1  A9 03                 LDA                 #3
+01403  18B3  C9 03                 CMP                 #3
+01404  18B5  F0 24                 BEQ                 @THREE
+01405  18B7  4C F1 18              JMP                 @BOTTOM
+01406  18BA             
+01407  18BA             @ZERO      
+01408  18BA  AD 4A 08              LDA                 GY
+01409  18BD  CD 54 08              CMP                 YG
+01410  18C0  B0 2F                 BCS                 @BOTTOM
+01411  18C2  4C E6 18              JMP                 @CONT
+01412  18C5  AD 4A 08   @ONE       LDA                 GY
+01413  18C8  CD 54 08              CMP                 YG
+01414  18CB  90 24                 BCC                 @BOTTOM
+01415  18CD  4C E6 18              JMP                 @CONT
+01416  18D0  AD 49 08   @TWO       LDA                 GX
+01417  18D3  CD 53 08              CMP                 XG
+01418  18D6  90 19                 BCC                 @BOTTOM
+01419  18D8  4C E6 18              JMP                 @CONT
+01420  18DB  AD 49 08   @THREE     LDA                 GX
+01421  18DE  CD 53 08              CMP                 XG
+01422  18E1  B0 0E                 BCS                 @BOTTOM
+01423  18E3  4C E6 18              JMP                 @CONT
+01424  18E6                        
+01425  18E6             @CONT      
+01426  18E6  A9 12                 LDA @18             
+01427  18E8  AE 4D 08              LDX                 PQ$LEN
+01428  18EB  9D 4B 08              STA                 PQ$,X
+01429  18EE  EE 4D 08              INC                 PQ$LEN
+01430  18F1             
+01431  18F1                        
+01432  18F1             @BOTTOM    
+01433  18F1  EA                    NOP
+01434  18F2                        
+01435  18F2  60                    RTS
+01436  18F3             
+01437  18F3             MV_GH      
+01438  18F3  AD D7 08              LDA ISPACMAN
+01439  18F6  C9 01                 CMP #1
+01440  18F8  D0 28                 BNE  NOTPACMAN
+01441  18FA                        
+01442  18FA  A2 00                 LDX #0
+01443  18FC  AD D8 08   SHORTLOOP  LDA USERDIRECTION
+01444  18FF  DD 4E 08              CMP G$,X
+01445  1902  F0 07                 BEQ MATCH
+01446  1904  E8                    INX
+01447  1905  EC 52 08              CPX G$LEN
+01448  1908  D0 F2                 BNE SHORTLOOP
+01449  190A  60                    RTS
+01450  190B             ; IF THERE IS A MATCH, THIS MEANS PAC-MAN CAN MOVE IN THAT DIRECTION
+01451  190B             ; SO WE WANT TO HARD CODE THE DIRECTION
+01452  190B             MATCH      ; LDA #0
+01453  190B                        ; STA GH1_PD$
+01454  190B                        ; STA PD$
+01455  190B  AD D8 08              LDA USERDIRECTION
+01456  190E  8D 4E 08              STA G$
+01457  1911  8D 26 08              STA GH1_G$
+01458  1914  8D 45 08              STA GH1_CDIR
+01459  1917  8D 58 08              STA CDIR
+01460  191A                        
+01461  191A  A0 00                 LDY #0
+01462  191C  8C 52 08              STY G$LEN
+01463  191F                        
+01464  191F  4C 62 19              JMP CK_1
+01465  1922             
+01466  1922  EE 55 08   NOTPACMAN  INC                 YY
+01467  1925  AD 55 08              LDA                 YY
+01468  1928  CD 56 08              CMP                 GHOST_PR
+01469  192B  D0 08                 BNE                 CONT5
+01470  192D                        ;JMP CONT5
+01471  192D  A9 00                 LDA                 #0
+01472  192F  8D 55 08              STA                 YY
+01473  1932             
+01474  1932  4C 55 19              JMP  RANDOM
+01475  1935  AD 4B 08   CONT5      LDA                 PQ$
+01476  1938  C9 00                 CMP                 #0
+01477  193A  D0 03                 BNE                 CONT6
+01478  193C  4C 54 19              JMP                 CONT7
+01479  193F  AD 4B 08   CONT6      LDA                 PQ$
+01480  1942  8D 4E 08              STA                 G$
+01481  1945  AD 4C 08              LDA                 PQ$+1
+01482  1948  8D 4F 08              STA                 G$+1
+01483  194B  AD 4D 08              LDA                 PQ$LEN
+01484  194E  8D 52 08              STA                 G$LEN
+01485  1951  4C 55 19              JMP                 RANDOM
+01486  1954  EA         CONT7      NOP
+01487  1955             RANDOM
+01488  1955  20 CA 19              JSR                 RAND
+01489  1958  8D 59 08              STA                 GD
+01490  195B  AA                    TAX
+01491  195C  BD 4E 08              LDA                 G$,X
+01492  195F  8D 58 08              STA                 CDIR
+01493  1962             
+01494  1962  C9 15      CK_1       CMP                 #21
+01495  1964  D0 03                 BNE                 CK_2
+01496  1966  CE 4A 08              DEC                 GY
+01497  1969                        
+01498  1969                        
+01499  1969  C9 04      CK_2       CMP                 #4
+01500  196B  D0 03                 BNE                 CK_3
+01501  196D  EE 4A 08              INC                 GY
+01502  1970                        
+01503  1970             
+01504  1970  C9 0C      CK_3       CMP                 #12
+01505  1972  D0 03                 BNE                 CK_4
+01506  1974  CE 49 08              DEC                 GX
+01507  1977                        
+01508  1977             
+01509  1977  C9 12      CK_4       CMP                 #18
+01510  1979  D0 12                 BNE                 SKIP
+01511  197B             
+01512  197B  AD D6 08              LDA WARP
+01513  197E  C9 01                 CMP #1
+01514  1980  D0 08                 BNE ADDTOGX
+01515  1982  A9 00                 LDA #0
+01516  1984  8D D6 08              STA WARP
+01517  1987  4C 8D 19              JMP SKIP
+01518  198A             
+01519  198A                        
+01520  198A  EE 49 08   ADDTOGX    INC                 GX
+01521  198D             SKIP       
+01522  198D  AE 59 08              LDX                 GD
+01523  1990  BD 4E 08              LDA                 G$,X
+01524  1993  8D 57 08              STA                 PD$
+01525  1996             
+01526  1996  60                    RTS
+01527  1997             
+01528  1997             ;============================================================
+01529  1997             ;                          DRAW MAP
+01530  1997             ;============================================================
+01531  1997             DRAWMAP
+01532  1997  A9 00                 LDA                 #$00
+01533  1999  85 FB                 STA                 $FB
+01534  199B  A9 04                 LDA                 #4
+01535  199D  85 FC                 STA                 $FC
+01536  199F  AD FC 19              LDA                 MAPL
+01537  19A2  85 FD                 STA                 $FD
+01538  19A4  AD FD 19              LDA                 MAPH
+01539  19A7  85 FE                 STA                 $FE
+01540  19A9             
+01541  19A9  A2 04                 LDX                 #4
+01542  19AB  A0 00      MAIN_LP    LDY                 #$00
+01543  19AD  B1 FD      LOOP1      LDA                 ($FD),Y
+01544  19AF  91 FB                 STA                 ($FB),Y
+01545  19B1  88                    DEY
+01546  19B2  D0 F9                 BNE                 LOOP1
+01547  19B4  E6 FC                 INC                 $FC
+01548  19B6  E6 FE                 INC                 $FE
+01549  19B8  CA                    DEX
+01550  19B9  D0 F0                 BNE                 MAIN_LP
+01551  19BB  60                    RTS
+01552  19BC             ;============================================================
+01553  19BC             
+01554  19BC             INIT_RANDOM 
+01555  19BC  A9 FF                 LDA                 #$FF                ; MAXIMUM FREQUENCY VALUE
+01556  19BE  8D 0E D4              STA                 $D40E               ; VOICE 3 FREQUENCY LOW BYTE
+01557  19C1  8D 0F D4              STA                 $D40F               ; VOICE 3 FREQUENCY HIGH BYTE
+01558  19C4  A9 80                 LDA                 #$80                ; NOISE WAVEFORM, GATE BIT OFF
+01559  19C6  8D 12 D4              STA                 $D412               ; VOICE 3 CONTROL REGISTER
+01560  19C9  60                    RTS
+01561  19CA             
+01562  19CA  AD 1B D4   RAND       LDA $D41B  ; GET RANDOM VALUE FROM 0-255
+01563  19CD  CD 52 08              CMP G$LEN
+01564  19D0                        
+01565  19D0  B0 F8                 BCS RAND
+01566  19D2  60                    RTS
+01567  19D3             CHECK_END  
+01568  19D3  AD 4A 08              LDA                 GY
+01569  19D6  C9 0C                 CMP                 #12
+01570  19D8  D0 21                 BNE                 @BOTTOM
+01571  19DA  AD 49 08              LDA                 GX
+01572  19DD  C9 12                 CMP                 #18
+01573  19DF  F0 05                 BEQ                 @SK1
+01574  19E1  C9 15                 CMP                 #21
+01575  19E3  F0 0C                 BEQ                 @CHECK2
+01576  19E5  60                    RTS
+01577  19E6  A9 15      @SK1       LDA #21
+01578  19E8  8D 57 08              STA                 PD$
+01579  19EB  A9 12                 LDA                 #18
+01580  19ED  8D 58 08              STA CDIR
+01581  19F0  60                    RTS
+01582  19F1             
+01583  19F1             @CHECK2    
+01584  19F1  A9 15                 LDA                 #21
+01585  19F3  8D 57 08              STA                 PD$
+01586  19F6  A9 0C                 LDA                 #12
+01587  19F8  8D 58 08              STA                 CDIR
+01588  19FB  60         @BOTTOM    RTS
+01589  19FC  FE         MAPL       BYTE                <MAP_DATA
+01590  19FD  19         MAPH       BYTE                >MAP_DATA
+01591  19FE             
+01592  19FE  20 20 20   MAP_DATA   BYTE           $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20
+01593  1A26  A0 A0 A0              BYTE           $A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0
+01594  1A4E  A0 2A 2E              BYTE           $A0,$2A,$2E,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$A0,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$A0,$A0,$2E,$2E,$2E,$2E,$2A,$A0
+01595  1A76  A0 2E A0              BYTE           $A0,$2E,$A0,$20,$A0,$2E,$A0,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$A0,$A0,$2E,$A0
+01596  1A9E  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$A0,$A0,$2E,$2E,$2E,$2E,$20,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$A0
+01597  1AC6  A0 2E 2E              BYTE           $A0,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$A0,$A0,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$2E,$A0,$A0,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0
+01598  1AEE  A0 A0 A0              BYTE           $A0,$A0,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$A0,$2E,$A0,$2E,$2E,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0
+01599  1B16  A0 2E 2E              BYTE           $A0,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$A0,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$A0
+01600  1B3E  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$A0,$A0,$2E,$A0,$A0,$A0,$A0,$2E,$2E,$2A,$A0,$2E,$A0,$2E,$2E,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$2E,$A0,$A0,$A0,$2E,$A0
+01601  1B66  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$A0,$A0,$A0,$A0,$2E,$A0,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$A0,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0
+01602  1B8E  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$A0,$A0,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$2E,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$A0,$2E,$A0,$A0,$20,$A0
+01603  1BB6  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$2E,$A0,$A0,$2D,$2D,$A0,$A0,$2E,$A0,$20,$A0,$A0,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0
+01604  1BDE  20 2E 2E              BYTE           $20,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$A0,$A0,$2E,$A0,$20,$20,$20,$20,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$20
+01605  1C06  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$A0,$2E,$A0,$20,$A0,$A0,$A0,$A0,$2E,$A0,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$A0
+01606  1C2E  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$A0,$A0,$A0,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$2E,$A0,$2E,$A0
+01607  1C56  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$A0
+01608  1C7E  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$2E,$A0,$2E,$A0
+01609  1CA6  A0 2E A0              BYTE           $A0,$2E,$A0,$A0,$2E,$A0,$A0,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$A0,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$A0
+01610  1CCE  A0 2E 2E              BYTE           $A0,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0
+01611  1CF6  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$A0,$2E,$A0,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0
+01612  1D1E  A0 2E A0              BYTE           $A0,$2E,$A0,$2E,$2E,$2E,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$A0,$2E,$A0
+01613  1D46  A0 2E A0              BYTE           $A0,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$A0,$A0,$A0,$2E,$A0,$2E,$2E,$2E,$A0,$2E,$A0,$2E,$A0,$A0,$A0,$2E,$A0,$2E,$A0,$2E,$A0
+01614  1D6E  A0 2A 2E              BYTE           $A0,$2A,$2E,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$A0,$2E,$2E,$2E,$2E,$2E,$A0,$2E,$2E,$2A,$A0
+01615  1D96  A0 A0 A0              BYTE           $A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0
+01616  1DBE  20 20 20              BYTE           $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20
+01617  1DE6             
+
+******* 177 Label(s) *******
+~~~bottom{00028} = $1715 
+~~~bottom{00029} = $17AF 
+~~~bottom{00030} = $1857 
+~~~bottom{00031} = $18F1 
+~~~cont{00028} = $170A 
+~~~cont{00029} = $17A4 
+~~~cont{00030} = $184C 
+~~~cont{00031} = $18E6 
+~~~notwall{00028} = $16B1 
+~~~notwall{00029} = $174B 
+~~~notwall{00030} = $17F3 
+~~~notwall{00031} = $188D 
+~~~one{00028} = $16E9 
+~~~one{00029} = $1783 
+~~~one{00030} = $182B 
+~~~one{00031} = $18C5 
+~~~three{00028} = $16FF 
+~~~three{00029} = $1799 
+~~~three{00030} = $1841 
+~~~three{00031} = $18DB 
+~~~two{00028} = $16F4 
+~~~two{00029} = $178E 
+~~~two{00030} = $1836 
+~~~two{00031} = $18D0 
+~~~zero{00028} = $16DE 
+~~~zero{00029} = $1778 
+~~~zero{00030} = $1820 
+~~~zero{00031} = $18BA 
+addtogx = $198A 
+blah = $10FB 
+cdir = $0858 
+check_end = $19D3 
+Check_Walls = $1652 
+ck_1 = $1962 
+ck_2 = $1969 
+ck_3 = $1970 
+ck_4 = $1977 
+ck_leftside = $111D 
+ck_rightside = $114A 
+cont5 = $1935 
+cont6 = $193F 
+cont7 = $1954 
+continue = $10F0 
+drawmap = $1997 
+fastmode = $08DA 
+fm = $10F6 
+g$ = $084E 
+g$len = $0852 
+gd = $0859 
+getch = $10AC 
+gh1_cdir = $0845 
+gh1_g$ = $0826 
+gh1_g$len = $082D 
+gh1_gx = $0815 
+gh1_gy = $0819 
+gh1_pd$ = $0841 
+gh1_pq$ = $081D 
+gh1_pq$len = $0822 
+gh1_pr = $083D 
+gh1_xg = $0831 
+gh1_yg = $0835 
+gh1_yy = $0839 
+gh2_cdir = $08A2 
+gh2_g$ = $089A 
+gh2_g$len = $08A5 
+gh2_gx = $0896 
+gh2_gy = $0897 
+gh2_pd$ = $08A1 
+gh2_pq$ = $0898 
+gh2_pq$len = $08A4 
+gh2_pr = $08A3 
+gh2_xg = $089E 
+gh2_yg = $089F 
+gh2_yy = $08A0 
+gh3_cdir = $08B2 
+gh3_g$ = $08AA 
+gh3_g$len = $08B5 
+gh3_gx = $08A6 
+gh3_gy = $08A7 
+gh3_pd$ = $08B1 
+gh3_pq$ = $08A8 
+gh3_pq$len = $08B4 
+gh3_pr = $08B3 
+gh3_xg = $08AE 
+gh3_yg = $08AF 
+gh3_yy = $08B0 
+gh4_cdir = $08C2 
+gh4_g$ = $08BA 
+gh4_g$len = $08C5 
+gh4_gx = $08B6 
+gh4_gy = $08B7 
+gh4_pd$ = $08C1 
+gh4_pq$ = $08B8 
+gh4_pq$len = $08C4 
+gh4_pr = $08C3 
+gh4_xg = $08BE 
+gh4_yg = $08BF 
+gh4_yy = $08C0 
+gh5_cdir = $08D2 
+gh5_g$ = $08CA 
+gh5_g$len = $08D5 
+gh5_gx = $08C6 
+gh5_gy = $08C7 
+gh5_pd$ = $08D1 
+gh5_pq$ = $08C8 
+gh5_pq$len = $08D4 
+gh5_pr = $08D3 
+gh5_xg = $08CE 
+gh5_yg = $08CF 
+gh5_yy = $08D0 
+ghost_pr = $0856 
+gx = $0849 
+gxminus1 = $0811 
+gxplus1 = $0812 
+gy = $084A 
+gyminus1 = $0813 
+gyplus1 = $0814 
+Init_Random = $19BC 
+ispacman = $08D7 
+junk1 = $0832 
+junk2 = $0836 
+junk3 = $083E 
+junk4 = $0846 
+junk5 = $0816 
+junk6 = $081A 
+junk7 = $081F 
+junk8 = $0823 
+junk9 = $082A 
+junka = $082E 
+junkb = $083A 
+junkc = $0842 
+junkxx = $080E 
+loop1 = $19AD 
+main_lp = $19AB 
+main_prg_lp = $1026 
+MAP_DATA = $19FE 
+map_off_h = $0875 
+map_off_l = $085C 
+MAPH = $19FD 
+MAPL = $19FC 
+match = $190B 
+mv_gh = $18F3 
+mv_Ghost1 = $117F 
+mv_Ghost2 = $1276 
+mv_Ghost3 = $136D 
+mv_Ghost4 = $1464 
+mv_Ghost5 = $155B 
+nextck1 = $10D8 
+nextck2 = $10E1 
+nextck3 = $10EA 
+nextck4 = $10EE 
+notpacman = $1922 
+pac_pd$ = $08D9 
+pd$ = $0857 
+pq$ = $084B 
+pq$len = $084D 
+px = $085A 
+py = $085B 
+RAND = $19CA 
+random = $1955 
+scn_offset = $08DB 
+shortloop = $18FC 
+skip = $198D 
+udir = $10CF 
+userdirection = $08D8 
+wall1 = $088E 
+wall2 = $088F 
+wall3 = $0890 
+wall4 = $0891 
+wall5 = $0892 
+wall6 = $0893 
+wall7 = $0894 
+wall8 = $0895 
+warp = $08D6 
+xg = $0853 
+yg = $0854 
+yy = $0855 
+
+******* 47 Unused label(s) *******
+@bottom
+@check2
+@end
+@end
+@sk1
+@skip
+@skip2
+~~~bottom{00028}
+~~~bottom{00029}
+~~~bottom{00030}
+~~~bottom{00031}
+~~~cont{00028}
+~~~cont{00029}
+~~~cont{00030}
+~~~cont{00031}
+~~~notwall{00028}
+~~~notwall{00029}
+~~~notwall{00030}
+~~~notwall{00031}
+~~~one{00028}
+~~~one{00029}
+~~~one{00030}
+~~~one{00031}
+~~~three{00028}
+~~~three{00029}
+~~~three{00030}
+~~~three{00031}
+~~~two{00028}
+~~~two{00029}
+~~~two{00030}
+~~~two{00031}
+~~~zero{00028}
+~~~zero{00029}
+~~~zero{00030}
+~~~zero{00031}
+check_end
+junk1
+junk2
+junk3
+junk4
+junk5
+junk6
+junk7
+junk8
+junk9
+junka
+junkb
+junkc
+junkxx
+MAP_DATA
+pac_pd$
+px
+py
+scn_offset
+
+******* 2 Variable(s) *******
+scn_width$  = $0028
+tgt_c64  = $0001
+******* -5 Unused variables(s) *******
+scn_width$
+tgt_c64
+

@@ -1,0 +1,195 @@
+00001  0000             ; 10 SYS (4096)
+00002  0001             
+00003  0001             *=$0801
+00004  0801             
+00005  0801  0E 08 0A              BYTE    $0E, $08, $0A, $00, $9E, $20, $28,  $34, $30, $39, $36, $29, $00, $00, $00
+00006  0810  20 20 20   WAIT       NULL '   IN LINE                                  '
+00007  083D  20 20 20   PASSERS    NULL '   NO SHOW                                  '
+00008  086A  20 20 20   GONE       NULL '   TOOLONG                                  '
+00009  0897  20 20 20   SOLD       NULL '   SOLD                                     '
+00010  08C4             
+00011  08C4             *=$1000
+00012  1000             
+00013  1000             BAKETIMER  = 10
+00014  1000             
+00015  1000  A9 6F                 LDA #$6F
+00016  1002  A0 81                 LDY #$81
+00017  1004  A2 FF                 LDX #$FF
+00018  1006  8D 13 D4              STA $D413
+00019  1009  8C 12 D4              STY $D412
+00020  100C  8E 0E D4              STX $D40E
+00021  100F  8E 0F D4              STX $D40F
+00022  1012  8E 14 D4              STX $D414
+00023  1015                        
+00024  1015             
+00025  1015             
+00026  1015             
+00027  1015             CLEARSCREEN 
+00028  1015  A9 93                 LDA #$93
+00029  1017  20 D2 FF              JSR $FFD2
+00030  101A                        
+00031  101A             
+00032  101A  A2 00                 LDX #0
+00033  101C  BD 10 08   TXTLOOP    LDA WAIT,X
+00034  101F  9D A0 04              STA $04A0,X
+00035  1022  BD 3D 08              LDA PASSERS,X
+00036  1025  9D 68 05              STA $0568,X
+00037  1028  BD 6A 08              LDA GONE,X
+00038  102B  9D 30 06              STA $0630,X
+00039  102E  BD 97 08              LDA SOLD,X
+00040  1031  9D F8 06              STA $06F8,X
+00041  1034  E8                    INX
+00042  1035  E0 28                 CPX #$28
+00043  1037  D0 E3                 BNE TXTLOOP
+00044  1039             
+00045  1039             WHOSTOPPED 
+00046  1039  A9 00                 LDA #00
+00047  103B  8D 00 20              STA $2000       ;NUMBER IN LINE
+00048  103E  8D 01 20              STA $2001       ;NUMBER THAT LEFT
+00049  1041  8D 03 20              STA $2003
+00050  1044  8D 04 20              STA $2004       ;NUMBER SOLD
+00051  1047  8D 05 20              STA $2005       ;PEOPLE ANGRY
+00052  104A  20 19 11   START      JSR DELAY
+00053  104D  20 19 11              JSR DELAY
+00054  1050             
+00055  1050                        ;REMOVE ANGRY FROM LINE
+00056  1050  AD 00 20              LDA $2000
+00057  1053  C5 11                 CMP $11
+00058  1055  90 00                 BCC CONT
+00059  1057                        
+00060  1057             
+00061  1057  AD 1B D4   CONT       LDA $D41B
+00062  105A  C9 4F                 CMP #$4F
+00063  105C  90 1C                 BCC LEAVE
+00064  105E  A9 90      STAY       LDA #144
+00065  1060  EE 00 20              INC $2000
+00066  1063  AE 00 20              LDX $2000
+00067  1066  9D C8 04              STA $04C8,X
+00068  1069  E8                    INX
+00069  106A  8E AD 04              STX $04AD
+00070  106D  EE 03 20              INC $2003       ;TOTAL NUMBER OF PEOPLE
+00071  1070  AD 03 20              LDA $2003
+00072  1073  C9 50                 CMP #80
+00073  1075  D0 1F                 BNE SELL
+00074  1077  4C D9 10              JMP DONE
+00075  107A  A9 90      LEAVE      LDA #144
+00076  107C  EE 01 20              INC $2001
+00077  107F  AE 01 20              LDX $2001
+00078  1082  9D 90 05              STA $0590,X
+00079  1085  E8                    INX
+00080  1086  8E 75 05              STX $0575
+00081  1089  EE 03 20              INC $2003
+00082  108C  AD 03 20              LDA $2003
+00083  108F  C9 50                 CMP #80
+00084  1091  D0 03                 BNE SELL
+00085  1093  4C D9 10              JMP DONE
+00086  1096             
+00087  1096  CE 34 11   SELL       DEC BAKETIME
+00088  1099  D0 3B                 BNE SKIP
+00089  109B  A0 05                 LDY #5
+00090  109D  A9 0A                 LDA #BAKETIMER
+00091  109F  8D 34 11              STA BAKETIME
+00092  10A2  AD 00 20   SELLP      LDA $2000
+00093  10A5  C9 01                 CMP #1
+00094  10A7  90 A1                 BCC START
+00095  10A9  8D 00 04              STA     $0400           ;DEBUG FOR X-ANIMATION
+00096  10AC  EE 00 D8              INC     $D800
+00097  10AF  A9 90                 LDA #144
+00098  10B1  EE 04 20              INC $2004
+00099  10B4  AE 04 20              LDX $2004
+00100  10B7  9D 20 07              STA $0720,X
+00101  10BA  E8                    INX
+00102  10BB  8E 05 07              STX $0705
+00103  10BE  AE 00 20              LDX $2000
+00104  10C1  A9 20                 LDA #$20
+00105  10C3  9D C8 04              STA $04C8,X
+00106  10C6  CE 00 20              DEC $2000
+00107  10C9  CA                    DEX
+00108  10CA  8E AD 04              STX $04AD
+00109  10CD  20 19 11              JSR DELAY
+00110  10D0  20 19 11              JSR DELAY
+00111  10D3  88                    DEY
+00112  10D4  D0 CC                 BNE SELLP
+00113  10D6  4C 4A 10   SKIP       JMP START
+00114  10D9             
+00115  10D9  A0 0B      DONE       LDY #11
+00116  10DB  8C 02 04   DNLP       STY $0402
+00117  10DE  AD 00 20              LDA $2000
+00118  10E1  C9 01                 CMP #1
+00119  10E3  90 30                 BCC END
+00120  10E5  8C 03 04              STY $0403
+00121  10E8  8D 00 04              STA     $0400           ;DEBUG FOR X-ANIMATION
+00122  10EB  EE 00 D8              INC     $D800
+00123  10EE  A9 90                 LDA #144
+00124  10F0  AE 04 20              LDX $2004
+00125  10F3  9D 20 07              STA $0720,X
+00126  10F6  EE 04 20              INC $2004
+00127  10F9  E8                    INX
+00128  10FA  8E 05 07              STX $0705
+00129  10FD  AE 00 20              LDX $2000
+00130  1100  A9 20                 LDA #$20
+00131  1102  9D C8 04              STA $04C8,X
+00132  1105  CE 00 20              DEC $2000
+00133  1108  CA                    DEX
+00134  1109  8E AD 04              STX $04AD
+00135  110C  20 24 11              JSR DELAY2
+00136  110F  8C 04 04              STY $0404
+00137  1112  88                    DEY
+00138  1113  D0 C6                 BNE DNLP
+00139  1115  EA         END        NOP
+00140  1116  4C 15 11              JMP END
+00141  1119             
+00142  1119             
+00143  1119  8C 05 04   DELAY      STY     $0405
+00144  111C  AD 12 D0              LDA     $D012
+00145  111F  C9 FF                 CMP     #$FF
+00146  1121  D0 F6                 BNE     DELAY
+00147  1123  60                    RTS
+00148  1124             
+00149  1124  A2 7F      DELAY2     LDX     #$7F
+00150  1126  8C 06 04   DELAY3     STY     $0406
+00151  1129  AD 12 D0              LDA     $D012
+00152  112C  C9 FF                 CMP     #$FF
+00153  112E  D0 F6                 BNE     DELAY3
+00154  1130  CA                    DEX
+00155  1131  D0 F3                 BNE     DELAY3
+00156  1133  60                    RTS
+00157  1134             
+00158  1134             
+00159  1134  0A         BAKETIME   BYTE BAKETIMER
+00160  1135             
+
+******* 21 Label(s) *******
+baketime = $1134 
+clearScreen = $1015 
+cont = $1057 
+delay = $1119 
+delay2 = $1124 
+delay3 = $1126 
+dnlp = $10DB 
+done = $10D9 
+end = $1115 
+gone = $086A 
+leave = $107A 
+passers = $083D 
+sell = $1096 
+sellp = $10A2 
+skip = $10D6 
+sold = $0897 
+start = $104A 
+stay = $105E 
+txtloop = $101C 
+wait = $0810 
+WhoStopped = $1039 
+
+******* 3 Unused label(s) *******
+clearScreen
+stay
+WhoStopped
+
+******* 2 Variable(s) *******
+BAKETIMER  = $000A
+tgt_c64  = $0001
+******* 1 Unused variables(s) *******
+tgt_c64
+
