@@ -65,7 +65,7 @@
         BYTE    112,24,12,6,12,24,112,0
         BYTE    60,102,6,12,24,0,24,0
         BYTE    0,0,0,255,255,0,0,0
-        BYTE    56,68,146,154,130,68,56,0
+        BYTE    8,28,62,127,127,28,62,0
         BYTE    24,24,24,24,24,24,24,24
         BYTE    0,0,0,255,255,0,0,0
         BYTE    0,0,255,255,0,0,0,0
@@ -521,9 +521,9 @@
  BYTE 85,116,64
  BYTE 68,112,0
  BYTE 85,64,0
- BYTE 2
+ BYTE 0
 
-; tribuild
+; farm
  BYTE 0,0,0
  BYTE 0,42,168
  BYTE 0,170,174
@@ -545,7 +545,7 @@
  BYTE 23,92,0
  BYTE 23,80,0
  BYTE 0,0,0
- BYTE 2
+ BYTE 0
 
 ; lots of houses
  BYTE 8,0,48
@@ -593,8 +593,223 @@
  BYTE 85,87,235
  BYTE 70,71,40
  BYTE 87,84,0
- BYTE 2
+ BYTE 0
 
+; Truck Drive Frame 1
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 10,170,160
+ BYTE 6,170,168
+ BYTE 5,170,170
+ BYTE 37,191,250
+ BYTE 169,191,250
+ BYTE 170,191,250
+ BYTE 106,170,170
+ BYTE 25,90,86
+ BYTE 55,213,125
+ BYTE 3,192,60
+ BYTE 3,192,60
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0
+
+; Truck Drive Frame 2
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 10,170,160
+ BYTE 6,170,168
+ BYTE 5,170,170
+ BYTE 37,191,250
+ BYTE 169,191,250
+ BYTE 170,191,250
+ BYTE 106,170,170
+ BYTE 25,90,86
+ BYTE 55,213,125
+ BYTE 3,192,60
+ BYTE 3,192,60
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0
+
+; Truck Drive Frame 3
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 10,170,160
+ BYTE 6,170,168
+ BYTE 5,170,170
+ BYTE 37,191,250
+ BYTE 169,191,250
+ BYTE 170,191,250
+ BYTE 106,170,170
+ BYTE 25,90,86
+ BYTE 52,21,65
+ BYTE 63,195,252
+ BYTE 3,192,60
+ BYTE 3,192,60
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0
+
+; Truck Drive Frame 4
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 10,170,160
+ BYTE 6,170,168
+ BYTE 5,170,170
+ BYTE 37,191,250
+ BYTE 169,191,250
+ BYTE 170,191,250
+ BYTE 106,170,170
+ BYTE 25,90,86
+ BYTE 7,213,125
+ BYTE 3,192,60
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0
+
+; Car Drive Frame 1
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,170,128
+ BYTE 1,170,160
+ BYTE 41,106,168
+ BYTE 170,102,104
+ BYTE 170,170,168
+ BYTE 42,170,168
+ BYTE 15,40,240
+ BYTE 15,0,240
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0
+
+; Car Drive Frame 1
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,170,128
+ BYTE 1,170,160
+ BYTE 41,106,168
+ BYTE 170,102,104
+ BYTE 170,170,168
+ BYTE 42,170,168
+ BYTE 15,40,240
+ BYTE 15,0,240
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0
+
+; Car Drive Frame 1
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,170,128
+ BYTE 1,170,160
+ BYTE 41,106,168
+ BYTE 170,102,104
+ BYTE 170,170,168
+ BYTE 42,170,168
+ BYTE 60,43,192
+ BYTE 15,0,240
+ BYTE 15,0,240
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0
+
+; Car Drive Frame 1
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,170,128
+ BYTE 1,170,160
+ BYTE 41,106,168
+ BYTE 170,102,104
+ BYTE 170,170,168
+ BYTE 42,170,168
+ BYTE 15,40,240
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0
+
+; boom
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,0,0
+ BYTE 0,8,0
+ BYTE 8,8,0
+ BYTE 0,195,0
+ BYTE 1,199,0
+ BYTE 45,212,0
+ BYTE 11,92,0
+ BYTE 15,127,0
+ BYTE 3,183,32
+ BYTE 161,117,0
+ BYTE 15,243,192
+ BYTE 13,112,192
+ BYTE 60,20,0
+ BYTE 48,52,0
+ BYTE 0,60,128
+ BYTE 10,4,128
+ BYTE 8,12,0
+ BYTE 0,12,0
+ BYTE 0,12,0
+ BYTE 0
 
 ; 10 SYS (26112)
 
@@ -668,10 +883,21 @@ speedcount      byte 12
 timeinit        byte 8
 time            byte 8
 
+carspeedinit    byte 2
+carspeed        byte 2
+carlane         byte 2
+lanepos         byte 80,100,124,148
+travelspeed     byte 1
+enemyspeed      byte 1
+laneflag        byte 0
+speedflag       byte 10
+
 trendyfood      byte 1
 idealprice      byte 3
 idealpriceHi    byte 0
 
+streetline      byte 6
+streetlineinit  byte 6
 
 ;throw away vars
 throw1  byte 0
@@ -680,7 +906,25 @@ throw3  byte 0
 throw4  byte 0
 throw5  byte 0
 
+;spriteFrameCounts
+AnimateSprite1  byte 0
+Sprite1Frame    byte 0
+Sprite2Frame    byte 0
 
+;Col Vars
+S1Col byte 0,0
+S2col byte 0,0
+S3col byte 0,0
+S4col byte 0,0
+S5col byte 0,0
+S6col byte 0,0
+S7col byte 0,0
+S8col byte 0,0
+
+
+;joy stuff
+dx byte 0
+dy byte 0
 
 ;city menu
 cityoptions     null '1 shop '
@@ -702,14 +946,40 @@ neigh3 byte 60,0,6,0,8,1
 neigh4 byte 75,0,3,0,3,2
 neigh5 byte 0,0,0,0,0,0
 
-spritetochry 
-
 ;Set Constants;
 scnsrt          = #$0400
 SPR_ROOT        = ($3000/64)
 rand            = $d41b
 leavchance      = #$e6
 firstguy        = $051d
+Sprite1         = $07f8
+Sprite1x        = $d000
+Sprite1y        = $d001
+Sprite2         = $07f9
+Sprite2x        = $d002
+Sprite2y        = $d003
+Sprite3         = $07fa
+Sprite3x        = $d004
+Sprite3y        = $d005
+Sprite4         = $07fb
+Sprite4x        = $d006
+Sprite4y        = $d007
+Sprite5         = $07fc
+Sprite5x        = $d008
+Sprite5y        = $d009
+Sprite6         = $07fd
+Sprite6x        = $d00a
+Sprite6y        = $d00b
+Sprite7         = $07fe
+Sprite7x        = $d00c
+Sprite7y        = $d00d
+Sprite8         = $07ff
+Sprite8x        = $d00e
+Sprite8y        = $d00f
+
+TruckSprite     = #SPR_ROOT+14 
+CarSprite       = #SPR_ROOT+18 
+BoomSprite      = #SPR_ROOT+22
 
 defm 16bitadd 
         clc

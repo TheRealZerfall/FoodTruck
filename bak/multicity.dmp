@@ -991,7 +991,7 @@
 00991  0A0C                        CLC
 00992  0A0C             @GO        
 00993  0A0C             
-00994  0A0C                        ENDM
+00994  0A0C             
 00995  0A0C             
 00996  0A0C             DEFM       16BITSUB
 00997  0A0C                        
@@ -1004,7 +1004,7 @@
 01004  0A0C                        SEC
 01005  0A0C             @GO        
 01006  0A0C             
-01007  0A0C                        ENDM
+01007  0A0C             
 01008  0A0C             
 01009  0A0C             DEFM       CONV2DEC   ;HTTP://WWW.MELON64.COM/FORUM/VIEWTOPIC.PHP?F=25&T=401&SID=0AE0DF3CFC87B121FE84D14C9EF605B3&START=10
 01010  0A0C                        LDY /2        ;2 IS THE HIGH BITE FOR A NUMBER (SET TO #0 IF NOT USED)
@@ -1037,7 +1037,7 @@
 01037  0A0C                        BNE @LOOP
 01038  0A0C                        RTS
 01039  0A0C             @MACEND
-01040  0A0C                        ENDM
+01040  0A0C             
 01041  0A0C             
 01042  0A0C             DEFM       PRINTATX
 01043  0A0C                        LDX #0
@@ -1046,7 +1046,7 @@
 01046  0A0C                        INX
 01047  0A0C                        CPX #/3
 01048  0A0C                        BNE @LOOP
-01049  0A0C                        ENDM
+01049  0A0C             
 01050  0A0C             
 01051  0A0C             DEFM       CONV2DEC8BIT   ;HTTP://WWW.MELON64.COM/FORUM/VIEWTOPIC.PHP?F=25&T=401&SID=0AE0DF3CFC87B121FE84D14C9EF605B3&START=10
 01052  0A0C                        LDY #0        ;2 IS THE HIGH BITE FOR A NUMBER (SET TO #0 IF NOT USED)
@@ -1081,7 +1081,7 @@
 01081  0A0C                        BNE @LOOP
 01082  0A0C                        RTS
 01083  0A0C             @MACEND
-01084  0A0C                        ENDM
+01084  0A0C             
 01085  0A0C             
 01086  0A0C             DEFM       DRAWSHOP
 01087  0A0C                        LDA #$70
@@ -1103,7 +1103,7 @@
 01103  0A0C                        LDA #$7D
 01104  0A0C                        STA /1+82
 01105  0A0C             
-01106  0A0C                        ENDM
+01106  0A0C             
 01107  0A0C             
 01108  0A0C             *=$6600    
 01109  6600  A9 6F                 LDA #$6F        ;THIS PART INITALIZED NOISE CHANNEL FOR RANDOM
@@ -1668,1570 +1668,1559 @@
 01668  6A61  20 E4 FF   INPUT      JSR $FFE4       ; READ KEY
 01669  6A64  F0 FB                 BEQ INPUT
 01670  6A66  C9 31                 CMP #$31        ; RETURN KEY
-01671  6A68  F0 17                 BEQ SHOP
+01671  6A68  F0 13                 BEQ SHOP
 01672  6A6A  C9 32                 CMP #$32
-01673  6A6C  F0 3F                 BEQ HIRE
+01673  6A6C  F0 3B                 BEQ HIRE
 01674  6A6E  C9 33                 CMP #$33
-01675  6A70  F0 4B                 BEQ SCHOOL
+01675  6A70  F0 47                 BEQ SCHOOL
 01676  6A72  C9 34                 CMP #$34
-01677  6A74  F0 77                 BEQ SETUP
+01677  6A74  F0 63                 BEQ SETUP
 01678  6A76  C9 35                 CMP #$35
-01679  6A78  F0 63                 BEQ HITTHEROAD
-01680  6A7A  C9 36                 CMP #$36
-01681  6A7C  F0 5F                 BEQ HITTHEROAD
-01682  6A7E  4C 61 6A              JMP INPUT
-01683  6A81             
-01684  6A81  A2 0B      SHOP       LDX #11
-01685  6A83  A9 80      @LOOP      LDA #%10000000
-01686  6A85  5D 84 05              EOR $0584,X
-01687  6A88  9D 84 05              STA $0584,X
-01688  6A8B  CA                    DEX
-01689  6A8C  D0 F5                 BNE @LOOP
-01690  6A8E  EE 22 09              INC TIME
-01691  6A91  A2 1E      @DELAY     LDX #30
-01692  6A93  AD 12 D0   @DELAYLOOP LDA     $D012
-01693  6A96  C9 FF                 CMP     #$FF
-01694  6A98  D0 F9                 BNE     @DELAYLOOP
-01695  6A9A  CA                    DEX
-01696  6A9B  D0 F6                 BNE @DELAYLOOP
-01697  6A9D  A2 0B                 LDX #11
-01698  6A9F  A9 80      @LOOP2     LDA #%10000000
-01699  6AA1  5D 84 05              EOR $0584,X
-01700  6AA4  9D 84 05              STA $0584,X
-01701  6AA7  CA                    DEX
-01702  6AA8  D0 F5                 BNE @LOOP2
-01703  6AAA  4C AD 69              JMP CHOICE
-01704  6AAD             
-01705  6AAD  A2 0A      HIRE       LDX #10
-01706  6AAF  A9 80      @LOOP      LDA #%10000000
-01707  6AB1  5D D4 05              EOR $05D4,X
-01708  6AB4  9D D4 05              STA $05D4,X
-01709  6AB7  CA                    DEX
-01710  6AB8  F0 A7                 BEQ INPUT
-01711  6ABA  4C AF 6A              JMP @LOOP
-01712  6ABD             
-01713  6ABD  A2 0A      SCHOOL     LDX #10
-01714  6ABF  A9 80      @LOOP      LDA #%10000000
-01715  6AC1  5D 24 06              EOR $0624,X
-01716  6AC4  9D 24 06              STA $0624,X
-01717  6AC7  CA                    DEX
-01718  6AC8  F0 97                 BEQ INPUT
-01719  6ACA  4C BF 6A              JMP @LOOP
-01720  6ACD             
-01721  6ACD  A2 0A      PUB        LDX #10
-01722  6ACF  A9 80      @LOOP      LDA #%10000000
-01723  6AD1  5D C4 06              EOR $06C4,X
-01724  6AD4  9D C4 06              STA $06C4,X
-01725  6AD7  CA                    DEX
-01726  6AD8  F0 87                 BEQ INPUT
-01727  6ADA  4C CF 6A              JMP @LOOP
-01728  6ADD             
-01729  6ADD             
-01730  6ADD  A2 0A      HITTHEROAD LDX #10
-01731  6ADF  A9 80      @LOOP      LDA #%10000000
-01732  6AE1  5D EC 06              EOR $06C4+40,X
-01733  6AE4  9D EC 06              STA $06C4+40,X
-01734  6AE7  CA                    DEX
-01735  6AE8  D0 F5                 BNE @LOOP
-01736  6AEA  4C CB 72              JMP DRIVINGSTUFF
-01737  6AED             
-01738  6AED  A2 0A      SETUP      LDX #10
-01739  6AEF  A9 80      @LOOP      LDA #%10000000
-01740  6AF1  5D 74 06              EOR $0674,X
-01741  6AF4  9D 74 06              STA $0674,X
-01742  6AF7  CA                    DEX
-01743  6AF8  F0 03                 BEQ @DELAY
-01744  6AFA  4C EF 6A              JMP @LOOP
-01745  6AFD                        
-01746  6AFD  A2 1E      @DELAY     LDX #30
-01747  6AFF  AD 12 D0   @DELAYLOOP LDA     $D012
-01748  6B02  C9 FF                 CMP     #$FF
-01749  6B04  D0 F9                 BNE     @DELAYLOOP
-01750  6B06  CA                    DEX
-01751  6B07  D0 F6                 BNE @DELAYLOOP
-01752  6B09             
-01753  6B09  A2 0A                 LDX #10
-01754  6B0B  BD BA 09   @LOOP2     LDA CITY + 9,X
-01755  6B0E  9D 85 05              STA $0585,X
-01756  6B11  BD C4 09              LDA CITY + 19,X
-01757  6B14  9D D5 05              STA $05D5,X
-01758  6B17  BD CE 09              LDA CITY + 29,X
-01759  6B1A  9D 25 06              STA $0625,X
-01760  6B1D  BD D8 09              LDA CITY + 39,X
-01761  6B20  9D 75 06              STA $0675,X
-01762  6B23  BD E2 09              LDA CITY + 49,X
-01763  6B26  9D C5 06              STA $06C5,X
-01764  6B29  E0 00                 CPX #0
-01765  6B2B  CA                    DEX
-01766  6B2C  D0 DD                 BNE @LOOP2
-01767  6B2E             
-01768  6B2E  20 E4 FF   INPUT2     JSR $FFE4       ; READ KEY
-01769  6B31  F0 FB                 BEQ INPUT2
-01770  6B33  A2 01                 LDX #1
-01771  6B35  C9 31                 CMP #$31        ; 1 KEY
-01772  6B37  F0 7E                 BEQ SETNAY
-01773  6B39  A0 01                 LDY #1
-01774  6B3B  CC ED 09              CPY CITYVARS
-01775  6B3E  F0 EE                 BEQ INPUT2
-01776  6B40  E8                    INX
-01777  6B41  C9 32                 CMP #$32
-01778  6B43  F0 72                 BEQ SETNAY
-01779  6B45  C8                    INY
-01780  6B46  CC ED 09              CPY CITYVARS
-01781  6B49  F0 E3                 BEQ INPUT2
-01782  6B4B  E8                    INX
-01783  6B4C  C9 33                 CMP #$33
-01784  6B4E  F0 67                 BEQ SETNAY
-01785  6B50  C8                    INY
-01786  6B51  CC ED 09              CPY CITYVARS
-01787  6B54  F0 D8                 BEQ INPUT2
-01788  6B56  E8                    INX
-01789  6B57  C9 34                 CMP #$34
-01790  6B59  F0 5C                 BEQ SETNAY
-01791  6B5B  C8                    INY
-01792  6B5C  CC ED 09              CPY CITYVARS
-01793  6B5F  F0 CD                 BEQ INPUT2
-01794  6B61  E8                    INX
-01795  6B62  C9 35                 CMP #$35
-01796  6B64  F0 51                 BEQ SETNAY
-01797  6B66  4C 2E 6B              JMP INPUT2
-01798  6B69  AD FA 09   NAY3SET    LDA NEIGH3
-01799  6B6C  8D 1D 08              STA POPCOUNT
-01800  6B6F  AD FB 09              LDA NEIGH3+1
-01801  6B72  8D 1E 08              STA POPCOUNTHI
-01802  6B75  AD FC 09              LDA NEIGH3+2
-01803  6B78  8D 2F 09              STA IDEALPRICE
-01804  6B7B  AD FD 09              LDA NEIGH3+3
-01805  6B7E  8D 30 09              STA IDEALPRICEHI
-01806  6B81  AD FE 09              LDA NEIGH3+4
-01807  6B84  8D 35 08              STA HIPSTERLV
-01808  6B87  AD FF 09              LDA NEIGH3+5
-01809  6B8A  8D 2E 09              STA TRENDYFOOD
-01810  6B8D  4C 3C 6C              JMP SETPRICE
-01811  6B90  AD 00 0A   NAY4SET    LDA NEIGH4
-01812  6B93  8D 1D 08              STA POPCOUNT
-01813  6B96  AD 01 0A              LDA NEIGH4+1
-01814  6B99  8D 1E 08              STA POPCOUNTHI
-01815  6B9C  AD 02 0A              LDA NEIGH4+2
-01816  6B9F  8D 2F 09              STA IDEALPRICE
-01817  6BA2  AD 03 0A              LDA NEIGH4+3
-01818  6BA5  8D 30 09              STA IDEALPRICEHI
-01819  6BA8  AD 04 0A              LDA NEIGH4+4
-01820  6BAB  8D 35 08              STA HIPSTERLV
-01821  6BAE  AD 05 0A              LDA NEIGH4+5
-01822  6BB1  8D 2E 09              STA TRENDYFOOD
-01823  6BB4  4C 3C 6C              JMP SETPRICE
-01824  6BB7  E0 01      SETNAY     CPX #1
-01825  6BB9  F0 33                 BEQ NAY1SET
-01826  6BBB  E0 02                 CPX #2
-01827  6BBD  F0 56                 BEQ NAY2SET
-01828  6BBF  E0 03                 CPX #3
-01829  6BC1  F0 A6                 BEQ NAY3SET
-01830  6BC3  E0 04                 CPX #4
-01831  6BC5  F0 C9                 BEQ NAY4SET
-01832  6BC7  AD 06 0A              LDA NEIGH5
-01833  6BCA  8D 1D 08              STA POPCOUNT
-01834  6BCD  AD 07 0A              LDA NEIGH5+1
-01835  6BD0  8D 1E 08              STA POPCOUNTHI
-01836  6BD3  AD 08 0A              LDA NEIGH5+2
-01837  6BD6  8D 2F 09              STA IDEALPRICE
-01838  6BD9  AD 09 0A              LDA NEIGH5+3
-01839  6BDC  8D 30 09              STA IDEALPRICEHI
-01840  6BDF  AD 0A 0A              LDA NEIGH5+4
-01841  6BE2  8D 35 08              STA HIPSTERLV
-01842  6BE5  AD 0B 0A              LDA NEIGH5+5
-01843  6BE8  8D 2E 09              STA TRENDYFOOD
-01844  6BEB  4C 3C 6C              JMP SETPRICE
-01845  6BEE  AD EE 09   NAY1SET    LDA NEIGH1
-01846  6BF1  8D 1D 08              STA POPCOUNT
-01847  6BF4  AD EF 09              LDA NEIGH1+1
-01848  6BF7  8D 1E 08              STA POPCOUNTHI
-01849  6BFA  AD F0 09              LDA NEIGH1+2
-01850  6BFD  8D 2F 09              STA IDEALPRICE
-01851  6C00  AD F1 09              LDA NEIGH1+3
-01852  6C03  8D 30 09              STA IDEALPRICEHI
-01853  6C06  AD F2 09              LDA NEIGH1+4
-01854  6C09  8D 35 08              STA HIPSTERLV
-01855  6C0C  AD F3 09              LDA NEIGH1+5
-01856  6C0F  8D 2E 09              STA TRENDYFOOD
-01857  6C12  4C 3C 6C              JMP SETPRICE
-01858  6C15  AD F4 09   NAY2SET    LDA NEIGH2
-01859  6C18  8D 1D 08              STA POPCOUNT
-01860  6C1B  AD F5 09              LDA NEIGH2+1
-01861  6C1E  8D 1E 08              STA POPCOUNTHI
-01862  6C21  AD F6 09              LDA NEIGH2+2
-01863  6C24  8D 2F 09              STA IDEALPRICE
-01864  6C27  AD F7 09              LDA NEIGH2+3
-01865  6C2A  8D 30 09              STA IDEALPRICEHI
-01866  6C2D  AD F8 09              LDA NEIGH2+4
-01867  6C30  8D 35 08              STA HIPSTERLV
-01868  6C33  AD F9 09              LDA NEIGH2+5
-01869  6C36  8D 2E 09              STA TRENDYFOOD
-01870  6C39  4C 3C 6C              JMP SETPRICE
-01871  6C3C             
-01872  6C3C  20 44 E5   SETPRICE   JSR $E544
-01873  6C3F  A9 00                 LDA #%00000000
-01874  6C41  8D 15 D0              STA $D015       ;TURN OFF SPRITES
-01875  6C44  A2 00                 LDX #0
-01876  6C46  BD 7B 09   @LOOP      LDA PRICETITLE,X                      ;ADDS WORDS
-01877  6C49  C9 00                 CMP #0
-01878  6C4B  F0 0C                 BEQ SHOWNUM
-01879  6C4D  9D 59 06              STA SCNSRT+601,X
-01880  6C50  BD 96 09              LDA SETPRICETX,X
-01881  6C53  9D 81 06              STA SCNSRT+641,X
-01882  6C56  E8                    INX
-01883  6C57  D0 ED                 BNE @LOOP
-01884  6C59             SHOWNUM
-01885  6C59             
-01886  6C59             
-01887  6C59  A0 00                 LDY #0
-01888  6C5B  AE 11 08              LDX PRICE
-01889  6C5E  8E 2D 08              STX DIV_LO
-01890  6C61  8C 2E 08              STY DIV_HI
-01891  6C64  A0 04                 LDY #$04
-01892  6C66             @NEXT
-01893  6C66  20 78 6C              JSR @DIV10
-01894  6C69  09 30                 ORA #$30
-01895  6C6B  C0 03                 CPY #3
-01896  6C6D  90 03                 BCC @SKIPNUM
-01897  6C6F  99 B1 06              STA $06B1,Y
-01898  6C72  88         @SKIPNUM   DEY
-01899  6C73  10 F1                 BPL @NEXT
-01900  6C75  4C 8F 6C              JMP @MACEND
-01901  6C78             
-01902  6C78             @DIV10
-01903  6C78  A2 11                 LDX #$11
-01904  6C7A  A9 00                 LDA #$00
-01905  6C7C  18                    CLC
-01906  6C7D             @LOOP
-01907  6C7D  2A                    ROL
-01908  6C7E  C9 0A                 CMP #$0A
-01909  6C80  90 03                 BCC @SKIP
-01910  6C82  E9 0A                 SBC #$0A
-01911  6C84  B8                    CLV
-01912  6C85             @SKIP
-01913  6C85  2E 2D 08              ROL DIV_LO
-01914  6C88  2E 2E 08              ROL DIV_HI
-01915  6C8B  CA                    DEX
-01916  6C8C  D0 EF                 BNE @LOOP
-01917  6C8E  60                    RTS
-01918  6C8F             @MACEND
-01919  6C8F             @PRICELOOP 
-01920  6C8F  20 E4 FF   @READKEY   JSR $FFE4       ; READ KEY
-01921  6C92  F0 FB                 BEQ @READKEY
-01922  6C94  C9 0D      @ENTER     CMP #$0D        ;ENTER
-01923  6C96  D0 03                 BNE @UP
-01924  6C98  4C BD 6C              JMP SELLINIT
-01925  6C9B             
-01926  6C9B  C9 91      @UP        CMP #$91       ;UP ARROW
-01927  6C9D  D0 0D                 BNE @DOWN
-01928  6C9F  AD 11 08              LDA PRICE
-01929  6CA2  C9 63                 CMP #99
-01930  6CA4  F0 E9                 BEQ @READKEY
-01931  6CA6  EE 11 08              INC PRICE
-01932  6CA9  4C 59 6C              JMP SHOWNUM
-01933  6CAC             
-01934  6CAC  C9 11      @DOWN      CMP #$11        ;DOWN ARROW
-01935  6CAE  D0 DF                 BNE @PRICELOOP
-01936  6CB0  AD 11 08              LDA PRICE
-01937  6CB3  C9 00                 CMP #0
-01938  6CB5  F0 D8                 BEQ @READKEY
-01939  6CB7  CE 11 08              DEC PRICE
-01940  6CBA  4C 59 6C              JMP SHOWNUM
-01941  6CBD             
-01942  6CBD             
-01943  6CBD             SELLINIT   
-01944  6CBD  AD 1F 09              LDA     SPEEDINIT
-01945  6CC0  ED 1C 09              SBC     SPEED
-01946  6CC3  8D 20 09              STA     SPEEDCOUNT
-01947  6CC6  8D 31 08              STA     BAKETIMER       ;INIT BAKE SPEED
-01948  6CC9             
-01949  6CC9             SELLSTYLEZ 
-01950  6CC9             
-01951  6CC9  AD 2E 09   SETFOOD    LDA TRENDYFOOD                ;LOAD TRENDY NUMBER
-01952  6CCC  C9 02                 CMP #2
-01953  6CCE  F0 0C                 BEQ @BURG         ;AND ASSIGN THE SPRITE FOR IT
-01954  6CD0  C9 03                 CMP #3
-01955  6CD2  F0 10                 BEQ @DOGS
-01956  6CD4  A9 07                 LDA #7
-01957  6CD6  8D 2A D0              STA $D02A
-01958  6CD9  4C E9 6C              JMP SETCOLFOOD
-01959  6CDC  A9 08      @BURG      LDA #8
-01960  6CDE  8D 2A D0              STA $D02A
-01961  6CE1  4C E9 6C              JMP SETCOLFOOD
-01962  6CE4  A9 02      @DOGS      LDA #2
-01963  6CE6  8D 2A D0              STA $D02A
-01964  6CE9             
-01965  6CE9  AD 32 08   SETCOLFOOD LDA TRUCKTYPE
-01966  6CEC  CD 2E 09              CMP TRENDYFOOD
-01967  6CEF  D0 03                 BNE @CONT
-01968  6CF1  4E 34 08              LSR STOPCHANCE
-01969  6CF4  C9 01      @CONT      CMP #1
-01970  6CF6  F0 0C                 BEQ @TACO
-01971  6CF8  C9 02                 CMP #2
-01972  6CFA  F0 10                 BEQ @BURG
-01973  6CFC  A9 02                 LDA #2
-01974  6CFE  8D 2F 08              STA FOODCOL       ;STORESPRITE3 COLOUR
-01975  6D01  4C 11 6D              JMP SELLSTART
-01976  6D04  A9 07      @TACO      LDA #7
-01977  6D06  8D 2F 08              STA FOODCOL       ;STORESPRITE3 COLOUR
-01978  6D09  4C 11 6D              JMP SELLSTART
-01979  6D0C  A9 08      @BURG      LDA #8
-01980  6D0E  8D 2F 08              STA FOODCOL       ;STORESPRITE3 COLOUR
-01981  6D11                        
-01982  6D11             
-01983  6D11  20 44 E5   SELLSTART  JSR $E544       ;CLEAR SCREEN4
-01984  6D14  A9 00                 LDA #0              ;SET BORDER COLOUR
-01985  6D16  8D 20 D0              STA $D020
-01986  6D19  A9 0C                 LDA #12         ;SET BACKGROUND COLOUR
-01987  6D1B  8D 21 D0              STA $D021
-01988  6D1E  A9 01                 LDA #1          ;SET GLOBAL SPRITE COLOUR 1
-01989  6D20  8D 25 D0              STA $D025
-01990  6D23  A9 09                 LDA #9         ;SET GLOBAL SPRITE COLOUR 2
-01991  6D25  8D 26 D0              STA $D026
-01992  6D28  A9 05                 LDA #5
-01993  6D2A  8D 28 D0              STA $D028       ;STORESPRITE1 COLOUR
-01994  6D2D  A9 03                 LDA #3
-01995  6D2F  8D 29 D0              STA $D029       ;STORESPRITE2 COLOUR
-01996  6D32  AD 2F 08              LDA FOODCOL
-01997  6D35  8D 27 D0              STA $D027       ;STORESPRITE3 COLOUR
-01998  6D38  A9 0F                 LDA #%00001111
-01999  6D3A  8D 15 D0              STA $D015       ;TURN ON SPRITES
-02000  6D3D  8D 1C D0              STA $D01C       ;SET SPRITE MODE
-02001  6D40  8D 1B D0              STA $D01B       ;SET SPRITE BEHIND TEXT
-02002  6D43  A9 0D                 LDA #%00001101  ;SET SPRITE SIZE
-02003  6D45  8D 17 D0              STA $D017
-02004  6D48  A9 04                 LDA #%00000100  ;SET SPRITE SIZE
-02005  6D4A  8D 1D D0              STA $D01D
-02006  6D4D  A9 C3                 LDA #SPR_ROOT+3         ;LOAD SPRITE OF FOOD
-02007  6D4F  6D 32 08              ADC TRUCKTYPE
-02008  6D52  8D F8 07              STA $07F8
-02009  6D55  A9 32                 LDA #50
-02010  6D57  8D 00 D0              STA $D000
-02011  6D5A  A9 38                 LDA #56
-02012  6D5C  8D 01 D0              STA $D001
-02013  6D5F  A9 C4                 LDA #SPR_ROOT+4         ;LOAD SPRITE OF VENDOR
-02014  6D61  8D F9 07              STA $07F9
-02015  6D64  A9 40                 LDA #64
-02016  6D66  8D 02 D0              STA $D002
-02017  6D69  A9 56                 LDA #86
-02018  6D6B  8D 03 D0              STA $D003
-02019  6D6E  A9 C3                 LDA #SPR_ROOT+3         ;LOAD SPRITE OF TRUCK (THEY OVERLAP TO MAKE A NICER SPRITE)
-02020  6D70  8D FA 07              STA $07FA
-02021  6D73  A9 28                 LDA #40
-02022  6D75  8D 04 D0              STA $D004
-02023  6D78  0A                    ASL
-02024  6D79  8D 05 D0              STA $D005
-02025  6D7C  AD 2E 09              LDA TRENDYFOOD
-02026  6D7F  8D 00 04              STA $0400
-02027  6D82  A9 C4                 LDA #SPR_ROOT+4         ;LOAD SPRITE OF TRENDING FOOD
-02028  6D84  6D 2E 09              ADC TRENDYFOOD
-02029  6D87  8D FB 07              STA $07FB
-02030  6D8A  A9 5A                 LDA #90
-02031  6D8C  8D 06 D0              STA $D006
-02032  6D8F  A9 8C                 LDA #140
-02033  6D91  8D 07 D0              STA $D007
-02034  6D94             
-02035  6D94  A2 00                 LDX #0
-02036  6D96  A9 01                 LDA #1
-02037  6D98  9D 00 D8   COLFIL2    STA $D800,X                     ;FILL COLOR RAM WHITE
-02038  6D9B  9D 00 D9              STA $D900,X
-02039  6D9E  9D 00 DA              STA $DA00,X
-02040  6DA1  9D E8 DA              STA $DAE8,X
-02041  6DA4  CA                    DEX
-02042  6DA5  D0 F1                 BNE COLFIL2
-02043  6DA7  A2 14                 LDX    #20
-02044  6DA9  A9 60                 LDA #$60
-02045  6DAB             LINESTART  
-02046  6DAB  9D 1D 05              STA     FIRSTGUY,X              ;MAKE SURE LINE IS SPACES
-02047  6DAE  CA                    DEX
-02048  6DAF  D0 FA                 BNE LINESTART
-02049  6DB1  A2 00                 LDX #0
-02050  6DB3  BD A6 08   WRITE      LDA TRENDLBL,X                      ;ADDS WORDS
-02051  6DB6  9D 59 06              STA SCNSRT+601,X
-02052  6DB9  BD C2 08              LDA PASSLBL,X
-02053  6DBC  9D A9 06              STA SCNSRT+681,X
-02054  6DBF  BD B4 08              LDA WAITLBL,X
-02055  6DC2  9D F9 06              STA SCNSRT+761,X
-02056  6DC5  BD DE 08              LDA SOLDLBL,X
-02057  6DC8  9D 49 07              STA SCNSRT+841,X
-02058  6DCB  BD D0 08              LDA GONELBL,X
-02059  6DCE  9D 99 07              STA SCNSRT+921,X
-02060  6DD1  BD EC 08              LDA POPLBL,X
-02061  6DD4  9D 14 04              STA SCNSRT+20,X
-02062  6DD7  E8                    INX
-02063  6DD8  E0 07                 CPX #7
-02064  6DDA  D0 D7                 BNE WRITE
-02065  6DDC                        
-02066  6DDC             NEWCUST    
-02067  6DDC  A9 00                 LDA #0              ;SET BORDER COLOUR
-02068  6DDE  8D 20 D0              STA $D020
-02069  6DE1  AD 20 08              LDA VISITCOUNTHI
-02070  6DE4  CD 1E 08              CMP POPCOUNTHI
-02071  6DE7  D0 0B                 BNE CYCLESTART
-02072  6DE9  AD 1F 08              LDA VISITCOUNT
-02073  6DEC  CD 1D 08              CMP POPCOUNT
-02074  6DEF  D0 03                 BNE CYCLESTART
-02075  6DF1  4C A0 71              JMP SUMMARY
-02076  6DF4             CYCLESTART 
-02077  6DF4             
-02078  6DF4             
-02079  6DF4  18                    CLC
-02080  6DF5  AD 1F 08              LDA VISITCOUNT
-02081  6DF8  69 01                 ADC #1
-02082  6DFA  8D 1F 08              STA VISITCOUNT
-02083  6DFD  90 04                 BCC @GO
-02084  6DFF  EE 20 08              INC VISITCOUNTHI
-02085  6E02  18                    CLC
-02086  6E03             @GO        
-02087  6E03             
-02088  6E03             
-02089  6E03             
-02090  6E03  AC 16 08              LDY PASSCOUNTHI
-02091  6E06  AE 15 08              LDX PASSCOUNT
-02092  6E09  8E 2D 08              STX DIV_LO
-02093  6E0C  8C 2E 08              STY DIV_HI
-02094  6E0F  A0 04                 LDY #$04
-02095  6E11             @NEXT
-02096  6E11  20 1F 6E              JSR @DIV10
-02097  6E14  09 30                 ORA #$30
-02098  6E16  99 B1 06              STA $06B1,Y
-02099  6E19  88                    DEY
-02100  6E1A  10 F5                 BPL @NEXT
-02101  6E1C  4C 36 6E              JMP @MACEND
-02102  6E1F             
-02103  6E1F             @DIV10
-02104  6E1F  A2 11                 LDX #$11
-02105  6E21  A9 00                 LDA #$00
-02106  6E23  18                    CLC
-02107  6E24             @LOOP
-02108  6E24  2A                    ROL
-02109  6E25  C9 0A                 CMP #$0A
-02110  6E27  90 03                 BCC @SKIP
-02111  6E29  E9 0A                 SBC #$0A
-02112  6E2B  B8                    CLV
-02113  6E2C             @SKIP
-02114  6E2C  2E 2D 08              ROL DIV_LO
-02115  6E2F  2E 2E 08              ROL DIV_HI
-02116  6E32  CA                    DEX
-02117  6E33  D0 EF                 BNE @LOOP
-02118  6E35  60                    RTS
-02119  6E36             @MACEND
-02120  6E36             
-02121  6E36             
-02122  6E36  AC 18 08              LDY LINECOUNTHI
-02123  6E39  AE 17 08              LDX LINECOUNT
-02124  6E3C  8E 2D 08              STX DIV_LO
-02125  6E3F  8C 2E 08              STY DIV_HI
-02126  6E42  A0 04                 LDY #$04
-02127  6E44             @NEXT
-02128  6E44  20 52 6E              JSR @DIV10
-02129  6E47  09 30                 ORA #$30
-02130  6E49  99 01 07              STA $0701,Y
-02131  6E4C  88                    DEY
-02132  6E4D  10 F5                 BPL @NEXT
-02133  6E4F  4C 69 6E              JMP @MACEND
-02134  6E52             
-02135  6E52             @DIV10
-02136  6E52  A2 11                 LDX #$11
-02137  6E54  A9 00                 LDA #$00
-02138  6E56  18                    CLC
-02139  6E57             @LOOP
-02140  6E57  2A                    ROL
-02141  6E58  C9 0A                 CMP #$0A
-02142  6E5A  90 03                 BCC @SKIP
-02143  6E5C  E9 0A                 SBC #$0A
-02144  6E5E  B8                    CLV
-02145  6E5F             @SKIP
-02146  6E5F  2E 2D 08              ROL DIV_LO
-02147  6E62  2E 2E 08              ROL DIV_HI
-02148  6E65  CA                    DEX
-02149  6E66  D0 EF                 BNE @LOOP
-02150  6E68  60                    RTS
-02151  6E69             @MACEND
-02152  6E69             
-02153  6E69             
-02154  6E69  AC 1A 08              LDY SALECOUNTHI
-02155  6E6C  AE 19 08              LDX SALECOUNT
-02156  6E6F  8E 2D 08              STX DIV_LO
-02157  6E72  8C 2E 08              STY DIV_HI
-02158  6E75  A0 04                 LDY #$04
-02159  6E77             @NEXT
-02160  6E77  20 85 6E              JSR @DIV10
-02161  6E7A  09 30                 ORA #$30
-02162  6E7C  99 51 07              STA $0751,Y
-02163  6E7F  88                    DEY
-02164  6E80  10 F5                 BPL @NEXT
-02165  6E82  4C 9C 6E              JMP @MACEND
-02166  6E85             
-02167  6E85             @DIV10
-02168  6E85  A2 11                 LDX #$11
-02169  6E87  A9 00                 LDA #$00
-02170  6E89  18                    CLC
-02171  6E8A             @LOOP
-02172  6E8A  2A                    ROL
-02173  6E8B  C9 0A                 CMP #$0A
-02174  6E8D  90 03                 BCC @SKIP
-02175  6E8F  E9 0A                 SBC #$0A
-02176  6E91  B8                    CLV
-02177  6E92             @SKIP
-02178  6E92  2E 2D 08              ROL DIV_LO
-02179  6E95  2E 2E 08              ROL DIV_HI
-02180  6E98  CA                    DEX
-02181  6E99  D0 EF                 BNE @LOOP
-02182  6E9B  60                    RTS
-02183  6E9C             @MACEND
-02184  6E9C             
-02185  6E9C             
-02186  6E9C  AC 1C 08              LDY LEFTCOUNTHI
-02187  6E9F  AE 1B 08              LDX LEFTCOUNT
-02188  6EA2  8E 2D 08              STX DIV_LO
-02189  6EA5  8C 2E 08              STY DIV_HI
-02190  6EA8  A0 04                 LDY #$04
-02191  6EAA             @NEXT
-02192  6EAA  20 B8 6E              JSR @DIV10
-02193  6EAD  09 30                 ORA #$30
-02194  6EAF  99 A1 07              STA $07A1,Y
-02195  6EB2  88                    DEY
-02196  6EB3  10 F5                 BPL @NEXT
-02197  6EB5  4C CF 6E              JMP @MACEND
-02198  6EB8             
-02199  6EB8             @DIV10
-02200  6EB8  A2 11                 LDX #$11
-02201  6EBA  A9 00                 LDA #$00
-02202  6EBC  18                    CLC
-02203  6EBD             @LOOP
-02204  6EBD  2A                    ROL
-02205  6EBE  C9 0A                 CMP #$0A
-02206  6EC0  90 03                 BCC @SKIP
-02207  6EC2  E9 0A                 SBC #$0A
-02208  6EC4  B8                    CLV
-02209  6EC5             @SKIP
-02210  6EC5  2E 2D 08              ROL DIV_LO
-02211  6EC8  2E 2E 08              ROL DIV_HI
-02212  6ECB  CA                    DEX
-02213  6ECC  D0 EF                 BNE @LOOP
-02214  6ECE  60                    RTS
-02215  6ECF             @MACEND
-02216  6ECF             
-02217  6ECF             
-02218  6ECF  AC 20 08              LDY VISITCOUNTHI
-02219  6ED2  AE 1F 08              LDX VISITCOUNT
-02220  6ED5  8E 2D 08              STX DIV_LO
-02221  6ED8  8C 2E 08              STY DIV_HI
-02222  6EDB  A0 04                 LDY #$04
-02223  6EDD             @NEXT
-02224  6EDD  20 EB 6E              JSR @DIV10
-02225  6EE0  09 30                 ORA #$30
-02226  6EE2  99 18 04              STA $0422-10,Y
-02227  6EE5  88                    DEY
-02228  6EE6  10 F5                 BPL @NEXT
-02229  6EE8  4C 02 6F              JMP @MACEND
-02230  6EEB             
-02231  6EEB             @DIV10
-02232  6EEB  A2 11                 LDX #$11
-02233  6EED  A9 00                 LDA #$00
-02234  6EEF  18                    CLC
-02235  6EF0             @LOOP
-02236  6EF0  2A                    ROL
-02237  6EF1  C9 0A                 CMP #$0A
-02238  6EF3  90 03                 BCC @SKIP
-02239  6EF5  E9 0A                 SBC #$0A
-02240  6EF7  B8                    CLV
-02241  6EF8             @SKIP
-02242  6EF8  2E 2D 08              ROL DIV_LO
-02243  6EFB  2E 2E 08              ROL DIV_HI
-02244  6EFE  CA                    DEX
-02245  6EFF  D0 EF                 BNE @LOOP
-02246  6F01  60                    RTS
-02247  6F02             @MACEND
-02248  6F02             
-02249  6F02             
-02250  6F02  AC 1E 08              LDY POPCOUNTHI
-02251  6F05  AE 1D 08              LDX POPCOUNT
-02252  6F08  8E 2D 08              STX DIV_LO
-02253  6F0B  8C 2E 08              STY DIV_HI
-02254  6F0E  A0 04                 LDY #$04
-02255  6F10             @NEXT
-02256  6F10  20 1E 6F              JSR @DIV10
-02257  6F13  09 30                 ORA #$30
-02258  6F15  99 0E 04              STA $0422-20,Y
-02259  6F18  88                    DEY
-02260  6F19  10 F5                 BPL @NEXT
-02261  6F1B  4C 35 6F              JMP @MACEND
-02262  6F1E             
-02263  6F1E             @DIV10
-02264  6F1E  A2 11                 LDX #$11
-02265  6F20  A9 00                 LDA #$00
-02266  6F22  18                    CLC
-02267  6F23             @LOOP
-02268  6F23  2A                    ROL
-02269  6F24  C9 0A                 CMP #$0A
-02270  6F26  90 03                 BCC @SKIP
-02271  6F28  E9 0A                 SBC #$0A
-02272  6F2A  B8                    CLV
-02273  6F2B             @SKIP
-02274  6F2B  2E 2D 08              ROL DIV_LO
-02275  6F2E  2E 2E 08              ROL DIV_HI
-02276  6F31  CA                    DEX
-02277  6F32  D0 EF                 BNE @LOOP
-02278  6F34  60                    RTS
-02279  6F35             @MACEND
-02280  6F35                        
-02281  6F35  A2 11                 LDX     #17             ;NUMBER OF TIMES TO RUN
-02282  6F37  A9 00                 LDA     #00
-02283  6F39  85 FB                 STA     $FB             ;SET ZERO PAGE FOR START LOCATION
-02284  6F3B  A9 07                 LDA     #$07            ;SET HIGH BIT FOR START LOCATION
-02285  6F3D  85 FC                 STA     $FC
-02286  6F3F  A0 E3                 LDY     #$E3            ;SET LOW BIT FOR START LOCATION
-02287  6F41  38                    SEC                     ;SET CARRY FOR SOME MATH LATER
-02288  6F42  9A         WALKBY     TXS                     ;SAVE X FOR WHEN JSR RETURNS
-02289  6F43  20 88 71              JSR     DELAY2          ;SLOW IT DOWN SO WE CAN SEE IT
-02290  6F46  BA                    TSX                     ;LOAD X BACK INTO X
-02291  6F47  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
-02292  6F49  4D 21 08              EOR     MANFRAME        ;FLIP BIT 8 FOR MANFRAME
-02293  6F4C  8D 21 08              STA     MANFRAME        ;SAVE IT BACK ON MANFRAME
-02294  6F4F  A9 60                 LDA     #$60            ;LOAD " " INTO ACC
-02295  6F51  91 FB                 STA     ($FB),Y         ;LOAD IT AT THE BOTTOM OF SCREEN
-02296  6F53  98                    TYA                     ;TRANSFER Y TO ACCUMULATOR THEN
-02297  6F54  E9 28                 SBC     #40             ;SUBTRACT 40 (ONE LINE)
-02298  6F56  A8                    TAY                     ;SAVE ACC IN Y
-02299  6F57  90 0B                 BCC     NXTBL           ;IF MATH CLEARED CARRY WE NEED TO MOVE UP ONE HIGH BIT
-02300  6F59  AD 21 08   WLKRTN     LDA     MANFRAME        ;OTHERWISE WE ARE GOOD TO PLACE NEXT MAN FRAME
-02301  6F5C  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
-02302  6F5E  CA                    DEX
-02303  6F5F  D0 E1                 BNE     WALKBY          ;NEXT LOOP
-02304  6F61  4C 6A 6F              JMP     CHECKSTOP
-02305  6F64  C6 FC      NXTBL      DEC     $FC             ;DECREASE HIGH BIT FOR SCREEN LOCATION
-02306  6F66  38                    SEC
-02307  6F67  4C 59 6F              JMP     WLKRTN
-02308  6F6A             
-02309  6F6A             CHECKSTOP  
-02310  6F6A  AD 1B D4              LDA     RAND   ;DO THEY STOP?
-02311  6F6D  CD 34 08              CMP     STOPCHANCE
-02312  6F70  90 31                 BCC     LEAVE
-02313  6F72             
-02314  6F72  A9 09      LINEUP     LDA     #9             ;SET LINE MAX SIZE
-02315  6F74  CD 17 08              CMP     LINECOUNT       ;CHECK IF LINE FULL
-02316  6F77  90 2A                 BCC     LEAVE           ;IF SO LEAVE
-02317  6F79  EE 17 08              INC     LINECOUNT       ;IF NOT INC LINECOUNT
-02318  6F7C  A9 1E                 LDA     #30            ;DISTANCE TO START OF LINE
-02319  6F7E  ED 17 08              SBC     LINECOUNT       ;LESS NUMBER OF PEOPLE IN LINE
-02320  6F81  AA                    TAX                     ;SET NUMBER OF LOOPS
-02321  6F82  A0 1E                 LDY     #30             ;SET TRAVEL DISTANCE
-02322  6F84  9A         LINELP     TXS                     ;SAVE X FOR WHEN JSR RETURNS
-02323  6F85  20 88 71              JSR     DELAY2          ;SLOW IT DOWN SO WE CAN SEE IT
-02324  6F88  BA                    TSX                     ;LOAD X BACK INTO X
-02325  6F89  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
-02326  6F8B  4D 21 08              EOR     MANFRAME        ;FLIP BIT 8 FOR MANFRAME
-02327  6F8E  8D 21 08              STA     MANFRAME        ;SAVE IT BACK ON MANFRAME
-02328  6F91  A9 60                 LDA     #$60            ;LOAD " " INTO ACC
-02329  6F93  99 1D 05              STA     FIRSTGUY,Y         ;STORE AT LINE START +Y
-02330  6F96  AD 21 08              LDA     MANFRAME        ;LOAD MAN CHR INTO ACC
-02331  6F99  88                    DEY
-02332  6F9A  99 1D 05              STA     FIRSTGUY,Y         ;STORE AT LINE START +Y
-02333  6F9D  CA                    DEX
-02334  6F9E  D0 E4                 BNE     LINELP
-02335  6FA0                        
-02336  6FA0  4C E6 6F              JMP     SOLD2
-02337  6FA3             
-02338  6FA3             
-02339  6FA3                        
-02340  6FA3  EE 15 08   LEAVE      INC     PASSCOUNT
-02341  6FA6  A2 07                 LDX     #7             ;NUMBER OF TIMES TO RUN
-02342  6FA8  A9 00                 LDA     #00
-02343  6FAA  85 FB                 STA     $FB             ;SET ZERO PAGE FOR START LOCATION
-02344  6FAC  A9 05                 LDA     #$05            ;SET HIGH BIT FOR START LOCATION
-02345  6FAE  85 FC                 STA     $FC
-02346  6FB0  A0 3B                 LDY     #$3B            ;SET LOW BIT FOR START LOCATION
-02347  6FB2  38                    SEC                     ;SET CARRY FOR SOME MATH LATER
-02348  6FB3  9A         LEAVING    TXS                     ;SAVE X FOR WHEN JSR RETURNS
-02349  6FB4  20 88 71              JSR     DELAY2          ;SLOW IT DOWN SO WE CAN SEE IT
-02350  6FB7  BA                    TSX                     ;LOAD X BACK INTO X
-02351  6FB8  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
-02352  6FBA  4D 21 08              EOR     MANFRAME        ;FLIP BIT 8 FOR MANFRAME
-02353  6FBD  8D 21 08              STA     MANFRAME        ;SAVE IT BACK ON MANFRAME
-02354  6FC0  A9 60                 LDA     #$60            ;LOAD " " INTO ACC
-02355  6FC2  91 FB                 STA     ($FB),Y         ;LOAD IT AT THE BOTTOM OF SCREEN
-02356  6FC4  98                    TYA                     ;TRANSFER Y TO ACCUMULATOR THEN
-02357  6FC5  E9 28                 SBC     #40             ;SUBTRACT 40 (ONE LINE)
-02358  6FC7  A8                    TAY                     ;SAVE ACC IN Y
-02359  6FC8  90 13                 BCC     NXTLL           ;IF MATH CLEARED CARRY WE NEED TO MOVE UP ONE HIGH BIT
-02360  6FCA  AD 21 08   LVERTN     LDA     MANFRAME        ;OTHERWISE WE ARE GOOD TO PLACE NEXT MAN FRAME
-02361  6FCD  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
-02362  6FCF  CA                    DEX
-02363  6FD0  D0 E1                 BNE     LEAVING          ;NEXT LOOP
-02364  6FD2  20 88 71              JSR     DELAY2
-02365  6FD5  A9 60                 LDA     #$60
-02366  6FD7  8D 23 04              STA     $0423
-02367  6FDA  4C E6 6F              JMP     SOLD2
-02368  6FDD  C6 FC      NXTLL      DEC     $FC             ;DECREASE HIGH BIT FOR SCREEN LOCATION
-02369  6FDF  38                    SEC
-02370  6FE0  4C CA 6F              JMP     LVERTN
-02371  6FE3             
-02372  6FE3  4C D9 70   GOMAD      JMP     ANGRY
-02373  6FE6             
-02374  6FE6  A2 00      SOLD2      LDX     #0
-02375  6FE8  AD 1E 05              LDA     FIRSTGUY+1         ;GRAB CHARACTER AT LINE POS 1
-02376  6FEB  C9 60                 CMP     #$60            ;CHECK IF IT'S A SPACE
-02377  6FED  F0 F4                 BEQ     GOMAD
-02378  6FEF  CE 31 08              DEC     BAKETIMER
-02379  6FF2  D0 EF                 BNE     GOMAD
-02380  6FF4  AD 1E 09              LDA     SKILL
-02381  6FF7  C9 03                 CMP     #3
-02382  6FF9  B0 0A                 BCS     @CONT
-02383  6FFB  AD 34 08              LDA     STOPCHANCE
-02384  6FFE  C9 EF                 CMP     #$EF
-02385  7000  90 03                 BCC     @CONT
-02386  7002  EE 34 08              INC     STOPCHANCE
-02387  7005  EE 19 08   @CONT      INC     SALECOUNT
-02388  7008  CE 17 08              DEC     LINECOUNT
-02389  700B             
-02390  700B             
-02391  700B  AC 1A 08              LDY SALECOUNTHI
-02392  700E  AE 19 08              LDX SALECOUNT
-02393  7011  8E 2D 08              STX DIV_LO
-02394  7014  8C 2E 08              STY DIV_HI
-02395  7017  A0 04                 LDY #$04
-02396  7019             @NEXT
-02397  7019  20 27 70              JSR @DIV10
-02398  701C  09 30                 ORA #$30
-02399  701E  99 51 07              STA $0751,Y
-02400  7021  88                    DEY
-02401  7022  10 F5                 BPL @NEXT
-02402  7024  4C 3E 70              JMP @MACEND
-02403  7027             
-02404  7027             @DIV10
-02405  7027  A2 11                 LDX #$11
-02406  7029  A9 00                 LDA #$00
-02407  702B  18                    CLC
-02408  702C             @LOOP
-02409  702C  2A                    ROL
-02410  702D  C9 0A                 CMP #$0A
-02411  702F  90 03                 BCC @SKIP
-02412  7031  E9 0A                 SBC #$0A
-02413  7033  B8                    CLV
-02414  7034             @SKIP
-02415  7034  2E 2D 08              ROL DIV_LO
-02416  7037  2E 2E 08              ROL DIV_HI
-02417  703A  CA                    DEX
-02418  703B  D0 EF                 BNE @LOOP
-02419  703D  60                    RTS
-02420  703E             @MACEND
-02421  703E  A9 00                 LDA     #00
-02422  7040  85 FB                 STA     $FB             ;SET ZERO PAGE FOR START LOCATION
-02423  7042  A9 05                 LDA     #$05            ;SET HIGH BIT FOR START LOCATION
-02424  7044  85 FC                 STA     $FC
-02425  7046  A9 00                 LDA     #00
-02426  7048  85 F9                 STA     $F9             ;SET ZERO PAGE FOR START LOCATION
-02427  704A  A9 D9                 LDA     #$D9            ;SET HIGH BIT FOR START LOCATION
-02428  704C  85 FA                 STA     $FA
-02429  704E  A0 1E                 LDY     #$1E            ;SET LOW BIT FOR START LOCATION
-02430  7050  18                    CLC                     ;CLEAR CARRY FOR SOME MATH LATER
-02431  7051  AD 23 08              LDA     EATFRAME
-02432  7054  91 FB                 STA     ($FB),Y
-02433  7056  A9 05                 LDA     #5
-02434  7058  91 F9                 STA     ($F9),Y
-02435  705A  A9 7A                 LDA     #$7A            ;THIS BIT STORES YUM ON SCREEN
-02436  705C  8D F7 04              STA     $04F7
-02437  705F  A9 7B                 LDA     #$7B
-02438  7061  8D F8 04              STA     $04F8
-02439  7064  9A                    TXS                     ;SAVE X FOR WHEN JSR RETURNS
-02440  7065  A2 50                 LDX     #$50
-02441  7067  20 95 71              JSR     DELAYX          ;SLOW IT DOWN SO WE CAN SEE IT
-02442  706A  A9 01                 LDA     #1
-02443  706C  91 F9                 STA     ($F9),Y
-02444  706E  BA                    TSX                     ;LOAD X BACK INTO X
-02445  706F  A9 60                 LDA     #$60            ;THIS BIT CLEARS YUM ON SCREEN
-02446  7071  8D F7 04              STA     $04F7
-02447  7074  8D F8 04              STA     $04F8
-02448  7077  9A         SLDEXIT    TXS                     ;SAVE X FOR WHEN JSR RETURNS
-02449  7078  20 88 71              JSR     DELAY2          ;SLOW IT DOWN SO WE CAN SEE IT
-02450  707B  BA                    TSX                     ;LOAD X BACK INTO X
-02451  707C  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
-02452  707E  4D 23 08              EOR     EATFRAME        ;FLIP BIT 8 FOR EATFRAME
-02453  7081  8D 23 08              STA     EATFRAME        ;SAVE IT BACK ON EATFRAME
-02454  7084  A9 60                 LDA     #$60            ;LOAD " " INTO ACC
-02455  7086  91 FB                 STA     ($FB),Y         ;LOAD IT AT THE START POSITION
-02456  7088  98                    TYA                     ;TRANSFER Y TO ACCUMULATOR THEN
-02457  7089  69 26                 ADC     #38             ;SUBTRACT 39
-02458  708B  A8                    TAY                     ;SAVE ACC IN Y
-02459  708C  B0 1B                 BCS     INLINE           ;IF MATH CLEARED CARRY WE NEED TO MOVE UP ONE HIGH BIT
-02460  708E  AD 23 08   SLDRTN     LDA     EATFRAME        ;OTHERWISE WE ARE GOOD TO PLACE NEXT MAN FRAME
-02461  7091  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
-02462  7093  E8                    INX
-02463  7094  E0 06                 CPX     #6
-02464  7096  D0 DF                 BNE     SLDEXIT          ;NEXT LOOP
-02465  7098  AD 20 09              LDA     SPEEDCOUNT
-02466  709B  8D 31 08              STA     BAKETIMER       ;INIT BAKE SPEED
-02467  709E  20 88 71              JSR     DELAY2
-02468  70A1  A9 60                 LDA     #$60
-02469  70A3  8D 08 06              STA     $0608
-02470  70A6  4C AF 70              JMP     LINEFIX
-02471  70A9  E6 FC      INLINE     INC     $FC             ;DECREASE HIGH BIT FOR SCREEN LOCATION
-02472  70AB  18                    CLC
-02473  70AC  4C 8E 70              JMP     SLDRTN
-02474  70AF                        
-02475  70AF             
-02476  70AF  A2 01      LINEFIX    LDX     #1              ;RESET X      HERE WE ARE FIXING THE LINE OF MISSING JERKS
-02477  70B1  A0 00                 LDY     #0
-02478  70B3  A9 05                 LDA     #5
-02479  70B5  BD 1D 05   LNLP       LDA     FIRSTGUY,X         ;GRAB CHARACTER AT LINE POS 1
-02480  70B8  C9 60                 CMP     #96            ;CHECK IF IT'S A SPACE
-02481  70BA  F0 08                 BEQ     NXTDUDE
-02482  70BC  E8         NXTLN      INX
-02483  70BD  C9 0B                 CMP     #11
-02484  70BF  D0 F4                 BNE     LNLP
-02485  70C1  4C D6 70              JMP     GOBACK
-02486  70C4  BD 1E 05   NXTDUDE    LDA     $051E,X         ;GRAB CHAR IN NEXT SPOT
-02487  70C7  C9 60                 CMP     #96            ;CHECK IF IT'S A SPACE (TWO SPACES MEAN NO MORE BLANKS)
-02488  70C9  F0 0B                 BEQ     GOBACK        ;IF SO DO A NEW CUSTOMER
-02489  70CB  9D 1D 05              STA     FIRSTGUY,X        ;OTHERWISE MOVE ONE TO NEW SPOT
-02490  70CE  A9 60                 LDA     #96            ;LOAD " "
-02491  70D0  9D 1E 05              STA     $051E,X        ;AND REPLACE COPY
-02492  70D3  4C BC 70              JMP     NXTLN
-02493  70D6  4C DC 6D   GOBACK     JMP     NEWCUST
-02494  70D9             
-02495  70D9  A2 04      ANGRY      LDX     #4              ;RESET X        HERE WE ARE CHECKING IF THEY MAD
-02496  70DB  A0 00                 LDY     #0
-02497  70DD  BD 1D 05   LVELP      LDA     FIRSTGUY,X         ;GRAB CHARACTER AT LINE POS 1
-02498  70E0  C9 60                 CMP     #96            ;CHECK IF IT'S A SPACE
-02499  70E2  F0 CB                 BEQ     LINEFIX
-02500  70E4  AD 1B D4              LDA     RAND
-02501  70E7  C9 20                 CMP     #$20
-02502  70E9  90 08                 BCC     GONEDY
-02503  70EB  E8                    INX
-02504  70EC  E0 0A                 CPX     #10
-02505  70EE  D0 ED                 BNE     LVELP
-02506  70F0  4C AF 70              JMP     LINEFIX
-02507  70F3             
-02508  70F3             
-02509  70F3             
-02510  70F3  CE 17 08   GONEDY     DEC     LINECOUNT       ;LOWER LINE COUNT
-02511  70F6  EE 1B 08              INC     LEFTCOUNT
-02512  70F9  AD 34 08              LDA     STOPCHANCE
-02513  70FC  C9 EF                 CMP     #$EF
-02514  70FE  90 03                 BCC     @CONT
-02515  7100  EE 34 08              INC     STOPCHANCE
-02516  7103  A9 00      @CONT      LDA     #00
-02517  7105  85 FB                 STA     $FB             ;SET ZERO PAGE FOR START LOCATION
-02518  7107  A9 05                 LDA     #$05            ;SET HIGH BIT FOR START LOCATION
-02519  7109  85 FC                 STA     $FC
-02520  710B  A9 00                 LDA     #00
-02521  710D  85 F9                 STA     $F9             ;SET ZERO PAGE FOR START LOCATION
-02522  710F  A9 D9                 LDA     #$D9            ;SET HIGH BIT FOR START LOCATION
-02523  7111  85 FA                 STA     $FA
-02524  7113  BC 24 08              LDY     LINEPOS,X            ;SET LOW BIT FOR START LOCATION
-02525  7116  38                    SEC                     ;SET CARRY FOR SOME MATH LATER
-02526  7117  AD 22 08              LDA     ANGRYFRAME
-02527  711A  91 FB                 STA     ($FB),Y
-02528  711C  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
-02529  711E  4D 22 08              EOR     ANGRYFRAME      ;FLIP BIT 8 FOR ANGRYMAN
-02530  7121  8D 22 08              STA     ANGRYFRAME      ;SAVE IT BACK ON ANGRYMAN
-02531  7124  A9 02                 LDA     #2
-02532  7126  91 F9                 STA     ($F9),Y
-02533  7128  98                    TYA                     ;TRANSFER Y TO ACCUMULATOR THEN
-02534  7129  E9 27                 SBC     #39             ;SUBTRACT 39 (UP AND RIGHT ONE)
-02535  712B  A8                    TAY
-02536  712C  90 4C                 BCC     DECLINE           ;IF MATH CLEARED CARRY WE NEED TO MOVE UP ONE HIGH BIT
-02537  712E  A9 7C      GNRTN      LDA     #124            ;OTHERWISE WE ARE GOOD TO PLACE UG
-02538  7130  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
-02539  7132                        ;ANIMATE ANGRY MAN OFF SCREEN
-02540  7132  9A                    TXS
-02541  7133  A2 7F                 LDX     #$7F
-02542  7135  20 95 71              JSR     DELAYX
-02543  7138  BA                    TSX
-02544  7139  A9 60                 LDA     #$60            ;GET RID OF UG
-02545  713B  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
-02546  713D             
-02547  713D  BC 24 08              LDY     LINEPOS,X            ;SET LOW BIT FOR START LOCATION
-02548  7140                        
-02549  7140  A9 05                 LDA     #$05            ;SET HIGH BIT FOR START LOCATION
-02550  7142  85 FC                 STA     $FC
-02551  7144  A2 07                 LDX     #7
-02552  7146  38                    SEC
-02553  7147  9A         GNRTN2     TXS                     ;SAVE X FOR WHEN JSR RETURNS
-02554  7148  20 88 71              JSR     DELAY2          ;SLOW IT DOWN SO WE CAN SEE IT
-02555  714B  BA                    TSX                     ;LOAD X BACK INTO X
-02556  714C  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
-02557  714E  4D 22 08              EOR     ANGRYFRAME        ;FLIP BIT 8 FOR MANFRAME
-02558  7151  8D 22 08              STA     ANGRYFRAME        ;SAVE IT BACK ON MANFRAME
-02559  7154  A9 60                 LDA     #$60            ;LOAD " " INTO ACC
-02560  7156  91 FB                 STA     ($FB),Y         ;LOAD IT AT THE BOTTOM OF SCREEN
-02561  7158  A9 01                 LDA     #1
-02562  715A  91 F9                 STA     ($F9),Y
-02563  715C  98                    TYA                     ;TRANSFER Y TO ACCUMULATOR THEN
-02564  715D  E9 28                 SBC     #40             ;SUBTRACT 40 (ONE LINE)
-02565  715F  A8                    TAY                     ;SAVE ACC IN Y
-02566  7160  90 12                 BCC     DCLN2           ;IF MATH CLEARED CARRY WE NEED TO MOVE UP ONE HIGH BIT
-02567  7162  AD 22 08   GNRTN3     LDA     ANGRYFRAME        ;OTHERWISE WE ARE GOOD TO PLACE NEXT MAN FRAME
-02568  7165  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
-02569  7167  CA                    DEX
-02570  7168  D0 DD                 BNE     GNRTN2          ;NEXT LOOP
-02571  716A  20 88 71              JSR     DELAY2
-02572  716D  A9 60                 LDA     #$60
-02573  716F  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
-02574  7171  4C AF 70              JMP     LINEFIX
-02575  7174  C6 FC      DCLN2      DEC     $FC             ;DECREASE HIGH BIT FOR SCREEN LOCATION
-02576  7176  38                    SEC
-02577  7177  4C 62 71              JMP     GNRTN3
-02578  717A             
-02579  717A  C6 FC      DECLINE    DEC     $FC             ;DECREASE HIGH BIT FOR SCREEN LOCATION
-02580  717C  38                    SEC
-02581  717D  4C 2E 71              JMP     GNRTN
-02582  7180             
-02583  7180  AD 12 D0   DELAY      LDA     $D012
-02584  7183  C9 FF                 CMP     #$FF
-02585  7185  D0 F9                 BNE     DELAY
-02586  7187  60                    RTS
-02587  7188             
-02588  7188  A2 14      DELAY2     LDX     #20
-02589  718A  AD 12 D0   DLP        LDA     $D012
-02590  718D  C9 FF                 CMP     #$FF
-02591  718F  D0 F9                 BNE     DLP
-02592  7191  CA                    DEX
-02593  7192  D0 F6                 BNE     DLP
-02594  7194  60                    RTS
-02595  7195             
-02596  7195  AD 12 D0   DELAYX     LDA     $D012
-02597  7198  C9 FF                 CMP     #$FF
-02598  719A  D0 F9                 BNE     DELAYX
-02599  719C  CA                    DEX
-02600  719D  D0 F6                 BNE     DELAYX
-02601  719F  60                    RTS
-02602  71A0             
-02603  71A0  A2 00      SUMMARY    LDX #0
-02604  71A2  BD FA 08   @WRITE     LDA ENDDAY,X                      ;ADDS WORDS
-02605  71A5  9D 37 04              STA $0437,X
-02606  71A8  E8                    INX
-02607  71A9  E0 0A                 CPX #10
-02608  71AB  D0 F5                 BNE @WRITE
-02609  71AD             
-02610  71AD             DAYTTL     
-02611  71AD  A2 00                 LDX #0
-02612  71AF  BD 05 09   @WRITE     LDA TOTAL,X                      ;ADDS WORDS
-02613  71B2  9D C2 05              STA $05C2,X
-02614  71B5  E8                    INX
-02615  71B6  E0 15                 CPX #21
-02616  71B8  D0 F5                 BNE @WRITE
-02617  71BA             
-02618  71BA             
-02619  71BA  A0 00                 LDY #0
-02620  71BC  AE 11 08              LDX PRICE
-02621  71BF  8E 2D 08              STX DIV_LO
-02622  71C2  8C 2E 08              STY DIV_HI
-02623  71C5  A0 04                 LDY #$04
-02624  71C7             @NEXT
-02625  71C7  20 D5 71              JSR @DIV10
-02626  71CA  09 30                 ORA #$30
-02627  71CC  99 F2 05              STA $05F2,Y
-02628  71CF  88                    DEY
-02629  71D0  10 F5                 BPL @NEXT
-02630  71D2  4C EC 71              JMP @MACEND
-02631  71D5             
-02632  71D5             @DIV10
-02633  71D5  A2 11                 LDX #$11
-02634  71D7  A9 00                 LDA #$00
-02635  71D9  18                    CLC
-02636  71DA             @LOOP
-02637  71DA  2A                    ROL
-02638  71DB  C9 0A                 CMP #$0A
-02639  71DD  90 03                 BCC @SKIP
-02640  71DF  E9 0A                 SBC #$0A
-02641  71E1  B8                    CLV
-02642  71E2             @SKIP
-02643  71E2  2E 2D 08              ROL DIV_LO
-02644  71E5  2E 2E 08              ROL DIV_HI
-02645  71E8  CA                    DEX
-02646  71E9  D0 EF                 BNE @LOOP
-02647  71EB  60                    RTS
-02648  71EC             @MACEND
-02649  71EC             
-02650  71EC             SUMMATH    
-02651  71EC             
-02652  71EC             
-02653  71EC  AC 1A 08              LDY SALECOUNTHI
-02654  71EF  AE 19 08              LDX SALECOUNT
-02655  71F2  8E 2D 08              STX DIV_LO
-02656  71F5  8C 2E 08              STY DIV_HI
-02657  71F8  A0 04                 LDY #$04
-02658  71FA             @NEXT
-02659  71FA  20 08 72              JSR @DIV10
-02660  71FD  09 30                 ORA #$30
-02661  71FF  99 EA 05              STA $05EA,Y
-02662  7202  88                    DEY
-02663  7203  10 F5                 BPL @NEXT
-02664  7205  4C 1F 72              JMP @MACEND
-02665  7208             
-02666  7208             @DIV10
-02667  7208  A2 11                 LDX #$11
-02668  720A  A9 00                 LDA #$00
-02669  720C  18                    CLC
-02670  720D             @LOOP
-02671  720D  2A                    ROL
-02672  720E  C9 0A                 CMP #$0A
-02673  7210  90 03                 BCC @SKIP
-02674  7212  E9 0A                 SBC #$0A
-02675  7214  B8                    CLV
-02676  7215             @SKIP
-02677  7215  2E 2D 08              ROL DIV_LO
-02678  7218  2E 2E 08              ROL DIV_HI
-02679  721B  CA                    DEX
-02680  721C  D0 EF                 BNE @LOOP
-02681  721E  60                    RTS
-02682  721F             @MACEND
-02683  721F             
-02684  721F             
-02685  721F  AC 14 08              LDY CASHCOUNTHI
-02686  7222  AE 13 08              LDX CASHCOUNT
-02687  7225  8E 2D 08              STX DIV_LO
-02688  7228  8C 2E 08              STY DIV_HI
-02689  722B  A0 04                 LDY #$04
-02690  722D             @NEXT
-02691  722D  20 3B 72              JSR @DIV10
-02692  7230  09 30                 ORA #$30
-02693  7232  99 FA 05              STA $05FA,Y
-02694  7235  88                    DEY
-02695  7236  10 F5                 BPL @NEXT
-02696  7238  4C 52 72              JMP @MACEND
-02697  723B             
-02698  723B             @DIV10
-02699  723B  A2 11                 LDX #$11
-02700  723D  A9 00                 LDA #$00
-02701  723F  18                    CLC
-02702  7240             @LOOP
-02703  7240  2A                    ROL
-02704  7241  C9 0A                 CMP #$0A
-02705  7243  90 03                 BCC @SKIP
-02706  7245  E9 0A                 SBC #$0A
-02707  7247  B8                    CLV
-02708  7248             @SKIP
-02709  7248  2E 2D 08              ROL DIV_LO
-02710  724B  2E 2E 08              ROL DIV_HI
-02711  724E  CA                    DEX
-02712  724F  D0 EF                 BNE @LOOP
-02713  7251  60                    RTS
-02714  7252             @MACEND
-02715  7252  AD 1A 08              LDA SALECOUNTHI
-02716  7255  C9 00                 CMP #0
-02717  7257  D0 0A                 BNE @MATHIT
-02718  7259  AD 19 08              LDA SALECOUNT
-02719  725C  C9 00                 CMP #0
-02720  725E  D0 03                 BNE @MATHIT
-02721  7260  4C 8A 72              JMP WAITITUP
-02722  7263             @MATHIT
-02723  7263             
-02724  7263             
-02725  7263  18                    CLC
-02726  7264  AD 13 08              LDA CASHCOUNT
-02727  7267  6D 11 08              ADC PRICE
-02728  726A  8D 13 08              STA CASHCOUNT
-02729  726D  90 04                 BCC @GO
-02730  726F  EE 14 08              INC CASHCOUNTHI
-02731  7272  18                    CLC
-02732  7273             @GO        
-02733  7273             
-02734  7273             
-02735  7273             
-02736  7273                        
-02737  7273  38                    SEC
-02738  7274  AD 19 08              LDA SALECOUNT
-02739  7277  E9 01                 SBC #1
-02740  7279  8D 19 08              STA SALECOUNT
-02741  727C  B0 04                 BCS @GO
-02742  727E  CE 1A 08              DEC SALECOUNTHI
-02743  7281  38                    SEC
-02744  7282             @GO        
-02745  7282             
-02746  7282  A2 01                 LDX #$01
-02747  7284  20 95 71              JSR DELAYX
-02748  7287  4C EC 71              JMP SUMMATH
-02749  728A                        
-02750  728A                        
-02751  728A             
-02752  728A             WAITITUP
-02753  728A  20 E4 FF              JSR $FFE4       ; READ KEY
-02754  728D  F0 FB                 BEQ WAITITUP
-02755  728F  C9 0D                 CMP #$0D        ; RETURN KEY
-02756  7291  D0 F7                 BNE WAITITUP
-02757  7293  AD 1B D4              LDA RAND
-02758  7296  8D 1D 08              STA POPCOUNT
-02759  7299  A9 00                 LDA #0
-02760  729B  8D 15 08              STA PASSCOUNT
-02761  729E  8D 16 08              STA PASSCOUNTHI
-02762  72A1  8D 17 08              STA LINECOUNT
-02763  72A4  8D 18 08              STA LINECOUNTHI
-02764  72A7  8D 19 08              STA SALECOUNT
-02765  72AA  8D 1A 08              STA SALECOUNTHI
-02766  72AD  8D 1B 08              STA LEFTCOUNT
-02767  72B0  8D 1C 08              STA LEFTCOUNTHI
-02768  72B3  8D 1F 08              STA VISITCOUNT
-02769  72B6  8D 20 08              STA VISITCOUNTHI
-02770  72B9  AD 20 09              LDA SPEEDCOUNT
-02771  72BC  8D 31 08              STA BAKETIMER
-02772  72BF  AD 33 08              LDA STOPINIT
-02773  72C2  8D 34 08              STA STOPCHANCE
-02774  72C5  4C 73 68              JMP CITYSTART
-02775  72C8  4C 8A 72              JMP WAITITUP
-02776  72CB             
-02777  72CB             DRIVINGSTUFF 
-02778  72CB  78                    SEI        ;DISABLE MASKABLE IRQS
-02779  72CC             
-02780  72CC  A9 7F                 LDA #$7F
-02781  72CE  A9 7F                 LDA #$7F                      ; TURN OFF THE CIA INTERRUPTS
-02782  72D0  8D 0D DC              STA $DC0D
-02783  72D3             
-02784  72D3  AD 0D DC              LDA $DC0D  ;BY READING THIS TWO REGISTERS WE NEGATE ANY PENDING CIA IRQS.
-02785  72D6  AD 0D DD              LDA $DD0D  ;IF WE DON'T DO THIS, A PENDING CIA IRQ MIGHT OCCUR AFTER WE FINISH SETTING UP OUR IRQ.
-02786  72D9                        ;WE DON'T WANT THAT TO HAPPEN.
-02787  72D9             
-02788  72D9  AD 1A D0              LDA $D01A                     ; ENABLE RASTER IRQ
-02789  72DC  09 01                 ORA #$01
-02790  72DE  8D 1A D0              STA $D01A
-02791  72E1             
-02792  72E1  AD 11 D0              LDA $D011                     ; CLEAR HIGH BIT OF RASTER LINE
-02793  72E4  29 7F                 AND #$7F
-02794  72E6  8D 11 D0              STA $D011
-02795  72E9                        
-02796  72E9  A9 F0                 LDA #240                      ; LINE NUMBER TO GO OFF AT
-02797  72EB  8D 12 D0              STA $D012                     ; LOW BYTE OF RASTER LINE
-02798  72EE                        
-02799  72EE                        
-02800  72EE  A9 44                 LDA #<IRQ  ;THIS IS HOW WE SET UP
-02801  72F0  8D 14 03              STA 788                         ;THE ADDRESS OF OUR INTERRUPT CODE
-02802  72F3  A9 75                 LDA #>IRQ
-02803  72F5  8D 15 03              STA 789
-02804  72F8             
-02805  72F8  58                    CLI        ;ENABLE MASKABLE INTERRUPTS AGAIN
-02806  72F9                        
-02807  72F9                        
-02808  72F9  20 44 E5              JSR $E544       ;CLEAR SCREEN
-02809  72FC  AD 18 D0              LDA $D018      ; THIS PART SETS THE CHARSET MEMORY LOCATION (THANKS DUSTLAYER.COM)
-02810  72FF  09 0E                 ORA #$0E
-02811  7301  8D 18 D0              STA $D018       ;SET CHAR ROM TO $3800 AND LEAVE SCREEN RAM DEFAULT
-02812  7304  A9 00                 LDA #0              ;SET BORDER COLOUR
-02813  7306  8D 20 D0              STA $D020
-02814  7309  A9 0B                 LDA #11         ;SET BACKGROUND COLOUR
-02815  730B  8D 21 D0              STA $D021
-02816  730E  A9 03                 LDA #3
-02817  7310  8D 27 D0              STA $D027       ;STORESPRITE1 COLOUR
-02818  7313  A9 04                 LDA #4
-02819  7315  8D 28 D0              STA $D028       ;STORESPRITE2 COLOUR
-02820  7318  A9 01                 LDA #1
-02821  731A  8D 25 D0              STA $D025       ;STORESHAREDSPRITE COLOR1
-02822  731D  A9 09                 LDA #9
-02823  731F  8D 26 D0              STA $D026       ;STORESHAREDSPRITE COLOR2
-02824  7322  A9 03                 LDA #%00000011
-02825  7324  8D 15 D0              STA $D015       ;TURN ON SPRITES
-02826  7327  8D 1C D0              STA $D01C       ;SET SPRITE MODE
-02827  732A  A9 F0                 LDA #%11110000
-02828  732C  8D 1B D0              STA $D01B       ;SET SPRITE BEHIND TEXT
-02829  732F  A9 03                 LDA #%00000011  ;SET SPRITE SIZE
-02830  7331  8D 17 D0              STA $D017
-02831  7334  A9 03                 LDA #%00000011  ;SET SPRITE SIZE
-02832  7336  8D 1D D0              STA $D01D
-02833  7339  A9 CE                 LDA TRUCKSPRITE         ;LOAD SPRITE OF LEFT FACING TRUCK
-02834  733B  8D F8 07              STA SPRITE1
-02835  733E  A9 C8                 LDA #200
-02836  7340  8D 00 D0              STA SPRITE1X
-02837  7343  A9 96                 LDA #150
-02838  7345  8D 01 D0              STA SPRITE1Y
-02839  7348  A9 D2                 LDA CARSPRITE         ;LOAD SPRITE OF RIGHT POINTING
-02840  734A  8D F9 07              STA SPRITE2
-02841  734D  A9 18                 LDA #0+24
-02842  734F  8D 02 D0              STA SPRITE2X
-02843  7352  A9 64                 LDA #100
-02844  7354  8D 03 D0              STA SPRITE2Y
-02845  7357             
-02846  7357  A2 00                 LDX #0
-02847  7359  A9 00                 LDA #0
-02848  735B  9D 00 D8   COLFIL4    STA $D800,X
-02849  735E  A9 07                 LDA #7                  ;FILL COLOR BLK AND YELLOW
-02850  7360  9D 00 D9              STA $D900,X
-02851  7363  9D 00 DA              STA $DA00,X
-02852  7366  9D E8 DA              STA $DAE8,X
-02853  7369  CA                    DEX
-02854  736A  D0 EF                 BNE COLFIL4
-02855  736C             
-02856  736C  A2 28                 LDX #40
-02857  736E  A0 06                 LDY #6
-02858  7370             DRAWLINES  
-02859  7370  A9 43                 LDA #$43
-02860  7372  9D 3F 05              STA $053F,X
-02861  7375  88                    DEY
-02862  7376  F0 11                 BEQ @CONT1
-02863  7378  9D B7 05              STA $05B7,X
-02864  737B  9D 2F 06              STA $062F,X
-02865  737E  9D A7 06   @CONT2     STA $06A7,X
-02866  7381  CA                    DEX
-02867  7382  E0 00                 CPX #0
-02868  7384  D0 EA                 BNE DRAWLINES
-02869  7386  4C 8E 73              JMP STALLOUT
-02870  7389  A0 07      @CONT1     LDY #7
-02871  738B  4C 7E 73              JMP @CONT2
-02872  738E                        
-02873  738E             STALLOUT
-02874  738E                        ;DEC 53280
-02875  738E  AD 24 09              LDA CARSPEED
-02876  7391  8D 01 04              STA $0401
-02877  7394  AD 12 D0              LDA $D012
-02878  7397  C9 20                 CMP #$20
-02879  7399  D0 F3                 BNE STALLOUT
-02880  739B  AE 25 09              LDX CARLANE
-02881  739E  AD 01 D0              LDA $D001
-02882  73A1  DD 26 09              CMP LANEPOS,X
-02883  73A4  F0 08                 BEQ @RESETFLAG
-02884  73A6  B0 0E                 BCS @MOVEUP
-02885  73A8             
-02886  73A8  EE 01 D0              INC $D001
-02887  73AB  4C B9 73              JMP @CTRLS
-02888  73AE  A9 00      @RESETFLAG LDA #0
-02889  73B0  8D 2C 09              STA LANEFLAG
-02890  73B3  4C B9 73              JMP @CTRLS
-02891  73B6  CE 01 D0   @MOVEUP    DEC $D001
-02892  73B9             
-02893  73B9             @CTRLS     
-02894  73B9  AD 00 DC   DJRR       LDA $DC00     ; GET INPUT FROM PORT 2 ONLY
-02895  73BC  A0 00      DJRRB      LDY #0        ; THIS ROUTINE READS AND DECODES THE
-02896  73BE  A2 00                 LDX #0        ; JOYSTICK/FIREBUTTON INPUT DATA IN
-02897  73C0  4A                    LSR           ; THE ACCUMULATOR. THIS LEAST SIGNIFICANT
-02898  73C1  B0 01                 BCS DJR0      ; 5 BITS CONTAIN THE SWITCH CLOSURE
-02899  73C3  88                    DEY           ; INFORMATION. IF A SWITCH IS CLOSED THEN IT
-02900  73C4  4A         DJR0       LSR           ; PRODUCES A ZERO BIT. IF A SWITCH IS OPEN THEN
-02901  73C5  B0 01                 BCS DJR1      ; IT PRODUCES A ONE BIT. THE JOYSTICK DIR-
-02902  73C7  C8                    INY           ; ECTIONS ARE RIGHT, LEFT, FORWARD, BACKWARD
-02903  73C8  4A         DJR1       LSR           ; BIT3=RIGHT, BIT2=LEFT, BIT1=BACKWARD,
-02904  73C9  B0 01                 BCS DJR2      ; BIT0=FORWARD AND BIT4=FIRE BUTTON.
-02905  73CB  CA                    DEX           ; AT RTS TIME DX AND DY CONTAIN 2'S COMPLIMENT
-02906  73CC  4A         DJR2       LSR           ; DIRECTION NUMBERS I.E. $FF=-1, $00=0, $01=1.
-02907  73CD  B0 01                 BCS DJR3      ; DX=1 (MOVE RIGHT), DX=-1 (MOVE LEFT),
-02908  73CF  E8                    INX           ; DX=0 (NO X CHANGE). DY=-1 (MOVE UP SCREEN),
-02909  73D0  4A         DJR3       LSR           ; DY=0 (MOVE DOWN SCREEN), DY=0 (NO Y CHANGE).
-02910  73D1  8E 4B 09              STX DX        ; THE FORWARD JOYSTICK POSITION CORRESPONDS
-02911  73D4  8C 4C 09              STY DY        ; TO MOVE UP THE SCREEN AND THE BACKWARD
-02912  73D7  90 65                 BCC BUTTS
-02913  73D9  AE 4B 09              LDX DX
-02914  73DC  AC 4C 09              LDY DY
-02915  73DF  E0 01      CMPX       CPX #$01
-02916  73E1  F0 3D                 BEQ RIGHT
-02917  73E3  E0 FF                 CPX #$FF
-02918  73E5  F0 48                 BEQ LEFT
-02919  73E7  C0 01      CMPY       CPY #$01
-02920  73E9  F0 07                 BEQ DOWN
-02921  73EB  C0 FF                 CPY #$FF
-02922  73ED  F0 1A                 BEQ UP
-02923  73EF  4C 44 74              JMP CHECKSPEED
-02924  73F2  AD 2C 09   DOWN       LDA LANEFLAG
-02925  73F5  D0 0F                 BNE @DONE
-02926  73F7  AD 25 09              LDA CARLANE
-02927  73FA  C9 03                 CMP #3
-02928  73FC  B0 08                 BCS @DONE
-02929  73FE  EE 25 09              INC CARLANE
-02930  7401  A9 01                 LDA #1
-02931  7403  8D 2C 09              STA LANEFLAG
-02932  7406  4C 44 74   @DONE      JMP CHECKSPEED
-02933  7409  AD 2C 09   UP         LDA LANEFLAG
-02934  740C  D0 0F                 BNE @DONE
-02935  740E  AD 25 09              LDA CARLANE
-02936  7411  C9 02                 CMP #2
-02937  7413  90 08                 BCC @DONE
-02938  7415  CE 25 09              DEC CARLANE
-02939  7418  A9 01                 LDA #1
-02940  741A  8D 2C 09              STA LANEFLAG
-02941  741D  4C 44 74   @DONE      JMP CHECKSPEED
-02942  7420  AD 00 D0   RIGHT      LDA $D000
-02943  7423  C9 FA                 CMP #250
-02944  7425  B0 C0                 BCS CMPY
-02945  7427  69 04                 ADC #$04
-02946  7429  8D 00 D0              STA $D000
-02947  742C  4C E7 73              JMP CMPY
-02948  742F  AD 00 D0   LEFT       LDA $D000
-02949  7432  E9 02                 SBC #$02
-02950  7434  C9 96                 CMP #150
-02951  7436  90 AF                 BCC CMPY
-02952  7438  8D 00 D0              STA $D000
-02953  743B  4C E7 73              JMP CMPY
-02954  743E  EE 27 D0   BUTTS      INC $D027
-02955  7441  4C DF 73              JMP CMPX
-02956  7444             
-02957  7444             CHECKSPEED 
-02958  7444  AD 12 D0              LDA $D012
-02959  7447  C9 60                 CMP #$60
-02960  7449  D0 F9                 BNE CHECKSPEED
-02961  744B  AE 2D 09              LDX SPEEDFLAG
-02962  744E  AD 2D 09              LDA SPEEDFLAG
-02963  7451  8D 03 04              STA $0403
-02964  7454  CE 2D 09              DEC SPEEDFLAG
-02965  7457  CA                    DEX
-02966  7458  D0 27                 BNE @DONE
-02967  745A  A9 0A                 LDA #10
-02968  745C  8D 2D 09              STA SPEEDFLAG
-02969  745F  AD 00 D0              LDA $D000
-02970  7462  C9 A0                 CMP #160
-02971  7464  B0 0D                 BCS @CHECKBACK
-02972  7466  AD 24 09              LDA CARSPEED
-02973  7469  C9 02                 CMP #2
-02974  746B  90 14                 BCC @DONE
-02975  746D  CE 24 09              DEC CARSPEED
-02976  7470  4C 8E 73              JMP STALLOUT
-02977  7473  C9 F0      @CHECKBACK CMP #240
-02978  7475  90 0A                 BCC @DONE
-02979  7477  AD 24 09              LDA CARSPEED
-02980  747A  C9 0B                 CMP #11
-02981  747C  B0 03                 BCS @DONE
-02982  747E  EE 24 09              INC CARSPEED
-02983  7481             @DONE      
-02984  7481             
-02985  7481  AD 00 D0              LDA SPRITE1X
-02986  7484  E9 18                 SBC #24
-02987  7486  4A                    LSR A
-02988  7487  4A                    LSR A
-02989  7488  4A                    LSR A
-02990  7489  8D 33 09              STA THROW1
-02991  748C  AD 01 D0              LDA SPRITE1Y
-02992  748F  4A                    LSR A
-02993  7490  4A                    LSR A
-02994  7491  4A                    LSR A
-02995  7492  8D 34 09              STA THROW2
-02996  7495  AD 03 D0   @CARLAUNCH LDA SPRITE2Y
-02997  7498  4A                    LSR A
-02998  7499  4A                    LSR A
-02999  749A  4A                    LSR A
-03000  749B  8D 36 09              STA THROW4
-03001  749E             CARSTUFF
-03002  749E  A9 00                 LDA #0
-03003  74A0  8D 35 09              STA THROW3
-03004  74A3  CE 2B 09              DEC ENEMYSPEED
-03005  74A6  F0 06                 BEQ @NOTDONE
-03006  74A8  AD 02 D0              LDA SPRITE2X
-03007  74AB  4C D9 74              JMP @NOFLIP
-03008  74AE  18         @NOTDONE   CLC
-03009  74AF  AD 02 D0              LDA SPRITE2X
-03010  74B2  69 04                 ADC #4
-03011  74B4  8D 02 D0              STA SPRITE2X
-03012  74B7  90 20                 BCC @NOFLIP
-03013  74B9  AD 1B D4              LDA $D41B
-03014  74BC  C9 55                 CMP #85
-03015  74BE  90 14                 BCC @SETLANE1
-03016  74C0  C9 AA                 CMP #170
-03017  74C2  90 08                 BCC @SETLANE2
-03018  74C4  A9 64                 LDA #100
-03019  74C6  8D 03 D0              STA SPRITE2Y
-03020  74C9  4C D9 74              JMP @NOFLIP
-03021  74CC  A9 7C      @SETLANE2  LDA #124
-03022  74CE  8D 03 D0              STA SPRITE2Y
-03023  74D1  4C D9 74              JMP @NOFLIP
-03024  74D4  A9 94      @SETLANE1  LDA #148
-03025  74D6  8D 03 D0              STA SPRITE2Y
-03026  74D9  AD 02 D0   @NOFLIP    LDA SPRITE2X
-03027  74DC  E9 18                 SBC #24
-03028  74DE  69 20                 ADC #32
-03029  74E0  18                    CLC
-03030  74E1  4A                    LSR A
-03031  74E2  90 03                 BCC @NEXT1
-03032  74E4  EE 35 09              INC THROW3
-03033  74E7  18         @NEXT1     CLC
-03034  74E8  4A                    LSR A
-03035  74E9  90 06                 BCC @NEXT2
-03036  74EB  EE 35 09              INC THROW3
-03037  74EE  EE 35 09              INC THROW3
-03038  74F1  18         @NEXT2     CLC
-03039  74F2  4A                    LSR A
-03040  74F3  90 0C                 BCC @NEXT3
-03041  74F5  EE 35 09              INC THROW3
-03042  74F8  EE 35 09              INC THROW3
-03043  74FB  EE 35 09              INC THROW3
-03044  74FE  EE 35 09              INC THROW3
-03045  7501  18         @NEXT3     CLC
-03046  7502  8D 3F 04              STA $043F
-03047  7505  CD 33 09              CMP THROW1
-03048  7508  D0 0B                 BNE @NOCRASH
-03049  750A  AD 36 09              LDA THROW4
-03050  750D  CD 34 09              CMP THROW2
-03051  7510  D0 03                 BNE @NOCRASH
-03052  7512  4C 32 75              JMP CRASH
-03053  7515             @NOCRASH   
-03054  7515  AD 35 09              LDA THROW3
-03055  7518  69 30                 ADC #$30
-03056  751A  8D 10 04              STA $0410
-03057  751D  AD 34 09              LDA THROW2
-03058  7520  8D 42 04              STA $0442
-03059  7523  AD 36 09              LDA THROW4
-03060  7526  8D 43 04              STA $0443
-03061  7529  AD 33 09              LDA THROW1
-03062  752C  8D 40 04              STA $0440
-03063  752F             @DONE      
-03064  752F  4C 8E 73              JMP STALLOUT
-03065  7532             
-03066  7532  A9 D6      CRASH      LDA BOOMSPRITE
-03067  7534  8D F8 07              STA SPRITE1
-03068  7537  8D F9 07              STA SPRITE2
-03069  753A  A6 FF                 LDX 255
-03070  753C  A5 32                 LDA $32
-03071  753E  9D 00 05              STA $0500,X
-03072  7541  4C 32 75              JMP CRASH
-03073  7544                        
-03074  7544  AD 19 D0   IRQ        LDA $D019                     ; CLEAR SOURCE OF INTERRUPTS
-03075  7547  8D 19 D0              STA $D019
-03076  754A                        
-03077  754A  AD 38 09              LDA ANIMATESPRITE1
-03078  754D  C9 0A                 CMP #10
-03079  754F  D0 21                 BNE @SKIP              ; EXIT BACK TO ROM
-03080  7551  A9 00                 LDA #0
-03081  7553  8D 38 09              STA ANIMATESPRITE1
-03082  7556  EE 39 09              INC SPRITE1FRAME
-03083  7559  AD 39 09              LDA SPRITE1FRAME
-03084  755C  C9 04                 CMP #4
-03085  755E  D0 18                 BNE @CONT
-03086  7560  A9 00                 LDA #0
-03087  7562  8D 39 09              STA SPRITE1FRAME
-03088  7565  A9 CE                 LDA TRUCKSPRITE
-03089  7567  8D F8 07              STA SPRITE1
-03090  756A  A9 D2                 LDA CARSPRITE
-03091  756C  8D F9 07              STA SPRITE2
-03092  756F  4C 7E 75              JMP @NEXT
-03093  7572  EE 38 09   @SKIP      INC ANIMATESPRITE1
-03094  7575  4C 7E 75              JMP @NEXT                     ; EXIT BACK TO ROM
-03095  7578  EE F8 07   @CONT      INC SPRITE1
-03096  757B  EE F9 07              INC SPRITE2
-03097  757E             
-03098  757E  CE 2A 09   @NEXT      DEC TRAVELSPEED
-03099  7581  D0 41                 BNE @DONE
-03100  7583  A2 2B                 LDX #43
-03101  7585  A0 2C                 LDY #44
-03102  7587  BD B7 05   @LOOP      LDA $05B7,X
-03103  758A  8D 33 09              STA THROW1
-03104  758D  C0 29                 CPY #41
-03105  758F  B0 06                 BCS @CONT1
-03106  7591  99 B7 05              STA $05B7,Y
-03107  7594  99 2F 06              STA $062F,Y
-03108  7597  CA         @CONT1     DEX
-03109  7598  88                    DEY
-03110  7599  D0 EC                 BNE @LOOP
-03111  759B  A9 00                 LDA #0
-03112  759D  CD 31 09              CMP STREETLINE
-03113  75A0  D0 0E                 BNE @LINE
-03114  75A2  EE 00 04              INC $0400
-03115  75A5  AD 32 09              LDA STREETLINEINIT
-03116  75A8  8D 31 09              STA STREETLINE
-03117  75AB  A9 20                 LDA #$20
-03118  75AD  4C B2 75              JMP @CONT2
-03119  75B0  A9 43      @LINE      LDA #$43
-03120  75B2  8D B8 05   @CONT2     STA $05B7+1
-03121  75B5  8D 30 06              STA $062F+1
-03122  75B8  CE 31 09              DEC STREETLINE
-03123  75BB  AD 24 09              LDA CARSPEED
-03124  75BE  8D 2A 09              STA TRAVELSPEED
-03125  75C1  8D 2B 09              STA ENEMYSPEED
-03126  75C4  4C 31 EA   @DONE      JMP $EA31                     ; EXIT BACK TO ROM
-03127  75C7             
-03128  75C7             
+01679  6A78  F0 4F                 BEQ HITTHEROAD
+01680  6A7A  4C 61 6A              JMP INPUT
+01681  6A7D             
+01682  6A7D  A2 0B      SHOP       LDX #11
+01683  6A7F  A9 80      @LOOP      LDA #%10000000
+01684  6A81  5D 84 05              EOR $0584,X
+01685  6A84  9D 84 05              STA $0584,X
+01686  6A87  CA                    DEX
+01687  6A88  D0 F5                 BNE @LOOP
+01688  6A8A  EE 22 09              INC TIME
+01689  6A8D  A2 1E      @DELAY     LDX #30
+01690  6A8F  AD 12 D0   @DELAYLOOP LDA     $D012
+01691  6A92  C9 FF                 CMP     #$FF
+01692  6A94  D0 F9                 BNE     @DELAYLOOP
+01693  6A96  CA                    DEX
+01694  6A97  D0 F6                 BNE @DELAYLOOP
+01695  6A99  A2 0B                 LDX #11
+01696  6A9B  A9 80      @LOOP2     LDA #%10000000
+01697  6A9D  5D 84 05              EOR $0584,X
+01698  6AA0  9D 84 05              STA $0584,X
+01699  6AA3  CA                    DEX
+01700  6AA4  D0 F5                 BNE @LOOP2
+01701  6AA6  4C AD 69              JMP CHOICE
+01702  6AA9             
+01703  6AA9  A2 0A      HIRE       LDX #10
+01704  6AAB  A9 80      @LOOP      LDA #%10000000
+01705  6AAD  5D D4 05              EOR $05D4,X
+01706  6AB0  9D D4 05              STA $05D4,X
+01707  6AB3  CA                    DEX
+01708  6AB4  F0 AB                 BEQ INPUT
+01709  6AB6  4C AB 6A              JMP @LOOP
+01710  6AB9             
+01711  6AB9  A2 0A      SCHOOL     LDX #10
+01712  6ABB  A9 80      @LOOP      LDA #%10000000
+01713  6ABD  5D 24 06              EOR $0624,X
+01714  6AC0  9D 24 06              STA $0624,X
+01715  6AC3  CA                    DEX
+01716  6AC4  F0 9B                 BEQ INPUT
+01717  6AC6  4C BB 6A              JMP @LOOP
+01718  6AC9             
+01719  6AC9  A2 0A      HITTHEROAD LDX #10
+01720  6ACB  A9 80      @LOOP      LDA #%10000000
+01721  6ACD  5D C4 06              EOR $06C4,X
+01722  6AD0  9D C4 06              STA $06C4,X
+01723  6AD3  CA                    DEX
+01724  6AD4  F0 8B                 BEQ INPUT
+01725  6AD6  4C CB 6A              JMP @LOOP
+01726  6AD9             
+01727  6AD9  A2 0A      SETUP      LDX #10
+01728  6ADB  A9 80      @LOOP      LDA #%10000000
+01729  6ADD  5D 74 06              EOR $0674,X
+01730  6AE0  9D 74 06              STA $0674,X
+01731  6AE3  CA                    DEX
+01732  6AE4  F0 03                 BEQ @DELAY
+01733  6AE6  4C DB 6A              JMP @LOOP
+01734  6AE9                        
+01735  6AE9  A2 1E      @DELAY     LDX #30
+01736  6AEB  AD 12 D0   @DELAYLOOP LDA     $D012
+01737  6AEE  C9 FF                 CMP     #$FF
+01738  6AF0  D0 F9                 BNE     @DELAYLOOP
+01739  6AF2  CA                    DEX
+01740  6AF3  D0 F6                 BNE @DELAYLOOP
+01741  6AF5             
+01742  6AF5  A2 0A                 LDX #10
+01743  6AF7  BD BA 09   @LOOP2     LDA CITY + 9,X
+01744  6AFA  9D 85 05              STA $0585,X
+01745  6AFD  BD C4 09              LDA CITY + 19,X
+01746  6B00  9D D5 05              STA $05D5,X
+01747  6B03  BD CE 09              LDA CITY + 29,X
+01748  6B06  9D 25 06              STA $0625,X
+01749  6B09  BD D8 09              LDA CITY + 39,X
+01750  6B0C  9D 75 06              STA $0675,X
+01751  6B0F  BD E2 09              LDA CITY + 49,X
+01752  6B12  9D C5 06              STA $06C5,X
+01753  6B15  E0 00                 CPX #0
+01754  6B17  CA                    DEX
+01755  6B18  D0 DD                 BNE @LOOP2
+01756  6B1A             
+01757  6B1A  20 E4 FF   INPUT2     JSR $FFE4       ; READ KEY
+01758  6B1D  F0 FB                 BEQ INPUT2
+01759  6B1F  A2 01                 LDX #1
+01760  6B21  C9 31                 CMP #$31        ; 1 KEY
+01761  6B23  F0 7E                 BEQ SETNAY
+01762  6B25  A0 01                 LDY #1
+01763  6B27  CC ED 09              CPY CITYVARS
+01764  6B2A  F0 EE                 BEQ INPUT2
+01765  6B2C  E8                    INX
+01766  6B2D  C9 32                 CMP #$32
+01767  6B2F  F0 72                 BEQ SETNAY
+01768  6B31  C8                    INY
+01769  6B32  CC ED 09              CPY CITYVARS
+01770  6B35  F0 E3                 BEQ INPUT2
+01771  6B37  E8                    INX
+01772  6B38  C9 33                 CMP #$33
+01773  6B3A  F0 67                 BEQ SETNAY
+01774  6B3C  C8                    INY
+01775  6B3D  CC ED 09              CPY CITYVARS
+01776  6B40  F0 D8                 BEQ INPUT2
+01777  6B42  E8                    INX
+01778  6B43  C9 34                 CMP #$34
+01779  6B45  F0 5C                 BEQ SETNAY
+01780  6B47  C8                    INY
+01781  6B48  CC ED 09              CPY CITYVARS
+01782  6B4B  F0 CD                 BEQ INPUT2
+01783  6B4D  E8                    INX
+01784  6B4E  C9 35                 CMP #$35
+01785  6B50  F0 51                 BEQ SETNAY
+01786  6B52  4C 1A 6B              JMP INPUT2
+01787  6B55  AD FA 09   NAY3SET    LDA NEIGH3
+01788  6B58  8D 1D 08              STA POPCOUNT
+01789  6B5B  AD FB 09              LDA NEIGH3+1
+01790  6B5E  8D 1E 08              STA POPCOUNTHI
+01791  6B61  AD FC 09              LDA NEIGH3+2
+01792  6B64  8D 2F 09              STA IDEALPRICE
+01793  6B67  AD FD 09              LDA NEIGH3+3
+01794  6B6A  8D 30 09              STA IDEALPRICEHI
+01795  6B6D  AD FE 09              LDA NEIGH3+4
+01796  6B70  8D 35 08              STA HIPSTERLV
+01797  6B73  AD FF 09              LDA NEIGH3+5
+01798  6B76  8D 2E 09              STA TRENDYFOOD
+01799  6B79  4C 28 6C              JMP SETPRICE
+01800  6B7C  AD 00 0A   NAY4SET    LDA NEIGH4
+01801  6B7F  8D 1D 08              STA POPCOUNT
+01802  6B82  AD 01 0A              LDA NEIGH4+1
+01803  6B85  8D 1E 08              STA POPCOUNTHI
+01804  6B88  AD 02 0A              LDA NEIGH4+2
+01805  6B8B  8D 2F 09              STA IDEALPRICE
+01806  6B8E  AD 03 0A              LDA NEIGH4+3
+01807  6B91  8D 30 09              STA IDEALPRICEHI
+01808  6B94  AD 04 0A              LDA NEIGH4+4
+01809  6B97  8D 35 08              STA HIPSTERLV
+01810  6B9A  AD 05 0A              LDA NEIGH4+5
+01811  6B9D  8D 2E 09              STA TRENDYFOOD
+01812  6BA0  4C 28 6C              JMP SETPRICE
+01813  6BA3  E0 01      SETNAY     CPX #1
+01814  6BA5  F0 33                 BEQ NAY1SET
+01815  6BA7  E0 02                 CPX #2
+01816  6BA9  F0 56                 BEQ NAY2SET
+01817  6BAB  E0 03                 CPX #3
+01818  6BAD  F0 A6                 BEQ NAY3SET
+01819  6BAF  E0 04                 CPX #4
+01820  6BB1  F0 C9                 BEQ NAY4SET
+01821  6BB3  AD 06 0A              LDA NEIGH5
+01822  6BB6  8D 1D 08              STA POPCOUNT
+01823  6BB9  AD 07 0A              LDA NEIGH5+1
+01824  6BBC  8D 1E 08              STA POPCOUNTHI
+01825  6BBF  AD 08 0A              LDA NEIGH5+2
+01826  6BC2  8D 2F 09              STA IDEALPRICE
+01827  6BC5  AD 09 0A              LDA NEIGH5+3
+01828  6BC8  8D 30 09              STA IDEALPRICEHI
+01829  6BCB  AD 0A 0A              LDA NEIGH5+4
+01830  6BCE  8D 35 08              STA HIPSTERLV
+01831  6BD1  AD 0B 0A              LDA NEIGH5+5
+01832  6BD4  8D 2E 09              STA TRENDYFOOD
+01833  6BD7  4C 28 6C              JMP SETPRICE
+01834  6BDA  AD EE 09   NAY1SET    LDA NEIGH1
+01835  6BDD  8D 1D 08              STA POPCOUNT
+01836  6BE0  AD EF 09              LDA NEIGH1+1
+01837  6BE3  8D 1E 08              STA POPCOUNTHI
+01838  6BE6  AD F0 09              LDA NEIGH1+2
+01839  6BE9  8D 2F 09              STA IDEALPRICE
+01840  6BEC  AD F1 09              LDA NEIGH1+3
+01841  6BEF  8D 30 09              STA IDEALPRICEHI
+01842  6BF2  AD F2 09              LDA NEIGH1+4
+01843  6BF5  8D 35 08              STA HIPSTERLV
+01844  6BF8  AD F3 09              LDA NEIGH1+5
+01845  6BFB  8D 2E 09              STA TRENDYFOOD
+01846  6BFE  4C 28 6C              JMP SETPRICE
+01847  6C01  AD F4 09   NAY2SET    LDA NEIGH2
+01848  6C04  8D 1D 08              STA POPCOUNT
+01849  6C07  AD F5 09              LDA NEIGH2+1
+01850  6C0A  8D 1E 08              STA POPCOUNTHI
+01851  6C0D  AD F6 09              LDA NEIGH2+2
+01852  6C10  8D 2F 09              STA IDEALPRICE
+01853  6C13  AD F7 09              LDA NEIGH2+3
+01854  6C16  8D 30 09              STA IDEALPRICEHI
+01855  6C19  AD F8 09              LDA NEIGH2+4
+01856  6C1C  8D 35 08              STA HIPSTERLV
+01857  6C1F  AD F9 09              LDA NEIGH2+5
+01858  6C22  8D 2E 09              STA TRENDYFOOD
+01859  6C25  4C 28 6C              JMP SETPRICE
+01860  6C28             
+01861  6C28  20 44 E5   SETPRICE   JSR $E544
+01862  6C2B  A9 00                 LDA #%00000000
+01863  6C2D  8D 15 D0              STA $D015       ;TURN OFF SPRITES
+01864  6C30  A2 00                 LDX #0
+01865  6C32  BD 7B 09   @LOOP      LDA PRICETITLE,X                      ;ADDS WORDS
+01866  6C35  C9 00                 CMP #0
+01867  6C37  F0 0C                 BEQ SHOWNUM
+01868  6C39  9D 59 06              STA SCNSRT+601,X
+01869  6C3C  BD 96 09              LDA SETPRICETX,X
+01870  6C3F  9D 81 06              STA SCNSRT+641,X
+01871  6C42  E8                    INX
+01872  6C43  D0 ED                 BNE @LOOP
+01873  6C45             SHOWNUM
+01874  6C45             
+01875  6C45             
+01876  6C45  A0 00                 LDY #0
+01877  6C47  AE 11 08              LDX PRICE
+01878  6C4A  8E 2D 08              STX DIV_LO
+01879  6C4D  8C 2E 08              STY DIV_HI
+01880  6C50  A0 04                 LDY #$04
+01881  6C52             @NEXT
+01882  6C52  20 64 6C              JSR @DIV10
+01883  6C55  09 30                 ORA #$30
+01884  6C57  C0 03                 CPY #3
+01885  6C59  90 03                 BCC @SKIPNUM
+01886  6C5B  99 B1 06              STA $06B1,Y
+01887  6C5E  88         @SKIPNUM   DEY
+01888  6C5F  10 F1                 BPL @NEXT
+01889  6C61  4C 7B 6C              JMP @MACEND
+01890  6C64             
+01891  6C64             @DIV10
+01892  6C64  A2 11                 LDX #$11
+01893  6C66  A9 00                 LDA #$00
+01894  6C68  18                    CLC
+01895  6C69             @LOOP
+01896  6C69  2A                    ROL
+01897  6C6A  C9 0A                 CMP #$0A
+01898  6C6C  90 03                 BCC @SKIP
+01899  6C6E  E9 0A                 SBC #$0A
+01900  6C70  B8                    CLV
+01901  6C71             @SKIP
+01902  6C71  2E 2D 08              ROL DIV_LO
+01903  6C74  2E 2E 08              ROL DIV_HI
+01904  6C77  CA                    DEX
+01905  6C78  D0 EF                 BNE @LOOP
+01906  6C7A  60                    RTS
+01907  6C7B             @MACEND
+01908  6C7B             @PRICELOOP 
+01909  6C7B  20 E4 FF   @READKEY   JSR $FFE4       ; READ KEY
+01910  6C7E  F0 FB                 BEQ @READKEY
+01911  6C80  C9 0D      @ENTER     CMP #$0D        ;ENTER
+01912  6C82  D0 03                 BNE @UP
+01913  6C84  4C A9 6C              JMP SELLINIT
+01914  6C87             
+01915  6C87  C9 91      @UP        CMP #$91       ;UP ARROW
+01916  6C89  D0 0D                 BNE @DOWN
+01917  6C8B  AD 11 08              LDA PRICE
+01918  6C8E  C9 63                 CMP #99
+01919  6C90  F0 E9                 BEQ @READKEY
+01920  6C92  EE 11 08              INC PRICE
+01921  6C95  4C 45 6C              JMP SHOWNUM
+01922  6C98             
+01923  6C98  C9 11      @DOWN      CMP #$11        ;DOWN ARROW
+01924  6C9A  D0 DF                 BNE @PRICELOOP
+01925  6C9C  AD 11 08              LDA PRICE
+01926  6C9F  C9 00                 CMP #0
+01927  6CA1  F0 D8                 BEQ @READKEY
+01928  6CA3  CE 11 08              DEC PRICE
+01929  6CA6  4C 45 6C              JMP SHOWNUM
+01930  6CA9             
+01931  6CA9             
+01932  6CA9             SELLINIT   
+01933  6CA9  AD 1F 09              LDA     SPEEDINIT
+01934  6CAC  ED 1C 09              SBC     SPEED
+01935  6CAF  8D 20 09              STA     SPEEDCOUNT
+01936  6CB2  8D 31 08              STA     BAKETIMER       ;INIT BAKE SPEED
+01937  6CB5             
+01938  6CB5             SELLSTYLEZ 
+01939  6CB5             
+01940  6CB5  AD 2E 09   SETFOOD    LDA TRENDYFOOD                ;LOAD TRENDY NUMBER
+01941  6CB8  C9 02                 CMP #2
+01942  6CBA  F0 0C                 BEQ @BURG         ;AND ASSIGN THE SPRITE FOR IT
+01943  6CBC  C9 03                 CMP #3
+01944  6CBE  F0 10                 BEQ @DOGS
+01945  6CC0  A9 07                 LDA #7
+01946  6CC2  8D 2A D0              STA $D02A
+01947  6CC5  4C D5 6C              JMP SETCOLFOOD
+01948  6CC8  A9 08      @BURG      LDA #8
+01949  6CCA  8D 2A D0              STA $D02A
+01950  6CCD  4C D5 6C              JMP SETCOLFOOD
+01951  6CD0  A9 02      @DOGS      LDA #2
+01952  6CD2  8D 2A D0              STA $D02A
+01953  6CD5             
+01954  6CD5  AD 32 08   SETCOLFOOD LDA TRUCKTYPE
+01955  6CD8  CD 2E 09              CMP TRENDYFOOD
+01956  6CDB  D0 03                 BNE @CONT
+01957  6CDD  4E 34 08              LSR STOPCHANCE
+01958  6CE0  C9 01      @CONT      CMP #1
+01959  6CE2  F0 0C                 BEQ @TACO
+01960  6CE4  C9 02                 CMP #2
+01961  6CE6  F0 10                 BEQ @BURG
+01962  6CE8  A9 02                 LDA #2
+01963  6CEA  8D 2F 08              STA FOODCOL       ;STORESPRITE3 COLOUR
+01964  6CED  4C FD 6C              JMP SELLSTART
+01965  6CF0  A9 07      @TACO      LDA #7
+01966  6CF2  8D 2F 08              STA FOODCOL       ;STORESPRITE3 COLOUR
+01967  6CF5  4C FD 6C              JMP SELLSTART
+01968  6CF8  A9 08      @BURG      LDA #8
+01969  6CFA  8D 2F 08              STA FOODCOL       ;STORESPRITE3 COLOUR
+01970  6CFD                        
+01971  6CFD             
+01972  6CFD  20 44 E5   SELLSTART  JSR $E544       ;CLEAR SCREEN4
+01973  6D00  A9 00                 LDA #0              ;SET BORDER COLOUR
+01974  6D02  8D 20 D0              STA $D020
+01975  6D05  A9 0C                 LDA #12         ;SET BACKGROUND COLOUR
+01976  6D07  8D 21 D0              STA $D021
+01977  6D0A  A9 01                 LDA #1          ;SET GLOBAL SPRITE COLOUR 1
+01978  6D0C  8D 25 D0              STA $D025
+01979  6D0F  A9 09                 LDA #9         ;SET GLOBAL SPRITE COLOUR 2
+01980  6D11  8D 26 D0              STA $D026
+01981  6D14  A9 05                 LDA #5
+01982  6D16  8D 28 D0              STA $D028       ;STORESPRITE1 COLOUR
+01983  6D19  A9 03                 LDA #3
+01984  6D1B  8D 29 D0              STA $D029       ;STORESPRITE2 COLOUR
+01985  6D1E  AD 2F 08              LDA FOODCOL
+01986  6D21  8D 27 D0              STA $D027       ;STORESPRITE3 COLOUR
+01987  6D24  A9 0F                 LDA #%00001111
+01988  6D26  8D 15 D0              STA $D015       ;TURN ON SPRITES
+01989  6D29  8D 1C D0              STA $D01C       ;SET SPRITE MODE
+01990  6D2C  8D 1B D0              STA $D01B       ;SET SPRITE BEHIND TEXT
+01991  6D2F  A9 0D                 LDA #%00001101  ;SET SPRITE SIZE
+01992  6D31  8D 17 D0              STA $D017
+01993  6D34  A9 04                 LDA #%00000100  ;SET SPRITE SIZE
+01994  6D36  8D 1D D0              STA $D01D
+01995  6D39  A9 C3                 LDA #SPR_ROOT+3         ;LOAD SPRITE OF FOOD
+01996  6D3B  6D 32 08              ADC TRUCKTYPE
+01997  6D3E  8D F8 07              STA $07F8
+01998  6D41  A9 32                 LDA #50
+01999  6D43  8D 00 D0              STA $D000
+02000  6D46  A9 38                 LDA #56
+02001  6D48  8D 01 D0              STA $D001
+02002  6D4B  A9 C4                 LDA #SPR_ROOT+4         ;LOAD SPRITE OF VENDOR
+02003  6D4D  8D F9 07              STA $07F9
+02004  6D50  A9 40                 LDA #64
+02005  6D52  8D 02 D0              STA $D002
+02006  6D55  A9 56                 LDA #86
+02007  6D57  8D 03 D0              STA $D003
+02008  6D5A  A9 C3                 LDA #SPR_ROOT+3         ;LOAD SPRITE OF TRUCK (THEY OVERLAP TO MAKE A NICER SPRITE)
+02009  6D5C  8D FA 07              STA $07FA
+02010  6D5F  A9 28                 LDA #40
+02011  6D61  8D 04 D0              STA $D004
+02012  6D64  0A                    ASL
+02013  6D65  8D 05 D0              STA $D005
+02014  6D68  AD 2E 09              LDA TRENDYFOOD
+02015  6D6B  8D 00 04              STA $0400
+02016  6D6E  A9 C4                 LDA #SPR_ROOT+4         ;LOAD SPRITE OF TRENDING FOOD
+02017  6D70  6D 2E 09              ADC TRENDYFOOD
+02018  6D73  8D FB 07              STA $07FB
+02019  6D76  A9 5A                 LDA #90
+02020  6D78  8D 06 D0              STA $D006
+02021  6D7B  A9 8C                 LDA #140
+02022  6D7D  8D 07 D0              STA $D007
+02023  6D80             
+02024  6D80  A2 00                 LDX #0
+02025  6D82  A9 01                 LDA #1
+02026  6D84  9D 00 D8   COLFIL2    STA $D800,X                     ;FILL COLOR RAM WHITE
+02027  6D87  9D 00 D9              STA $D900,X
+02028  6D8A  9D 00 DA              STA $DA00,X
+02029  6D8D  9D E8 DA              STA $DAE8,X
+02030  6D90  CA                    DEX
+02031  6D91  D0 F1                 BNE COLFIL2
+02032  6D93  A2 14                 LDX    #20
+02033  6D95  A9 60                 LDA #$60
+02034  6D97             LINESTART  
+02035  6D97  9D 1D 05              STA     FIRSTGUY,X              ;MAKE SURE LINE IS SPACES
+02036  6D9A  CA                    DEX
+02037  6D9B  D0 FA                 BNE LINESTART
+02038  6D9D  A2 00                 LDX #0
+02039  6D9F  BD A6 08   WRITE      LDA TRENDLBL,X                      ;ADDS WORDS
+02040  6DA2  9D 59 06              STA SCNSRT+601,X
+02041  6DA5  BD C2 08              LDA PASSLBL,X
+02042  6DA8  9D A9 06              STA SCNSRT+681,X
+02043  6DAB  BD B4 08              LDA WAITLBL,X
+02044  6DAE  9D F9 06              STA SCNSRT+761,X
+02045  6DB1  BD DE 08              LDA SOLDLBL,X
+02046  6DB4  9D 49 07              STA SCNSRT+841,X
+02047  6DB7  BD D0 08              LDA GONELBL,X
+02048  6DBA  9D 99 07              STA SCNSRT+921,X
+02049  6DBD  BD EC 08              LDA POPLBL,X
+02050  6DC0  9D 14 04              STA SCNSRT+20,X
+02051  6DC3  E8                    INX
+02052  6DC4  E0 07                 CPX #7
+02053  6DC6  D0 D7                 BNE WRITE
+02054  6DC8                        
+02055  6DC8             NEWCUST    
+02056  6DC8  A9 00                 LDA #0              ;SET BORDER COLOUR
+02057  6DCA  8D 20 D0              STA $D020
+02058  6DCD  AD 20 08              LDA VISITCOUNTHI
+02059  6DD0  CD 1E 08              CMP POPCOUNTHI
+02060  6DD3  D0 0B                 BNE CYCLESTART
+02061  6DD5  AD 1F 08              LDA VISITCOUNT
+02062  6DD8  CD 1D 08              CMP POPCOUNT
+02063  6DDB  D0 03                 BNE CYCLESTART
+02064  6DDD  4C 8C 71              JMP SUMMARY
+02065  6DE0             CYCLESTART 
+02066  6DE0             
+02067  6DE0             
+02068  6DE0  18                    CLC
+02069  6DE1  AD 1F 08              LDA VISITCOUNT
+02070  6DE4  69 01                 ADC #1
+02071  6DE6  8D 1F 08              STA VISITCOUNT
+02072  6DE9  90 04                 BCC @GO
+02073  6DEB  EE 20 08              INC VISITCOUNTHI
+02074  6DEE  18                    CLC
+02075  6DEF             @GO        
+02076  6DEF             
+02077  6DEF             
+02078  6DEF             
+02079  6DEF  AC 16 08              LDY PASSCOUNTHI
+02080  6DF2  AE 15 08              LDX PASSCOUNT
+02081  6DF5  8E 2D 08              STX DIV_LO
+02082  6DF8  8C 2E 08              STY DIV_HI
+02083  6DFB  A0 04                 LDY #$04
+02084  6DFD             @NEXT
+02085  6DFD  20 0B 6E              JSR @DIV10
+02086  6E00  09 30                 ORA #$30
+02087  6E02  99 B1 06              STA $06B1,Y
+02088  6E05  88                    DEY
+02089  6E06  10 F5                 BPL @NEXT
+02090  6E08  4C 22 6E              JMP @MACEND
+02091  6E0B             
+02092  6E0B             @DIV10
+02093  6E0B  A2 11                 LDX #$11
+02094  6E0D  A9 00                 LDA #$00
+02095  6E0F  18                    CLC
+02096  6E10             @LOOP
+02097  6E10  2A                    ROL
+02098  6E11  C9 0A                 CMP #$0A
+02099  6E13  90 03                 BCC @SKIP
+02100  6E15  E9 0A                 SBC #$0A
+02101  6E17  B8                    CLV
+02102  6E18             @SKIP
+02103  6E18  2E 2D 08              ROL DIV_LO
+02104  6E1B  2E 2E 08              ROL DIV_HI
+02105  6E1E  CA                    DEX
+02106  6E1F  D0 EF                 BNE @LOOP
+02107  6E21  60                    RTS
+02108  6E22             @MACEND
+02109  6E22             
+02110  6E22             
+02111  6E22  AC 18 08              LDY LINECOUNTHI
+02112  6E25  AE 17 08              LDX LINECOUNT
+02113  6E28  8E 2D 08              STX DIV_LO
+02114  6E2B  8C 2E 08              STY DIV_HI
+02115  6E2E  A0 04                 LDY #$04
+02116  6E30             @NEXT
+02117  6E30  20 3E 6E              JSR @DIV10
+02118  6E33  09 30                 ORA #$30
+02119  6E35  99 01 07              STA $0701,Y
+02120  6E38  88                    DEY
+02121  6E39  10 F5                 BPL @NEXT
+02122  6E3B  4C 55 6E              JMP @MACEND
+02123  6E3E             
+02124  6E3E             @DIV10
+02125  6E3E  A2 11                 LDX #$11
+02126  6E40  A9 00                 LDA #$00
+02127  6E42  18                    CLC
+02128  6E43             @LOOP
+02129  6E43  2A                    ROL
+02130  6E44  C9 0A                 CMP #$0A
+02131  6E46  90 03                 BCC @SKIP
+02132  6E48  E9 0A                 SBC #$0A
+02133  6E4A  B8                    CLV
+02134  6E4B             @SKIP
+02135  6E4B  2E 2D 08              ROL DIV_LO
+02136  6E4E  2E 2E 08              ROL DIV_HI
+02137  6E51  CA                    DEX
+02138  6E52  D0 EF                 BNE @LOOP
+02139  6E54  60                    RTS
+02140  6E55             @MACEND
+02141  6E55             
+02142  6E55             
+02143  6E55  AC 1A 08              LDY SALECOUNTHI
+02144  6E58  AE 19 08              LDX SALECOUNT
+02145  6E5B  8E 2D 08              STX DIV_LO
+02146  6E5E  8C 2E 08              STY DIV_HI
+02147  6E61  A0 04                 LDY #$04
+02148  6E63             @NEXT
+02149  6E63  20 71 6E              JSR @DIV10
+02150  6E66  09 30                 ORA #$30
+02151  6E68  99 51 07              STA $0751,Y
+02152  6E6B  88                    DEY
+02153  6E6C  10 F5                 BPL @NEXT
+02154  6E6E  4C 88 6E              JMP @MACEND
+02155  6E71             
+02156  6E71             @DIV10
+02157  6E71  A2 11                 LDX #$11
+02158  6E73  A9 00                 LDA #$00
+02159  6E75  18                    CLC
+02160  6E76             @LOOP
+02161  6E76  2A                    ROL
+02162  6E77  C9 0A                 CMP #$0A
+02163  6E79  90 03                 BCC @SKIP
+02164  6E7B  E9 0A                 SBC #$0A
+02165  6E7D  B8                    CLV
+02166  6E7E             @SKIP
+02167  6E7E  2E 2D 08              ROL DIV_LO
+02168  6E81  2E 2E 08              ROL DIV_HI
+02169  6E84  CA                    DEX
+02170  6E85  D0 EF                 BNE @LOOP
+02171  6E87  60                    RTS
+02172  6E88             @MACEND
+02173  6E88             
+02174  6E88             
+02175  6E88  AC 1C 08              LDY LEFTCOUNTHI
+02176  6E8B  AE 1B 08              LDX LEFTCOUNT
+02177  6E8E  8E 2D 08              STX DIV_LO
+02178  6E91  8C 2E 08              STY DIV_HI
+02179  6E94  A0 04                 LDY #$04
+02180  6E96             @NEXT
+02181  6E96  20 A4 6E              JSR @DIV10
+02182  6E99  09 30                 ORA #$30
+02183  6E9B  99 A1 07              STA $07A1,Y
+02184  6E9E  88                    DEY
+02185  6E9F  10 F5                 BPL @NEXT
+02186  6EA1  4C BB 6E              JMP @MACEND
+02187  6EA4             
+02188  6EA4             @DIV10
+02189  6EA4  A2 11                 LDX #$11
+02190  6EA6  A9 00                 LDA #$00
+02191  6EA8  18                    CLC
+02192  6EA9             @LOOP
+02193  6EA9  2A                    ROL
+02194  6EAA  C9 0A                 CMP #$0A
+02195  6EAC  90 03                 BCC @SKIP
+02196  6EAE  E9 0A                 SBC #$0A
+02197  6EB0  B8                    CLV
+02198  6EB1             @SKIP
+02199  6EB1  2E 2D 08              ROL DIV_LO
+02200  6EB4  2E 2E 08              ROL DIV_HI
+02201  6EB7  CA                    DEX
+02202  6EB8  D0 EF                 BNE @LOOP
+02203  6EBA  60                    RTS
+02204  6EBB             @MACEND
+02205  6EBB             
+02206  6EBB             
+02207  6EBB  AC 20 08              LDY VISITCOUNTHI
+02208  6EBE  AE 1F 08              LDX VISITCOUNT
+02209  6EC1  8E 2D 08              STX DIV_LO
+02210  6EC4  8C 2E 08              STY DIV_HI
+02211  6EC7  A0 04                 LDY #$04
+02212  6EC9             @NEXT
+02213  6EC9  20 D7 6E              JSR @DIV10
+02214  6ECC  09 30                 ORA #$30
+02215  6ECE  99 18 04              STA $0422-10,Y
+02216  6ED1  88                    DEY
+02217  6ED2  10 F5                 BPL @NEXT
+02218  6ED4  4C EE 6E              JMP @MACEND
+02219  6ED7             
+02220  6ED7             @DIV10
+02221  6ED7  A2 11                 LDX #$11
+02222  6ED9  A9 00                 LDA #$00
+02223  6EDB  18                    CLC
+02224  6EDC             @LOOP
+02225  6EDC  2A                    ROL
+02226  6EDD  C9 0A                 CMP #$0A
+02227  6EDF  90 03                 BCC @SKIP
+02228  6EE1  E9 0A                 SBC #$0A
+02229  6EE3  B8                    CLV
+02230  6EE4             @SKIP
+02231  6EE4  2E 2D 08              ROL DIV_LO
+02232  6EE7  2E 2E 08              ROL DIV_HI
+02233  6EEA  CA                    DEX
+02234  6EEB  D0 EF                 BNE @LOOP
+02235  6EED  60                    RTS
+02236  6EEE             @MACEND
+02237  6EEE             
+02238  6EEE             
+02239  6EEE  AC 1E 08              LDY POPCOUNTHI
+02240  6EF1  AE 1D 08              LDX POPCOUNT
+02241  6EF4  8E 2D 08              STX DIV_LO
+02242  6EF7  8C 2E 08              STY DIV_HI
+02243  6EFA  A0 04                 LDY #$04
+02244  6EFC             @NEXT
+02245  6EFC  20 0A 6F              JSR @DIV10
+02246  6EFF  09 30                 ORA #$30
+02247  6F01  99 0E 04              STA $0422-20,Y
+02248  6F04  88                    DEY
+02249  6F05  10 F5                 BPL @NEXT
+02250  6F07  4C 21 6F              JMP @MACEND
+02251  6F0A             
+02252  6F0A             @DIV10
+02253  6F0A  A2 11                 LDX #$11
+02254  6F0C  A9 00                 LDA #$00
+02255  6F0E  18                    CLC
+02256  6F0F             @LOOP
+02257  6F0F  2A                    ROL
+02258  6F10  C9 0A                 CMP #$0A
+02259  6F12  90 03                 BCC @SKIP
+02260  6F14  E9 0A                 SBC #$0A
+02261  6F16  B8                    CLV
+02262  6F17             @SKIP
+02263  6F17  2E 2D 08              ROL DIV_LO
+02264  6F1A  2E 2E 08              ROL DIV_HI
+02265  6F1D  CA                    DEX
+02266  6F1E  D0 EF                 BNE @LOOP
+02267  6F20  60                    RTS
+02268  6F21             @MACEND
+02269  6F21                        
+02270  6F21  A2 11                 LDX     #17             ;NUMBER OF TIMES TO RUN
+02271  6F23  A9 00                 LDA     #00
+02272  6F25  85 FB                 STA     $FB             ;SET ZERO PAGE FOR START LOCATION
+02273  6F27  A9 07                 LDA     #$07            ;SET HIGH BIT FOR START LOCATION
+02274  6F29  85 FC                 STA     $FC
+02275  6F2B  A0 E3                 LDY     #$E3            ;SET LOW BIT FOR START LOCATION
+02276  6F2D  38                    SEC                     ;SET CARRY FOR SOME MATH LATER
+02277  6F2E  9A         WALKBY     TXS                     ;SAVE X FOR WHEN JSR RETURNS
+02278  6F2F  20 74 71              JSR     DELAY2          ;SLOW IT DOWN SO WE CAN SEE IT
+02279  6F32  BA                    TSX                     ;LOAD X BACK INTO X
+02280  6F33  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
+02281  6F35  4D 21 08              EOR     MANFRAME        ;FLIP BIT 8 FOR MANFRAME
+02282  6F38  8D 21 08              STA     MANFRAME        ;SAVE IT BACK ON MANFRAME
+02283  6F3B  A9 60                 LDA     #$60            ;LOAD " " INTO ACC
+02284  6F3D  91 FB                 STA     ($FB),Y         ;LOAD IT AT THE BOTTOM OF SCREEN
+02285  6F3F  98                    TYA                     ;TRANSFER Y TO ACCUMULATOR THEN
+02286  6F40  E9 28                 SBC     #40             ;SUBTRACT 40 (ONE LINE)
+02287  6F42  A8                    TAY                     ;SAVE ACC IN Y
+02288  6F43  90 0B                 BCC     NXTBL           ;IF MATH CLEARED CARRY WE NEED TO MOVE UP ONE HIGH BIT
+02289  6F45  AD 21 08   WLKRTN     LDA     MANFRAME        ;OTHERWISE WE ARE GOOD TO PLACE NEXT MAN FRAME
+02290  6F48  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
+02291  6F4A  CA                    DEX
+02292  6F4B  D0 E1                 BNE     WALKBY          ;NEXT LOOP
+02293  6F4D  4C 56 6F              JMP     CHECKSTOP
+02294  6F50  C6 FC      NXTBL      DEC     $FC             ;DECREASE HIGH BIT FOR SCREEN LOCATION
+02295  6F52  38                    SEC
+02296  6F53  4C 45 6F              JMP     WLKRTN
+02297  6F56             
+02298  6F56             CHECKSTOP  
+02299  6F56  AD 1B D4              LDA     RAND   ;DO THEY STOP?
+02300  6F59  CD 34 08              CMP     STOPCHANCE
+02301  6F5C  90 31                 BCC     LEAVE
+02302  6F5E             
+02303  6F5E  A9 09      LINEUP     LDA     #9             ;SET LINE MAX SIZE
+02304  6F60  CD 17 08              CMP     LINECOUNT       ;CHECK IF LINE FULL
+02305  6F63  90 2A                 BCC     LEAVE           ;IF SO LEAVE
+02306  6F65  EE 17 08              INC     LINECOUNT       ;IF NOT INC LINECOUNT
+02307  6F68  A9 1E                 LDA     #30            ;DISTANCE TO START OF LINE
+02308  6F6A  ED 17 08              SBC     LINECOUNT       ;LESS NUMBER OF PEOPLE IN LINE
+02309  6F6D  AA                    TAX                     ;SET NUMBER OF LOOPS
+02310  6F6E  A0 1E                 LDY     #30             ;SET TRAVEL DISTANCE
+02311  6F70  9A         LINELP     TXS                     ;SAVE X FOR WHEN JSR RETURNS
+02312  6F71  20 74 71              JSR     DELAY2          ;SLOW IT DOWN SO WE CAN SEE IT
+02313  6F74  BA                    TSX                     ;LOAD X BACK INTO X
+02314  6F75  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
+02315  6F77  4D 21 08              EOR     MANFRAME        ;FLIP BIT 8 FOR MANFRAME
+02316  6F7A  8D 21 08              STA     MANFRAME        ;SAVE IT BACK ON MANFRAME
+02317  6F7D  A9 60                 LDA     #$60            ;LOAD " " INTO ACC
+02318  6F7F  99 1D 05              STA     FIRSTGUY,Y         ;STORE AT LINE START +Y
+02319  6F82  AD 21 08              LDA     MANFRAME        ;LOAD MAN CHR INTO ACC
+02320  6F85  88                    DEY
+02321  6F86  99 1D 05              STA     FIRSTGUY,Y         ;STORE AT LINE START +Y
+02322  6F89  CA                    DEX
+02323  6F8A  D0 E4                 BNE     LINELP
+02324  6F8C                        
+02325  6F8C  4C D2 6F              JMP     SOLD2
+02326  6F8F             
+02327  6F8F             
+02328  6F8F                        
+02329  6F8F  EE 15 08   LEAVE      INC     PASSCOUNT
+02330  6F92  A2 07                 LDX     #7             ;NUMBER OF TIMES TO RUN
+02331  6F94  A9 00                 LDA     #00
+02332  6F96  85 FB                 STA     $FB             ;SET ZERO PAGE FOR START LOCATION
+02333  6F98  A9 05                 LDA     #$05            ;SET HIGH BIT FOR START LOCATION
+02334  6F9A  85 FC                 STA     $FC
+02335  6F9C  A0 3B                 LDY     #$3B            ;SET LOW BIT FOR START LOCATION
+02336  6F9E  38                    SEC                     ;SET CARRY FOR SOME MATH LATER
+02337  6F9F  9A         LEAVING    TXS                     ;SAVE X FOR WHEN JSR RETURNS
+02338  6FA0  20 74 71              JSR     DELAY2          ;SLOW IT DOWN SO WE CAN SEE IT
+02339  6FA3  BA                    TSX                     ;LOAD X BACK INTO X
+02340  6FA4  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
+02341  6FA6  4D 21 08              EOR     MANFRAME        ;FLIP BIT 8 FOR MANFRAME
+02342  6FA9  8D 21 08              STA     MANFRAME        ;SAVE IT BACK ON MANFRAME
+02343  6FAC  A9 60                 LDA     #$60            ;LOAD " " INTO ACC
+02344  6FAE  91 FB                 STA     ($FB),Y         ;LOAD IT AT THE BOTTOM OF SCREEN
+02345  6FB0  98                    TYA                     ;TRANSFER Y TO ACCUMULATOR THEN
+02346  6FB1  E9 28                 SBC     #40             ;SUBTRACT 40 (ONE LINE)
+02347  6FB3  A8                    TAY                     ;SAVE ACC IN Y
+02348  6FB4  90 13                 BCC     NXTLL           ;IF MATH CLEARED CARRY WE NEED TO MOVE UP ONE HIGH BIT
+02349  6FB6  AD 21 08   LVERTN     LDA     MANFRAME        ;OTHERWISE WE ARE GOOD TO PLACE NEXT MAN FRAME
+02350  6FB9  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
+02351  6FBB  CA                    DEX
+02352  6FBC  D0 E1                 BNE     LEAVING          ;NEXT LOOP
+02353  6FBE  20 74 71              JSR     DELAY2
+02354  6FC1  A9 60                 LDA     #$60
+02355  6FC3  8D 23 04              STA     $0423
+02356  6FC6  4C D2 6F              JMP     SOLD2
+02357  6FC9  C6 FC      NXTLL      DEC     $FC             ;DECREASE HIGH BIT FOR SCREEN LOCATION
+02358  6FCB  38                    SEC
+02359  6FCC  4C B6 6F              JMP     LVERTN
+02360  6FCF             
+02361  6FCF  4C C5 70   GOMAD      JMP     ANGRY
+02362  6FD2             
+02363  6FD2  A2 00      SOLD2      LDX     #0
+02364  6FD4  AD 1E 05              LDA     FIRSTGUY+1         ;GRAB CHARACTER AT LINE POS 1
+02365  6FD7  C9 60                 CMP     #$60            ;CHECK IF IT'S A SPACE
+02366  6FD9  F0 F4                 BEQ     GOMAD
+02367  6FDB  CE 31 08              DEC     BAKETIMER
+02368  6FDE  D0 EF                 BNE     GOMAD
+02369  6FE0  AD 1E 09              LDA     SKILL
+02370  6FE3  C9 03                 CMP     #3
+02371  6FE5  B0 0A                 BCS     @CONT
+02372  6FE7  AD 34 08              LDA     STOPCHANCE
+02373  6FEA  C9 EF                 CMP     #$EF
+02374  6FEC  90 03                 BCC     @CONT
+02375  6FEE  EE 34 08              INC     STOPCHANCE
+02376  6FF1  EE 19 08   @CONT      INC     SALECOUNT
+02377  6FF4  CE 17 08              DEC     LINECOUNT
+02378  6FF7             
+02379  6FF7             
+02380  6FF7  AC 1A 08              LDY SALECOUNTHI
+02381  6FFA  AE 19 08              LDX SALECOUNT
+02382  6FFD  8E 2D 08              STX DIV_LO
+02383  7000  8C 2E 08              STY DIV_HI
+02384  7003  A0 04                 LDY #$04
+02385  7005             @NEXT
+02386  7005  20 13 70              JSR @DIV10
+02387  7008  09 30                 ORA #$30
+02388  700A  99 51 07              STA $0751,Y
+02389  700D  88                    DEY
+02390  700E  10 F5                 BPL @NEXT
+02391  7010  4C 2A 70              JMP @MACEND
+02392  7013             
+02393  7013             @DIV10
+02394  7013  A2 11                 LDX #$11
+02395  7015  A9 00                 LDA #$00
+02396  7017  18                    CLC
+02397  7018             @LOOP
+02398  7018  2A                    ROL
+02399  7019  C9 0A                 CMP #$0A
+02400  701B  90 03                 BCC @SKIP
+02401  701D  E9 0A                 SBC #$0A
+02402  701F  B8                    CLV
+02403  7020             @SKIP
+02404  7020  2E 2D 08              ROL DIV_LO
+02405  7023  2E 2E 08              ROL DIV_HI
+02406  7026  CA                    DEX
+02407  7027  D0 EF                 BNE @LOOP
+02408  7029  60                    RTS
+02409  702A             @MACEND
+02410  702A  A9 00                 LDA     #00
+02411  702C  85 FB                 STA     $FB             ;SET ZERO PAGE FOR START LOCATION
+02412  702E  A9 05                 LDA     #$05            ;SET HIGH BIT FOR START LOCATION
+02413  7030  85 FC                 STA     $FC
+02414  7032  A9 00                 LDA     #00
+02415  7034  85 F9                 STA     $F9             ;SET ZERO PAGE FOR START LOCATION
+02416  7036  A9 D9                 LDA     #$D9            ;SET HIGH BIT FOR START LOCATION
+02417  7038  85 FA                 STA     $FA
+02418  703A  A0 1E                 LDY     #$1E            ;SET LOW BIT FOR START LOCATION
+02419  703C  18                    CLC                     ;CLEAR CARRY FOR SOME MATH LATER
+02420  703D  AD 23 08              LDA     EATFRAME
+02421  7040  91 FB                 STA     ($FB),Y
+02422  7042  A9 05                 LDA     #5
+02423  7044  91 F9                 STA     ($F9),Y
+02424  7046  A9 7A                 LDA     #$7A            ;THIS BIT STORES YUM ON SCREEN
+02425  7048  8D F7 04              STA     $04F7
+02426  704B  A9 7B                 LDA     #$7B
+02427  704D  8D F8 04              STA     $04F8
+02428  7050  9A                    TXS                     ;SAVE X FOR WHEN JSR RETURNS
+02429  7051  A2 50                 LDX     #$50
+02430  7053  20 81 71              JSR     DELAYX          ;SLOW IT DOWN SO WE CAN SEE IT
+02431  7056  A9 01                 LDA     #1
+02432  7058  91 F9                 STA     ($F9),Y
+02433  705A  BA                    TSX                     ;LOAD X BACK INTO X
+02434  705B  A9 60                 LDA     #$60            ;THIS BIT CLEARS YUM ON SCREEN
+02435  705D  8D F7 04              STA     $04F7
+02436  7060  8D F8 04              STA     $04F8
+02437  7063  9A         SLDEXIT    TXS                     ;SAVE X FOR WHEN JSR RETURNS
+02438  7064  20 74 71              JSR     DELAY2          ;SLOW IT DOWN SO WE CAN SEE IT
+02439  7067  BA                    TSX                     ;LOAD X BACK INTO X
+02440  7068  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
+02441  706A  4D 23 08              EOR     EATFRAME        ;FLIP BIT 8 FOR EATFRAME
+02442  706D  8D 23 08              STA     EATFRAME        ;SAVE IT BACK ON EATFRAME
+02443  7070  A9 60                 LDA     #$60            ;LOAD " " INTO ACC
+02444  7072  91 FB                 STA     ($FB),Y         ;LOAD IT AT THE START POSITION
+02445  7074  98                    TYA                     ;TRANSFER Y TO ACCUMULATOR THEN
+02446  7075  69 26                 ADC     #38             ;SUBTRACT 39
+02447  7077  A8                    TAY                     ;SAVE ACC IN Y
+02448  7078  B0 1B                 BCS     INLINE           ;IF MATH CLEARED CARRY WE NEED TO MOVE UP ONE HIGH BIT
+02449  707A  AD 23 08   SLDRTN     LDA     EATFRAME        ;OTHERWISE WE ARE GOOD TO PLACE NEXT MAN FRAME
+02450  707D  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
+02451  707F  E8                    INX
+02452  7080  E0 06                 CPX     #6
+02453  7082  D0 DF                 BNE     SLDEXIT          ;NEXT LOOP
+02454  7084  AD 20 09              LDA     SPEEDCOUNT
+02455  7087  8D 31 08              STA     BAKETIMER       ;INIT BAKE SPEED
+02456  708A  20 74 71              JSR     DELAY2
+02457  708D  A9 60                 LDA     #$60
+02458  708F  8D 08 06              STA     $0608
+02459  7092  4C 9B 70              JMP     LINEFIX
+02460  7095  E6 FC      INLINE     INC     $FC             ;DECREASE HIGH BIT FOR SCREEN LOCATION
+02461  7097  18                    CLC
+02462  7098  4C 7A 70              JMP     SLDRTN
+02463  709B                        
+02464  709B             
+02465  709B  A2 01      LINEFIX    LDX     #1              ;RESET X      HERE WE ARE FIXING THE LINE OF MISSING JERKS
+02466  709D  A0 00                 LDY     #0
+02467  709F  A9 05                 LDA     #5
+02468  70A1  BD 1D 05   LNLP       LDA     FIRSTGUY,X         ;GRAB CHARACTER AT LINE POS 1
+02469  70A4  C9 60                 CMP     #96            ;CHECK IF IT'S A SPACE
+02470  70A6  F0 08                 BEQ     NXTDUDE
+02471  70A8  E8         NXTLN      INX
+02472  70A9  C9 0B                 CMP     #11
+02473  70AB  D0 F4                 BNE     LNLP
+02474  70AD  4C C2 70              JMP     GOBACK
+02475  70B0  BD 1E 05   NXTDUDE    LDA     $051E,X         ;GRAB CHAR IN NEXT SPOT
+02476  70B3  C9 60                 CMP     #96            ;CHECK IF IT'S A SPACE (TWO SPACES MEAN NO MORE BLANKS)
+02477  70B5  F0 0B                 BEQ     GOBACK        ;IF SO DO A NEW CUSTOMER
+02478  70B7  9D 1D 05              STA     FIRSTGUY,X        ;OTHERWISE MOVE ONE TO NEW SPOT
+02479  70BA  A9 60                 LDA     #96            ;LOAD " "
+02480  70BC  9D 1E 05              STA     $051E,X        ;AND REPLACE COPY
+02481  70BF  4C A8 70              JMP     NXTLN
+02482  70C2  4C C8 6D   GOBACK     JMP     NEWCUST
+02483  70C5             
+02484  70C5  A2 04      ANGRY      LDX     #4              ;RESET X        HERE WE ARE CHECKING IF THEY MAD
+02485  70C7  A0 00                 LDY     #0
+02486  70C9  BD 1D 05   LVELP      LDA     FIRSTGUY,X         ;GRAB CHARACTER AT LINE POS 1
+02487  70CC  C9 60                 CMP     #96            ;CHECK IF IT'S A SPACE
+02488  70CE  F0 CB                 BEQ     LINEFIX
+02489  70D0  AD 1B D4              LDA     RAND
+02490  70D3  C9 20                 CMP     #$20
+02491  70D5  90 08                 BCC     GONEDY
+02492  70D7  E8                    INX
+02493  70D8  E0 0A                 CPX     #10
+02494  70DA  D0 ED                 BNE     LVELP
+02495  70DC  4C 9B 70              JMP     LINEFIX
+02496  70DF             
+02497  70DF             
+02498  70DF             
+02499  70DF  CE 17 08   GONEDY     DEC     LINECOUNT       ;LOWER LINE COUNT
+02500  70E2  EE 1B 08              INC     LEFTCOUNT
+02501  70E5  AD 34 08              LDA     STOPCHANCE
+02502  70E8  C9 EF                 CMP     #$EF
+02503  70EA  90 03                 BCC     @CONT
+02504  70EC  EE 34 08              INC     STOPCHANCE
+02505  70EF  A9 00      @CONT      LDA     #00
+02506  70F1  85 FB                 STA     $FB             ;SET ZERO PAGE FOR START LOCATION
+02507  70F3  A9 05                 LDA     #$05            ;SET HIGH BIT FOR START LOCATION
+02508  70F5  85 FC                 STA     $FC
+02509  70F7  A9 00                 LDA     #00
+02510  70F9  85 F9                 STA     $F9             ;SET ZERO PAGE FOR START LOCATION
+02511  70FB  A9 D9                 LDA     #$D9            ;SET HIGH BIT FOR START LOCATION
+02512  70FD  85 FA                 STA     $FA
+02513  70FF  BC 24 08              LDY     LINEPOS,X            ;SET LOW BIT FOR START LOCATION
+02514  7102  38                    SEC                     ;SET CARRY FOR SOME MATH LATER
+02515  7103  AD 22 08              LDA     ANGRYFRAME
+02516  7106  91 FB                 STA     ($FB),Y
+02517  7108  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
+02518  710A  4D 22 08              EOR     ANGRYFRAME      ;FLIP BIT 8 FOR ANGRYMAN
+02519  710D  8D 22 08              STA     ANGRYFRAME      ;SAVE IT BACK ON ANGRYMAN
+02520  7110  A9 02                 LDA     #2
+02521  7112  91 F9                 STA     ($F9),Y
+02522  7114  98                    TYA                     ;TRANSFER Y TO ACCUMULATOR THEN
+02523  7115  E9 27                 SBC     #39             ;SUBTRACT 39 (UP AND RIGHT ONE)
+02524  7117  A8                    TAY
+02525  7118  90 4C                 BCC     DECLINE           ;IF MATH CLEARED CARRY WE NEED TO MOVE UP ONE HIGH BIT
+02526  711A  A9 7C      GNRTN      LDA     #124            ;OTHERWISE WE ARE GOOD TO PLACE UG
+02527  711C  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
+02528  711E                        ;ANIMATE ANGRY MAN OFF SCREEN
+02529  711E  9A                    TXS
+02530  711F  A2 7F                 LDX     #$7F
+02531  7121  20 81 71              JSR     DELAYX
+02532  7124  BA                    TSX
+02533  7125  A9 60                 LDA     #$60            ;GET RID OF UG
+02534  7127  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
+02535  7129             
+02536  7129  BC 24 08              LDY     LINEPOS,X            ;SET LOW BIT FOR START LOCATION
+02537  712C                        
+02538  712C  A9 05                 LDA     #$05            ;SET HIGH BIT FOR START LOCATION
+02539  712E  85 FC                 STA     $FC
+02540  7130  A2 07                 LDX     #7
+02541  7132  38                    SEC
+02542  7133  9A         GNRTN2     TXS                     ;SAVE X FOR WHEN JSR RETURNS
+02543  7134  20 74 71              JSR     DELAY2          ;SLOW IT DOWN SO WE CAN SEE IT
+02544  7137  BA                    TSX                     ;LOAD X BACK INTO X
+02545  7138  A9 80                 LDA     #%10000000      ;REVERSE CHAR MASK
+02546  713A  4D 22 08              EOR     ANGRYFRAME        ;FLIP BIT 8 FOR MANFRAME
+02547  713D  8D 22 08              STA     ANGRYFRAME        ;SAVE IT BACK ON MANFRAME
+02548  7140  A9 60                 LDA     #$60            ;LOAD " " INTO ACC
+02549  7142  91 FB                 STA     ($FB),Y         ;LOAD IT AT THE BOTTOM OF SCREEN
+02550  7144  A9 01                 LDA     #1
+02551  7146  91 F9                 STA     ($F9),Y
+02552  7148  98                    TYA                     ;TRANSFER Y TO ACCUMULATOR THEN
+02553  7149  E9 28                 SBC     #40             ;SUBTRACT 40 (ONE LINE)
+02554  714B  A8                    TAY                     ;SAVE ACC IN Y
+02555  714C  90 12                 BCC     DCLN2           ;IF MATH CLEARED CARRY WE NEED TO MOVE UP ONE HIGH BIT
+02556  714E  AD 22 08   GNRTN3     LDA     ANGRYFRAME        ;OTHERWISE WE ARE GOOD TO PLACE NEXT MAN FRAME
+02557  7151  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
+02558  7153  CA                    DEX
+02559  7154  D0 DD                 BNE     GNRTN2          ;NEXT LOOP
+02560  7156  20 74 71              JSR     DELAY2
+02561  7159  A9 60                 LDA     #$60
+02562  715B  91 FB                 STA     ($FB),Y         ;AT THIS SCREEN LOCATION
+02563  715D  4C 9B 70              JMP     LINEFIX
+02564  7160  C6 FC      DCLN2      DEC     $FC             ;DECREASE HIGH BIT FOR SCREEN LOCATION
+02565  7162  38                    SEC
+02566  7163  4C 4E 71              JMP     GNRTN3
+02567  7166             
+02568  7166  C6 FC      DECLINE    DEC     $FC             ;DECREASE HIGH BIT FOR SCREEN LOCATION
+02569  7168  38                    SEC
+02570  7169  4C 1A 71              JMP     GNRTN
+02571  716C             
+02572  716C  AD 12 D0   DELAY      LDA     $D012
+02573  716F  C9 FF                 CMP     #$FF
+02574  7171  D0 F9                 BNE     DELAY
+02575  7173  60                    RTS
+02576  7174             
+02577  7174  A2 14      DELAY2     LDX     #20
+02578  7176  AD 12 D0   DLP        LDA     $D012
+02579  7179  C9 FF                 CMP     #$FF
+02580  717B  D0 F9                 BNE     DLP
+02581  717D  CA                    DEX
+02582  717E  D0 F6                 BNE     DLP
+02583  7180  60                    RTS
+02584  7181             
+02585  7181  AD 12 D0   DELAYX     LDA     $D012
+02586  7184  C9 FF                 CMP     #$FF
+02587  7186  D0 F9                 BNE     DELAYX
+02588  7188  CA                    DEX
+02589  7189  D0 F6                 BNE     DELAYX
+02590  718B  60                    RTS
+02591  718C             
+02592  718C  A2 00      SUMMARY    LDX #0
+02593  718E  BD FA 08   @WRITE     LDA ENDDAY,X                      ;ADDS WORDS
+02594  7191  9D 37 04              STA $0437,X
+02595  7194  E8                    INX
+02596  7195  E0 0A                 CPX #10
+02597  7197  D0 F5                 BNE @WRITE
+02598  7199             
+02599  7199             DAYTTL     
+02600  7199  A2 00                 LDX #0
+02601  719B  BD 05 09   @WRITE     LDA TOTAL,X                      ;ADDS WORDS
+02602  719E  9D C2 05              STA $05C2,X
+02603  71A1  E8                    INX
+02604  71A2  E0 15                 CPX #21
+02605  71A4  D0 F5                 BNE @WRITE
+02606  71A6             
+02607  71A6             
+02608  71A6  A0 00                 LDY #0
+02609  71A8  AE 11 08              LDX PRICE
+02610  71AB  8E 2D 08              STX DIV_LO
+02611  71AE  8C 2E 08              STY DIV_HI
+02612  71B1  A0 04                 LDY #$04
+02613  71B3             @NEXT
+02614  71B3  20 C1 71              JSR @DIV10
+02615  71B6  09 30                 ORA #$30
+02616  71B8  99 F2 05              STA $05F2,Y
+02617  71BB  88                    DEY
+02618  71BC  10 F5                 BPL @NEXT
+02619  71BE  4C D8 71              JMP @MACEND
+02620  71C1             
+02621  71C1             @DIV10
+02622  71C1  A2 11                 LDX #$11
+02623  71C3  A9 00                 LDA #$00
+02624  71C5  18                    CLC
+02625  71C6             @LOOP
+02626  71C6  2A                    ROL
+02627  71C7  C9 0A                 CMP #$0A
+02628  71C9  90 03                 BCC @SKIP
+02629  71CB  E9 0A                 SBC #$0A
+02630  71CD  B8                    CLV
+02631  71CE             @SKIP
+02632  71CE  2E 2D 08              ROL DIV_LO
+02633  71D1  2E 2E 08              ROL DIV_HI
+02634  71D4  CA                    DEX
+02635  71D5  D0 EF                 BNE @LOOP
+02636  71D7  60                    RTS
+02637  71D8             @MACEND
+02638  71D8             
+02639  71D8             SUMMATH    
+02640  71D8             
+02641  71D8             
+02642  71D8  AC 1A 08              LDY SALECOUNTHI
+02643  71DB  AE 19 08              LDX SALECOUNT
+02644  71DE  8E 2D 08              STX DIV_LO
+02645  71E1  8C 2E 08              STY DIV_HI
+02646  71E4  A0 04                 LDY #$04
+02647  71E6             @NEXT
+02648  71E6  20 F4 71              JSR @DIV10
+02649  71E9  09 30                 ORA #$30
+02650  71EB  99 EA 05              STA $05EA,Y
+02651  71EE  88                    DEY
+02652  71EF  10 F5                 BPL @NEXT
+02653  71F1  4C 0B 72              JMP @MACEND
+02654  71F4             
+02655  71F4             @DIV10
+02656  71F4  A2 11                 LDX #$11
+02657  71F6  A9 00                 LDA #$00
+02658  71F8  18                    CLC
+02659  71F9             @LOOP
+02660  71F9  2A                    ROL
+02661  71FA  C9 0A                 CMP #$0A
+02662  71FC  90 03                 BCC @SKIP
+02663  71FE  E9 0A                 SBC #$0A
+02664  7200  B8                    CLV
+02665  7201             @SKIP
+02666  7201  2E 2D 08              ROL DIV_LO
+02667  7204  2E 2E 08              ROL DIV_HI
+02668  7207  CA                    DEX
+02669  7208  D0 EF                 BNE @LOOP
+02670  720A  60                    RTS
+02671  720B             @MACEND
+02672  720B             
+02673  720B             
+02674  720B  AC 14 08              LDY CASHCOUNTHI
+02675  720E  AE 13 08              LDX CASHCOUNT
+02676  7211  8E 2D 08              STX DIV_LO
+02677  7214  8C 2E 08              STY DIV_HI
+02678  7217  A0 04                 LDY #$04
+02679  7219             @NEXT
+02680  7219  20 27 72              JSR @DIV10
+02681  721C  09 30                 ORA #$30
+02682  721E  99 FA 05              STA $05FA,Y
+02683  7221  88                    DEY
+02684  7222  10 F5                 BPL @NEXT
+02685  7224  4C 3E 72              JMP @MACEND
+02686  7227             
+02687  7227             @DIV10
+02688  7227  A2 11                 LDX #$11
+02689  7229  A9 00                 LDA #$00
+02690  722B  18                    CLC
+02691  722C             @LOOP
+02692  722C  2A                    ROL
+02693  722D  C9 0A                 CMP #$0A
+02694  722F  90 03                 BCC @SKIP
+02695  7231  E9 0A                 SBC #$0A
+02696  7233  B8                    CLV
+02697  7234             @SKIP
+02698  7234  2E 2D 08              ROL DIV_LO
+02699  7237  2E 2E 08              ROL DIV_HI
+02700  723A  CA                    DEX
+02701  723B  D0 EF                 BNE @LOOP
+02702  723D  60                    RTS
+02703  723E             @MACEND
+02704  723E  AD 1A 08              LDA SALECOUNTHI
+02705  7241  C9 00                 CMP #0
+02706  7243  D0 0A                 BNE @MATHIT
+02707  7245  AD 19 08              LDA SALECOUNT
+02708  7248  C9 00                 CMP #0
+02709  724A  D0 03                 BNE @MATHIT
+02710  724C  4C 76 72              JMP WAITITUP
+02711  724F             @MATHIT
+02712  724F             
+02713  724F             
+02714  724F  18                    CLC
+02715  7250  AD 13 08              LDA CASHCOUNT
+02716  7253  6D 11 08              ADC PRICE
+02717  7256  8D 13 08              STA CASHCOUNT
+02718  7259  90 04                 BCC @GO
+02719  725B  EE 14 08              INC CASHCOUNTHI
+02720  725E  18                    CLC
+02721  725F             @GO        
+02722  725F             
+02723  725F             
+02724  725F             
+02725  725F                        
+02726  725F  38                    SEC
+02727  7260  AD 19 08              LDA SALECOUNT
+02728  7263  E9 01                 SBC #1
+02729  7265  8D 19 08              STA SALECOUNT
+02730  7268  B0 04                 BCS @GO
+02731  726A  CE 1A 08              DEC SALECOUNTHI
+02732  726D  38                    SEC
+02733  726E             @GO        
+02734  726E             
+02735  726E  A2 01                 LDX #$01
+02736  7270  20 81 71              JSR DELAYX
+02737  7273  4C D8 71              JMP SUMMATH
+02738  7276                        
+02739  7276                        
+02740  7276             
+02741  7276             WAITITUP
+02742  7276  20 E4 FF              JSR $FFE4       ; READ KEY
+02743  7279  F0 FB                 BEQ WAITITUP
+02744  727B  C9 0D                 CMP #$0D        ; RETURN KEY
+02745  727D  D0 F7                 BNE WAITITUP
+02746  727F  AD 1B D4              LDA RAND
+02747  7282  8D 1D 08              STA POPCOUNT
+02748  7285  A9 00                 LDA #0
+02749  7287  8D 15 08              STA PASSCOUNT
+02750  728A  8D 16 08              STA PASSCOUNTHI
+02751  728D  8D 17 08              STA LINECOUNT
+02752  7290  8D 18 08              STA LINECOUNTHI
+02753  7293  8D 19 08              STA SALECOUNT
+02754  7296  8D 1A 08              STA SALECOUNTHI
+02755  7299  8D 1B 08              STA LEFTCOUNT
+02756  729C  8D 1C 08              STA LEFTCOUNTHI
+02757  729F  8D 1F 08              STA VISITCOUNT
+02758  72A2  8D 20 08              STA VISITCOUNTHI
+02759  72A5  AD 20 09              LDA SPEEDCOUNT
+02760  72A8  8D 31 08              STA BAKETIMER
+02761  72AB  AD 33 08              LDA STOPINIT
+02762  72AE  8D 34 08              STA STOPCHANCE
+02763  72B1  4C 73 68              JMP CITYSTART
+02764  72B4  4C 76 72              JMP WAITITUP
+02765  72B7             
+02766  72B7             DRIVINGSTUFF 
+02767  72B7  78                    SEI        ;DISABLE MASKABLE IRQS
+02768  72B8             
+02769  72B8  A9 7F                 LDA #$7F
+02770  72BA  A9 7F                 LDA #$7F                      ; TURN OFF THE CIA INTERRUPTS
+02771  72BC  8D 0D DC              STA $DC0D
+02772  72BF             
+02773  72BF  AD 0D DC              LDA $DC0D  ;BY READING THIS TWO REGISTERS WE NEGATE ANY PENDING CIA IRQS.
+02774  72C2  AD 0D DD              LDA $DD0D  ;IF WE DON'T DO THIS, A PENDING CIA IRQ MIGHT OCCUR AFTER WE FINISH SETTING UP OUR IRQ.
+02775  72C5                        ;WE DON'T WANT THAT TO HAPPEN.
+02776  72C5             
+02777  72C5  AD 1A D0              LDA $D01A                     ; ENABLE RASTER IRQ
+02778  72C8  09 01                 ORA #$01
+02779  72CA  8D 1A D0              STA $D01A
+02780  72CD             
+02781  72CD  AD 11 D0              LDA $D011                     ; CLEAR HIGH BIT OF RASTER LINE
+02782  72D0  29 7F                 AND #$7F
+02783  72D2  8D 11 D0              STA $D011
+02784  72D5                        
+02785  72D5  A9 F0                 LDA #240                      ; LINE NUMBER TO GO OFF AT
+02786  72D7  8D 12 D0              STA $D012                     ; LOW BYTE OF RASTER LINE
+02787  72DA                        
+02788  72DA                        
+02789  72DA  A9 30                 LDA #<IRQ  ;THIS IS HOW WE SET UP
+02790  72DC  8D 14 03              STA 788                         ;THE ADDRESS OF OUR INTERRUPT CODE
+02791  72DF  A9 75                 LDA #>IRQ
+02792  72E1  8D 15 03              STA 789
+02793  72E4             
+02794  72E4  58                    CLI        ;ENABLE MASKABLE INTERRUPTS AGAIN
+02795  72E5                        
+02796  72E5                        
+02797  72E5  20 44 E5              JSR $E544       ;CLEAR SCREEN
+02798  72E8  AD 18 D0              LDA $D018      ; THIS PART SETS THE CHARSET MEMORY LOCATION (THANKS DUSTLAYER.COM)
+02799  72EB  09 0E                 ORA #$0E
+02800  72ED  8D 18 D0              STA $D018       ;SET CHAR ROM TO $3800 AND LEAVE SCREEN RAM DEFAULT
+02801  72F0  A9 00                 LDA #0              ;SET BORDER COLOUR
+02802  72F2  8D 20 D0              STA $D020
+02803  72F5  A9 0B                 LDA #11         ;SET BACKGROUND COLOUR
+02804  72F7  8D 21 D0              STA $D021
+02805  72FA  A9 03                 LDA #3
+02806  72FC  8D 27 D0              STA $D027       ;STORESPRITE1 COLOUR
+02807  72FF  A9 04                 LDA #4
+02808  7301  8D 28 D0              STA $D028       ;STORESPRITE2 COLOUR
+02809  7304  A9 01                 LDA #1
+02810  7306  8D 25 D0              STA $D025       ;STORESHAREDSPRITE COLOR1
+02811  7309  A9 09                 LDA #9
+02812  730B  8D 26 D0              STA $D026       ;STORESHAREDSPRITE COLOR2
+02813  730E  A9 03                 LDA #%00000011
+02814  7310  8D 15 D0              STA $D015       ;TURN ON SPRITES
+02815  7313  8D 1C D0              STA $D01C       ;SET SPRITE MODE
+02816  7316  A9 F0                 LDA #%11110000
+02817  7318  8D 1B D0              STA $D01B       ;SET SPRITE BEHIND TEXT
+02818  731B  A9 03                 LDA #%00000011  ;SET SPRITE SIZE
+02819  731D  8D 17 D0              STA $D017
+02820  7320  A9 03                 LDA #%00000011  ;SET SPRITE SIZE
+02821  7322  8D 1D D0              STA $D01D
+02822  7325  A9 CE                 LDA TRUCKSPRITE         ;LOAD SPRITE OF LEFT FACING TRUCK
+02823  7327  8D F8 07              STA SPRITE1
+02824  732A  A9 C8                 LDA #200
+02825  732C  8D 00 D0              STA SPRITE1X
+02826  732F  A9 96                 LDA #150
+02827  7331  8D 01 D0              STA SPRITE1Y
+02828  7334  A9 D2                 LDA CARSPRITE         ;LOAD SPRITE OF RIGHT POINTING
+02829  7336  8D F9 07              STA SPRITE2
+02830  7339  A9 18                 LDA #0+24
+02831  733B  8D 02 D0              STA SPRITE2X
+02832  733E  A9 64                 LDA #100
+02833  7340  8D 03 D0              STA SPRITE2Y
+02834  7343             
+02835  7343  A2 00                 LDX #0
+02836  7345  A9 00                 LDA #0
+02837  7347  9D 00 D8   COLFIL4    STA $D800,X
+02838  734A  A9 07                 LDA #7                  ;FILL COLOR BLK AND YELLOW
+02839  734C  9D 00 D9              STA $D900,X
+02840  734F  9D 00 DA              STA $DA00,X
+02841  7352  9D E8 DA              STA $DAE8,X
+02842  7355  CA                    DEX
+02843  7356  D0 EF                 BNE COLFIL4
+02844  7358             
+02845  7358  A2 28                 LDX #40
+02846  735A  A0 06                 LDY #6
+02847  735C             DRAWLINES  
+02848  735C  A9 43                 LDA #$43
+02849  735E  9D 3F 05              STA $053F,X
+02850  7361  88                    DEY
+02851  7362  F0 11                 BEQ @CONT1
+02852  7364  9D B7 05              STA $05B7,X
+02853  7367  9D 2F 06              STA $062F,X
+02854  736A  9D A7 06   @CONT2     STA $06A7,X
+02855  736D  CA                    DEX
+02856  736E  E0 00                 CPX #0
+02857  7370  D0 EA                 BNE DRAWLINES
+02858  7372  4C 7A 73              JMP STALLOUT
+02859  7375  A0 07      @CONT1     LDY #7
+02860  7377  4C 6A 73              JMP @CONT2
+02861  737A                        
+02862  737A             STALLOUT
+02863  737A                        ;DEC 53280
+02864  737A  AD 24 09              LDA CARSPEED
+02865  737D  8D 01 04              STA $0401
+02866  7380  AD 12 D0              LDA $D012
+02867  7383  C9 20                 CMP #$20
+02868  7385  D0 F3                 BNE STALLOUT
+02869  7387  AE 25 09              LDX CARLANE
+02870  738A  AD 01 D0              LDA $D001
+02871  738D  DD 26 09              CMP LANEPOS,X
+02872  7390  F0 08                 BEQ @RESETFLAG
+02873  7392  B0 0E                 BCS @MOVEUP
+02874  7394             
+02875  7394  EE 01 D0              INC $D001
+02876  7397  4C A5 73              JMP @CTRLS
+02877  739A  A9 00      @RESETFLAG LDA #0
+02878  739C  8D 2C 09              STA LANEFLAG
+02879  739F  4C A5 73              JMP @CTRLS
+02880  73A2  CE 01 D0   @MOVEUP    DEC $D001
+02881  73A5             
+02882  73A5             @CTRLS     
+02883  73A5  AD 00 DC   DJRR       LDA $DC00     ; GET INPUT FROM PORT 2 ONLY
+02884  73A8  A0 00      DJRRB      LDY #0        ; THIS ROUTINE READS AND DECODES THE
+02885  73AA  A2 00                 LDX #0        ; JOYSTICK/FIREBUTTON INPUT DATA IN
+02886  73AC  4A                    LSR           ; THE ACCUMULATOR. THIS LEAST SIGNIFICANT
+02887  73AD  B0 01                 BCS DJR0      ; 5 BITS CONTAIN THE SWITCH CLOSURE
+02888  73AF  88                    DEY           ; INFORMATION. IF A SWITCH IS CLOSED THEN IT
+02889  73B0  4A         DJR0       LSR           ; PRODUCES A ZERO BIT. IF A SWITCH IS OPEN THEN
+02890  73B1  B0 01                 BCS DJR1      ; IT PRODUCES A ONE BIT. THE JOYSTICK DIR-
+02891  73B3  C8                    INY           ; ECTIONS ARE RIGHT, LEFT, FORWARD, BACKWARD
+02892  73B4  4A         DJR1       LSR           ; BIT3=RIGHT, BIT2=LEFT, BIT1=BACKWARD,
+02893  73B5  B0 01                 BCS DJR2      ; BIT0=FORWARD AND BIT4=FIRE BUTTON.
+02894  73B7  CA                    DEX           ; AT RTS TIME DX AND DY CONTAIN 2'S COMPLIMENT
+02895  73B8  4A         DJR2       LSR           ; DIRECTION NUMBERS I.E. $FF=-1, $00=0, $01=1.
+02896  73B9  B0 01                 BCS DJR3      ; DX=1 (MOVE RIGHT), DX=-1 (MOVE LEFT),
+02897  73BB  E8                    INX           ; DX=0 (NO X CHANGE). DY=-1 (MOVE UP SCREEN),
+02898  73BC  4A         DJR3       LSR           ; DY=0 (MOVE DOWN SCREEN), DY=0 (NO Y CHANGE).
+02899  73BD  8E 4B 09              STX DX        ; THE FORWARD JOYSTICK POSITION CORRESPONDS
+02900  73C0  8C 4C 09              STY DY        ; TO MOVE UP THE SCREEN AND THE BACKWARD
+02901  73C3  90 65                 BCC BUTTS
+02902  73C5  AE 4B 09              LDX DX
+02903  73C8  AC 4C 09              LDY DY
+02904  73CB  E0 01      CMPX       CPX #$01
+02905  73CD  F0 3D                 BEQ RIGHT
+02906  73CF  E0 FF                 CPX #$FF
+02907  73D1  F0 48                 BEQ LEFT
+02908  73D3  C0 01      CMPY       CPY #$01
+02909  73D5  F0 07                 BEQ DOWN
+02910  73D7  C0 FF                 CPY #$FF
+02911  73D9  F0 1A                 BEQ UP
+02912  73DB  4C 30 74              JMP CHECKSPEED
+02913  73DE  AD 2C 09   DOWN       LDA LANEFLAG
+02914  73E1  D0 0F                 BNE @DONE
+02915  73E3  AD 25 09              LDA CARLANE
+02916  73E6  C9 03                 CMP #3
+02917  73E8  B0 08                 BCS @DONE
+02918  73EA  EE 25 09              INC CARLANE
+02919  73ED  A9 01                 LDA #1
+02920  73EF  8D 2C 09              STA LANEFLAG
+02921  73F2  4C 30 74   @DONE      JMP CHECKSPEED
+02922  73F5  AD 2C 09   UP         LDA LANEFLAG
+02923  73F8  D0 0F                 BNE @DONE
+02924  73FA  AD 25 09              LDA CARLANE
+02925  73FD  C9 02                 CMP #2
+02926  73FF  90 08                 BCC @DONE
+02927  7401  CE 25 09              DEC CARLANE
+02928  7404  A9 01                 LDA #1
+02929  7406  8D 2C 09              STA LANEFLAG
+02930  7409  4C 30 74   @DONE      JMP CHECKSPEED
+02931  740C  AD 00 D0   RIGHT      LDA $D000
+02932  740F  C9 FA                 CMP #250
+02933  7411  B0 C0                 BCS CMPY
+02934  7413  69 04                 ADC #$04
+02935  7415  8D 00 D0              STA $D000
+02936  7418  4C D3 73              JMP CMPY
+02937  741B  AD 00 D0   LEFT       LDA $D000
+02938  741E  E9 02                 SBC #$02
+02939  7420  C9 96                 CMP #150
+02940  7422  90 AF                 BCC CMPY
+02941  7424  8D 00 D0              STA $D000
+02942  7427  4C D3 73              JMP CMPY
+02943  742A  EE 27 D0   BUTTS      INC $D027
+02944  742D  4C CB 73              JMP CMPX
+02945  7430             
+02946  7430             CHECKSPEED 
+02947  7430  AD 12 D0              LDA $D012
+02948  7433  C9 60                 CMP #$60
+02949  7435  D0 F9                 BNE CHECKSPEED
+02950  7437  AE 2D 09              LDX SPEEDFLAG
+02951  743A  AD 2D 09              LDA SPEEDFLAG
+02952  743D  8D 03 04              STA $0403
+02953  7440  CE 2D 09              DEC SPEEDFLAG
+02954  7443  CA                    DEX
+02955  7444  D0 27                 BNE @DONE
+02956  7446  A9 0A                 LDA #10
+02957  7448  8D 2D 09              STA SPEEDFLAG
+02958  744B  AD 00 D0              LDA $D000
+02959  744E  C9 A0                 CMP #160
+02960  7450  B0 0D                 BCS @CHECKBACK
+02961  7452  AD 24 09              LDA CARSPEED
+02962  7455  C9 02                 CMP #2
+02963  7457  90 14                 BCC @DONE
+02964  7459  CE 24 09              DEC CARSPEED
+02965  745C  4C 7A 73              JMP STALLOUT
+02966  745F  C9 F0      @CHECKBACK CMP #240
+02967  7461  90 0A                 BCC @DONE
+02968  7463  AD 24 09              LDA CARSPEED
+02969  7466  C9 0B                 CMP #11
+02970  7468  B0 03                 BCS @DONE
+02971  746A  EE 24 09              INC CARSPEED
+02972  746D             @DONE      
+02973  746D             
+02974  746D  AD 00 D0              LDA SPRITE1X
+02975  7470  E9 18                 SBC #24
+02976  7472  4A                    LSR A
+02977  7473  4A                    LSR A
+02978  7474  4A                    LSR A
+02979  7475  8D 33 09              STA THROW1
+02980  7478  AD 01 D0              LDA SPRITE1Y
+02981  747B  4A                    LSR A
+02982  747C  4A                    LSR A
+02983  747D  4A                    LSR A
+02984  747E  8D 34 09              STA THROW2
+02985  7481  AD 03 D0   @CARLAUNCH LDA SPRITE2Y
+02986  7484  4A                    LSR A
+02987  7485  4A                    LSR A
+02988  7486  4A                    LSR A
+02989  7487  8D 36 09              STA THROW4
+02990  748A             CARSTUFF
+02991  748A  A9 00                 LDA #0
+02992  748C  8D 35 09              STA THROW3
+02993  748F  CE 2B 09              DEC ENEMYSPEED
+02994  7492  F0 06                 BEQ @NOTDONE
+02995  7494  AD 02 D0              LDA SPRITE2X
+02996  7497  4C C5 74              JMP @NOFLIP
+02997  749A  18         @NOTDONE   CLC
+02998  749B  AD 02 D0              LDA SPRITE2X
+02999  749E  69 04                 ADC #4
+03000  74A0  8D 02 D0              STA SPRITE2X
+03001  74A3  90 20                 BCC @NOFLIP
+03002  74A5  AD 1B D4              LDA $D41B
+03003  74A8  C9 55                 CMP #85
+03004  74AA  90 14                 BCC @SETLANE1
+03005  74AC  C9 AA                 CMP #170
+03006  74AE  90 08                 BCC @SETLANE2
+03007  74B0  A9 64                 LDA #100
+03008  74B2  8D 03 D0              STA SPRITE2Y
+03009  74B5  4C C5 74              JMP @NOFLIP
+03010  74B8  A9 7C      @SETLANE2  LDA #124
+03011  74BA  8D 03 D0              STA SPRITE2Y
+03012  74BD  4C C5 74              JMP @NOFLIP
+03013  74C0  A9 94      @SETLANE1  LDA #148
+03014  74C2  8D 03 D0              STA SPRITE2Y
+03015  74C5  AD 02 D0   @NOFLIP    LDA SPRITE2X
+03016  74C8  E9 18                 SBC #24
+03017  74CA  69 20                 ADC #32
+03018  74CC  18                    CLC
+03019  74CD  4A                    LSR A
+03020  74CE  90 03                 BCC @NEXT1
+03021  74D0  EE 35 09              INC THROW3
+03022  74D3  18         @NEXT1     CLC
+03023  74D4  4A                    LSR A
+03024  74D5  90 06                 BCC @NEXT2
+03025  74D7  EE 35 09              INC THROW3
+03026  74DA  EE 35 09              INC THROW3
+03027  74DD  18         @NEXT2     CLC
+03028  74DE  4A                    LSR A
+03029  74DF  90 0C                 BCC @NEXT3
+03030  74E1  EE 35 09              INC THROW3
+03031  74E4  EE 35 09              INC THROW3
+03032  74E7  EE 35 09              INC THROW3
+03033  74EA  EE 35 09              INC THROW3
+03034  74ED  18         @NEXT3     CLC
+03035  74EE  8D 3F 04              STA $043F
+03036  74F1  CD 33 09              CMP THROW1
+03037  74F4  D0 0B                 BNE @NOCRASH
+03038  74F6  AD 36 09              LDA THROW4
+03039  74F9  CD 34 09              CMP THROW2
+03040  74FC  D0 03                 BNE @NOCRASH
+03041  74FE  4C 1E 75              JMP CRASH
+03042  7501             @NOCRASH   
+03043  7501  AD 35 09              LDA THROW3
+03044  7504  69 30                 ADC #$30
+03045  7506  8D 10 04              STA $0410
+03046  7509  AD 34 09              LDA THROW2
+03047  750C  8D 42 04              STA $0442
+03048  750F  AD 36 09              LDA THROW4
+03049  7512  8D 43 04              STA $0443
+03050  7515  AD 33 09              LDA THROW1
+03051  7518  8D 40 04              STA $0440
+03052  751B             @DONE      
+03053  751B  4C 7A 73              JMP STALLOUT
+03054  751E             
+03055  751E  A9 D6      CRASH      LDA BOOMSPRITE
+03056  7520  8D F8 07              STA SPRITE1
+03057  7523  8D F9 07              STA SPRITE2
+03058  7526  A6 FF                 LDX 255
+03059  7528  A5 32                 LDA $32
+03060  752A  9D 00 05              STA $0500,X
+03061  752D  4C 1E 75              JMP CRASH
+03062  7530                        
+03063  7530  AD 19 D0   IRQ        LDA $D019                     ; CLEAR SOURCE OF INTERRUPTS
+03064  7533  8D 19 D0              STA $D019
+03065  7536                        
+03066  7536  AD 38 09              LDA ANIMATESPRITE1
+03067  7539  C9 0A                 CMP #10
+03068  753B  D0 21                 BNE @SKIP              ; EXIT BACK TO ROM
+03069  753D  A9 00                 LDA #0
+03070  753F  8D 38 09              STA ANIMATESPRITE1
+03071  7542  EE 39 09              INC SPRITE1FRAME
+03072  7545  AD 39 09              LDA SPRITE1FRAME
+03073  7548  C9 04                 CMP #4
+03074  754A  D0 18                 BNE @CONT
+03075  754C  A9 00                 LDA #0
+03076  754E  8D 39 09              STA SPRITE1FRAME
+03077  7551  A9 CE                 LDA TRUCKSPRITE
+03078  7553  8D F8 07              STA SPRITE1
+03079  7556  A9 D2                 LDA CARSPRITE
+03080  7558  8D F9 07              STA SPRITE2
+03081  755B  4C 6A 75              JMP @NEXT
+03082  755E  EE 38 09   @SKIP      INC ANIMATESPRITE1
+03083  7561  4C 6A 75              JMP @NEXT                     ; EXIT BACK TO ROM
+03084  7564  EE F8 07   @CONT      INC SPRITE1
+03085  7567  EE F9 07              INC SPRITE2
+03086  756A             
+03087  756A  CE 2A 09   @NEXT      DEC TRAVELSPEED
+03088  756D  D0 41                 BNE @DONE
+03089  756F  A2 2B                 LDX #43
+03090  7571  A0 2C                 LDY #44
+03091  7573  BD B7 05   @LOOP      LDA $05B7,X
+03092  7576  8D 33 09              STA THROW1
+03093  7579  C0 29                 CPY #41
+03094  757B  B0 06                 BCS @CONT1
+03095  757D  99 B7 05              STA $05B7,Y
+03096  7580  99 2F 06              STA $062F,Y
+03097  7583  CA         @CONT1     DEX
+03098  7584  88                    DEY
+03099  7585  D0 EC                 BNE @LOOP
+03100  7587  A9 00                 LDA #0
+03101  7589  CD 31 09              CMP STREETLINE
+03102  758C  D0 0E                 BNE @LINE
+03103  758E  EE 00 04              INC $0400
+03104  7591  AD 32 09              LDA STREETLINEINIT
+03105  7594  8D 31 09              STA STREETLINE
+03106  7597  A9 20                 LDA #$20
+03107  7599  4C 9E 75              JMP @CONT2
+03108  759C  A9 43      @LINE      LDA #$43
+03109  759E  8D B8 05   @CONT2     STA $05B7+1
+03110  75A1  8D 30 06              STA $062F+1
+03111  75A4  CE 31 09              DEC STREETLINE
+03112  75A7  AD 24 09              LDA CARSPEED
+03113  75AA  8D 2A 09              STA TRAVELSPEED
+03114  75AD  8D 2B 09              STA ENEMYSPEED
+03115  75B0  4C 31 EA   @DONE      JMP $EA31                     ; EXIT BACK TO ROM
+03116  75B3             
+03117  75B3             
 
-******* 289 Label(s) *******
+******* 288 Label(s) *******
 ~~~div10{00000} = $673C 
 ~~~div10{00001} = $6772 
 ~~~div10{00002} = $67A8 
 ~~~div10{00003} = $67DE 
 ~~~div10{00004} = $69D1 
-~~~div10{00006} = $6C78 
-~~~div10{00008} = $6E1F 
-~~~div10{00009} = $6E52 
-~~~div10{00010} = $6E85 
-~~~div10{00011} = $6EB8 
-~~~div10{00012} = $6EEB 
-~~~div10{00013} = $6F1E 
-~~~div10{00014} = $7027 
-~~~div10{00015} = $71D5 
-~~~div10{00016} = $7208 
-~~~div10{00017} = $723B 
-~~~go{00007} = $6E03 
-~~~go{00018} = $7273 
-~~~go{00019} = $7282 
+~~~div10{00006} = $6C64 
+~~~div10{00008} = $6E0B 
+~~~div10{00009} = $6E3E 
+~~~div10{00010} = $6E71 
+~~~div10{00011} = $6EA4 
+~~~div10{00012} = $6ED7 
+~~~div10{00013} = $6F0A 
+~~~div10{00014} = $7013 
+~~~div10{00015} = $71C1 
+~~~div10{00016} = $71F4 
+~~~div10{00017} = $7227 
+~~~go{00007} = $6DEF 
+~~~go{00018} = $725F 
+~~~go{00019} = $726E 
 ~~~loop{00000} = $6741 
 ~~~loop{00001} = $6777 
 ~~~loop{00002} = $67AD 
 ~~~loop{00003} = $67E3 
 ~~~loop{00004} = $69D6 
-~~~loop{00006} = $6C7D 
-~~~loop{00008} = $6E24 
-~~~loop{00009} = $6E57 
-~~~loop{00010} = $6E8A 
-~~~loop{00011} = $6EBD 
-~~~loop{00012} = $6EF0 
-~~~loop{00013} = $6F23 
-~~~loop{00014} = $702C 
-~~~loop{00015} = $71DA 
-~~~loop{00016} = $720D 
-~~~loop{00017} = $7240 
+~~~loop{00006} = $6C69 
+~~~loop{00008} = $6E10 
+~~~loop{00009} = $6E43 
+~~~loop{00010} = $6E76 
+~~~loop{00011} = $6EA9 
+~~~loop{00012} = $6EDC 
+~~~loop{00013} = $6F0F 
+~~~loop{00014} = $7018 
+~~~loop{00015} = $71C6 
+~~~loop{00016} = $71F9 
+~~~loop{00017} = $722C 
 ~~~macend{00000} = $6753 
 ~~~macend{00001} = $6789 
 ~~~macend{00002} = $67BF 
 ~~~macend{00003} = $67F5 
 ~~~macend{00004} = $69E8 
-~~~macend{00006} = $6C8F 
-~~~macend{00008} = $6E36 
-~~~macend{00009} = $6E69 
-~~~macend{00010} = $6E9C 
-~~~macend{00011} = $6ECF 
-~~~macend{00012} = $6F02 
-~~~macend{00013} = $6F35 
-~~~macend{00014} = $703E 
-~~~macend{00015} = $71EC 
-~~~macend{00016} = $721F 
-~~~macend{00017} = $7252 
+~~~macend{00006} = $6C7B 
+~~~macend{00008} = $6E22 
+~~~macend{00009} = $6E55 
+~~~macend{00010} = $6E88 
+~~~macend{00011} = $6EBB 
+~~~macend{00012} = $6EEE 
+~~~macend{00013} = $6F21 
+~~~macend{00014} = $702A 
+~~~macend{00015} = $71D8 
+~~~macend{00016} = $720B 
+~~~macend{00017} = $723E 
 ~~~next{00000} = $672A 
 ~~~next{00001} = $6760 
 ~~~next{00002} = $6796 
 ~~~next{00003} = $67CC 
 ~~~next{00004} = $69BF 
-~~~next{00006} = $6C66 
-~~~next{00008} = $6E11 
-~~~next{00009} = $6E44 
-~~~next{00010} = $6E77 
-~~~next{00011} = $6EAA 
-~~~next{00012} = $6EDD 
-~~~next{00013} = $6F10 
-~~~next{00014} = $7019 
-~~~next{00015} = $71C7 
-~~~next{00016} = $71FA 
-~~~next{00017} = $722D 
+~~~next{00006} = $6C52 
+~~~next{00008} = $6DFD 
+~~~next{00009} = $6E30 
+~~~next{00010} = $6E63 
+~~~next{00011} = $6E96 
+~~~next{00012} = $6EC9 
+~~~next{00013} = $6EFC 
+~~~next{00014} = $7005 
+~~~next{00015} = $71B3 
+~~~next{00016} = $71E6 
+~~~next{00017} = $7219 
 ~~~skip{00000} = $6749 
 ~~~skip{00001} = $677F 
 ~~~skip{00002} = $67B5 
 ~~~skip{00003} = $67EB 
 ~~~skip{00004} = $69DE 
-~~~skip{00006} = $6C85 
-~~~skip{00008} = $6E2C 
-~~~skip{00009} = $6E5F 
-~~~skip{00010} = $6E92 
-~~~skip{00011} = $6EC5 
-~~~skip{00012} = $6EF8 
-~~~skip{00013} = $6F2B 
-~~~skip{00014} = $7034 
-~~~skip{00015} = $71E2 
-~~~skip{00016} = $7215 
-~~~skip{00017} = $7248 
+~~~skip{00006} = $6C71 
+~~~skip{00008} = $6E18 
+~~~skip{00009} = $6E4B 
+~~~skip{00010} = $6E7E 
+~~~skip{00011} = $6EB1 
+~~~skip{00012} = $6EE4 
+~~~skip{00013} = $6F17 
+~~~skip{00014} = $7020 
+~~~skip{00015} = $71CE 
+~~~skip{00016} = $7201 
+~~~skip{00017} = $7234 
 ~~~skipnum{00000} = $6736 
 ~~~skipnum{00001} = $676C 
 ~~~skipnum{00002} = $67A2 
 ~~~skipnum{00003} = $67D8 
 ~~~skipnum{00004} = $69CB 
-~~~skipnum{00006} = $6C72 
-angry = $70D9 
+~~~skipnum{00006} = $6C5E 
+angry = $70C5 
 angryFrame = $0822 
 AnimateSprite1 = $0938 
 BakeTimer = $0831 
 bar1 = $6902 
-butts = $743E 
+butts = $742A 
 carlane = $0925 
 carspeed = $0924 
 carspeedinit = $0923 
-carStuff = $749E 
+carStuff = $748A 
 CashCount = $0813 
 CashCountHi = $0814 
 Charz = $091D 
-checkspeed = $7444 
-checkstop = $6F6A 
+checkspeed = $7430 
+checkstop = $6F56 
 choice = $69AD 
 chrtx = $0890 
 city = $09B1 
@@ -3244,34 +3233,34 @@ cityoptions5 = $096D
 cityoptions6 = $0973 
 citystart = $6873 
 cityvars = $09ED 
-cmpx = $73DF 
-cmpy = $73E7 
+cmpx = $73CB 
+cmpy = $73D3 
 colfil = $6659 
-colfil2 = $6D98 
+colfil2 = $6D84 
 colfil3 = $68F3 
-colfil4 = $735B 
+colfil4 = $7347 
 CookingCnt = $0830 
-crash = $7532 
-cyclestart = $6DF4 
-dayttl = $71AD 
-dcln2 = $7174 
-decline = $717A 
-delay = $7180 
-delay2 = $7188 
-delayx = $7195 
+crash = $751E 
+cyclestart = $6DE0 
+dayttl = $7199 
+dcln2 = $7160 
+decline = $7166 
+delay = $716C 
+delay2 = $7174 
+delayx = $7181 
 delayy = $686B 
 div_hi = $082E 
 div_lo = $082D 
-djr0 = $73C4 
-djr1 = $73C8 
-djr2 = $73CC 
-djr3 = $73D0 
-djrr = $73B9 
-djrrb = $73BC 
-dlp = $718A 
-down = $73F2 
-drawlines = $7370 
-DrivingStuff = $72CB 
+djr0 = $73B0 
+djr1 = $73B4 
+djr2 = $73B8 
+djr3 = $73BC 
+djrr = $73A5 
+djrrb = $73A8 
+dlp = $7176 
+down = $73DE 
+drawlines = $735C 
+DrivingStuff = $72B7 
 dx = $094B 
 dy = $094C 
 eatFrame = $0823 
@@ -3279,57 +3268,57 @@ endday = $08FA
 enemyspeed = $092B 
 foodcol = $082F 
 forever = $6868 
-gnrtn = $712E 
-gnrtn2 = $7147 
-gnrtn3 = $7162 
-goback = $70D6 
-gomad = $6FE3 
+gnrtn = $711A 
+gnrtn2 = $7133 
+gnrtn3 = $714E 
+goback = $70C2 
+gomad = $6FCF 
 gone = $0846 
-gonedy = $70F3 
+gonedy = $70DF 
 gonelbl = $08D0 
 hipsterlv = $0835 
-hire = $6AAD 
-hittheroad = $6ADD 
+hire = $6AA9 
+hittheroad = $6AC9 
 idealprice = $092F 
 idealpriceHi = $0930 
-inline = $70A9 
+inline = $7095 
 input = $6A61 
-input2 = $6B2E 
-irq = $7544 
+input2 = $6B1A 
+irq = $7530 
 laneflag = $092C 
 lanepos = $0926 
-leave = $6FA3 
-leaving = $6FB3 
-left = $742F 
+leave = $6F8F 
+leaving = $6F9F 
+left = $741B 
 LeftCount = $081B 
 LeftCountHi = $081C 
 LineCount = $0817 
 LineCountHi = $0818 
-linefix = $70AF 
-linelp = $6F84 
+linefix = $709B 
+linelp = $6F70 
 linepos = $0824 
-linestart = $6DAB 
-lineup = $6F72 
-lnlp = $70B5 
-lvelp = $70DD 
-lvertn = $6FCA 
+linestart = $6D97 
+lineup = $6F5E 
+lnlp = $70A1 
+lvelp = $70C9 
+lvertn = $6FB6 
 mainwrd = $6668 
 ManFrame = $0821 
 menuloop = $697E 
-nay1set = $6BEE 
-nay2set = $6C15 
-nay3set = $6B69 
-nay4set = $6B90 
+nay1set = $6BDA 
+nay2set = $6C01 
+nay3set = $6B55 
+nay4set = $6B7C 
 neigh1 = $09EE 
 neigh2 = $09F4 
 neigh3 = $09FA 
 neigh4 = $0A00 
 neigh5 = $0A06 
-newcust = $6DDC 
-nxtbl = $6F64 
-nxtdude = $70C4 
-nxtll = $6FDD 
-nxtln = $70BC 
+newcust = $6DC8 
+nxtbl = $6F50 
+nxtdude = $70B0 
+nxtll = $6FC9 
+nxtln = $70A8 
 pass = $083E 
 PassCount = $0815 
 PassCountHi = $0816 
@@ -3341,8 +3330,7 @@ poplbl = $08EC
 Price = $0811 
 PriceHi = $0812 
 pricetitle = $097B 
-pub = $6ACD 
-right = $7420 
+right = $740C 
 S1Col = $093B 
 S2col = $093D 
 S3col = $093F 
@@ -3353,27 +3341,27 @@ S7col = $0947
 S8col = $0949 
 SaleCount = $0819 
 SaleCountHi = $081A 
-school = $6ABD 
-sellinit = $6CBD 
-sellstart = $6D11 
-sellstylez = $6CC9 
-setcolfood = $6CE9 
-setfood = $6CC9 
-setnay = $6BB7 
-setprice = $6C3C 
+school = $6AB9 
+sellinit = $6CA9 
+sellstart = $6CFD 
+sellstylez = $6CB5 
+setcolfood = $6CD5 
+setfood = $6CB5 
+setnay = $6BA3 
+setprice = $6C28 
 setpricetx = $0996 
-setup = $6AED 
-shop = $6A81 
-shownum = $6C59 
+setup = $6AD9 
+shop = $6A7D 
+shownum = $6C45 
 showstats = $671D 
 Skill = $091E 
 skillz = $087E 
 skltx = $0894 
 sklwrd = $6681 
-sldexit = $7077 
-sldrtn = $708E 
+sldexit = $7063 
+sldrtn = $707A 
 sold = $084E 
-sold2 = $6FE6 
+sold2 = $6FD2 
 soldlbl = $08DE 
 spdtx = $088C 
 Speed = $091C 
@@ -3382,15 +3370,15 @@ speedflag = $092D
 speedinit = $091F 
 Sprite1Frame = $0939 
 Sprite2Frame = $093A 
-stallout = $738E 
+stallout = $737A 
 startPnts = $091B 
 statsloop = $67F5 
 StopChance = $0834 
 StopInit = $0833 
 streetline = $0931 
 streetlineinit = $0932 
-summary = $71A0 
-summath = $71EC 
+summary = $718C 
+summath = $71D8 
 throw1 = $0933 
 throw2 = $0934 
 throw3 = $0935 
@@ -3407,15 +3395,15 @@ truckLoop = $66AC
 truckq = $0856 
 trucktp = $0864 
 TruckType = $0832 
-up = $7409 
+up = $73F5 
 VisitCount = $081F 
 VisitCountHi = $0820 
 wait = $0836 
-waititup = $728A 
+waititup = $7276 
 waitlbl = $08B4 
-walkby = $6F42 
-wlkrtn = $6F59 
-write = $6DB3 
+walkby = $6F2E 
+wlkrtn = $6F45 
+write = $6D9F 
 zeds = $6A33 
 
 ******* 118 Unused label(s) *******
@@ -3454,7 +3442,6 @@ zeds = $6A33
 @last
 @left
 @line
-@loop
 @loop
 @loop
 @loop
@@ -3593,12 +3580,12 @@ CookingCnt
 dayttl
 djrr
 djrrb
+DrivingStuff
 gone
 lineup
 mainwrd
 pass
 PriceHi
-pub
 S1Col
 S2col
 S3col
@@ -3650,7 +3637,7 @@ Sprite8x  = $D00E
 Sprite8y  = $D00F
 tgt_c64  = $0001
 TruckSprite  = $00CE
-******* -55 Unused variables(s) *******
+******* -54 Unused variables(s) *******
 firstguy
 leavchance
 scnsrt

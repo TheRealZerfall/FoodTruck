@@ -1492,8 +1492,6 @@ input   jsr $ffe4       ; read key
         beq setup
         cmp #$35
         beq hittheroad
-        cmp #$36
-        beq hittheroad
         jmp input
 
 shop    ldx #11
@@ -1533,22 +1531,13 @@ school  ldx #10
         beq input
         jmp @loop
 
-pub     ldx #10
+hittheroad ldx #10
 @loop   lda #%10000000
         eor $06C4,x
         sta $06C4,x
         dex
         beq input
         jmp @loop
-
-
-hittheroad ldx #10
-@loop   lda #%10000000
-        eor $06C4+40,x
-        sta $06C4+40,x
-        dex
-        bne @loop
-        jmp DrivingStuff
 
 setup   ldx #10
 @loop   lda #%10000000
